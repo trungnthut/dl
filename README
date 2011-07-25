@@ -1,2 +1,8 @@
 Document library project
 
+To install:
+- clone this one
+- install joomla from this one like normaly
+- create tables for com_document library
+- please, don't commit the deletion of installation folder
+
