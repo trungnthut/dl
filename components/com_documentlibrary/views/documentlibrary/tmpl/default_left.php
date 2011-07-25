@@ -4,7 +4,7 @@ defined ('_JEXEC') or die ('Access denied');
 
 <?php 
     foreach ($this->subjectsclasses as $id => $subject) { 
-        $subjectLink = 'index.php?task=documentLibrary&subject=' . $id;
+        $subjectLink = 'index.php?option=com_documentlibrary&task=documentLibrary&subject=' . $id;
         if ($this->filter > 0) {
             $subjectLink .= '&filter=' . $this->filter;
         }

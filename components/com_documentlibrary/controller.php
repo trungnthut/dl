@@ -125,7 +125,8 @@ class DocumentLibraryController extends JController {
                 
                 $model = $this->getModel();
                 $document_id = $model->insertDocument($dataObj);
-                $link = JRoute::_('index.php?com=documentLibrary&task=document&document=' . $document_id);
+                // $link = JRoute::_('index.php?com=documentLibrary&task=document&document=' . $document_id);
+                $link = $this->url('document', array('document' => $document_id));
                 $this->setRedirect($link);
                 return true;
             } else {
@@ -163,9 +164,11 @@ class DocumentLibraryController extends JController {
         
         $url = '';
         if ($document_id > 0) {
-            $url = JRoute::_('index.php?com=documentLibrary&task=document&document=' . $document_id);
+            // $url = JRoute::_('index.php?com=documentLibrary&task=document&document=' . $document_id);
+            $url = $this->url('document', array('document' => $document_id));
         } else {
-            $url = JRoute::_('index.php?com=documentLibrary');
+            // $url = JRoute::_('index.php?com=documentLibrary');
+            $url = $this->url();
             JError::raiseWarning(150, JTEXT::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_ERROR_INVALID_DOCUMENT'));
         }
         $this->setRedirect($url);
@@ -205,22 +208,21 @@ class DocumentLibraryController extends JController {
 //                header('Cache-control: private');
                 
                 readfile($filePath);
-//                exit();
+				// $url = $this->url('document', array('document' => $document_id));
+				// $this->setRedirect($url);
+                exit();
             } else {
                 JError::raiseWarning(150, JTEXT::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_ERROR_DOWNLOAD_FILE_CORRUPTED'));
-                $url = JRoute::_('index.php?com=documentLibrary&task=document&document=' . $document_id);
+                // $url = JRoute::_('index.php?com=documentLibrary&task=document&document=' . $document_id);
+                $url = $this->url('document', array('document' => $document_id));
                 $this->setRedirect($url);
             }
-        }
-        
-        $url = '';
-        if ($document_id > 0) {
-            $url = JRoute::_('index.php?com=documentLibrary&task=document&document=' . $document_id);
         } else {
-            $url = JRoute::_('index.php?com=documentLibrary');
+            // $url = JRoute::_('index.php?com=documentLibrary');
+            $url = $this->url();
             JError::raiseWarning(150, JTEXT::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_ERROR_INVALID_DOCUMENT'));
+			$this->setRedirect($url);
         }
-        $this->setRedirect($url);
     }
     
     private function mimeType($fileName) {
@@ -234,5 +236,28 @@ class DocumentLibraryController extends JController {
         }
         return 'application/octet-stream';
     }
+	
+	private function url($task = '', $otherOptions = null, $component = 'com_documentlibrary') {
+		$query = 'option=' . $component;
+		
+		if (!empty($task)) {
+			$query .= '&task=' . $task;
+		}
+
+		if (!empty($otherOptions)) {
+			if (is_array($otherOptions)) {
+				foreach ($otherOptions as $key => $value) {
+					$query .= '&' . $key . '=' . $value;
+				}
+			}
+		}
+	
+		if (!empty($query)) {
+			$query = '?' . $query;
+		}
+		var_dump($query);
+		
+		return JRoute::_('index.php'.$query);
+	}
 }
 ?>

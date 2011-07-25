@@ -23,7 +23,7 @@ function uiText($id) {
     <?php foreach ($this->documents as $i => $document) { ?>
     <tr>
         <td><?php echo $document->document_id; ?></td>
-        <td><a href='<?php echo JRoute::_('index.php?com=documentLibrary&task=document&document=' . $document->document_id);?>'><?php echo $document->title; ?></a></td>
+        <td><a href='<?php echo JRoute::_('index.php?option=com_documentlibrary&task=document&document=' . $document->document_id);?>'><?php echo $document->title; ?></a></td>
         <td><?php echo $document->user; ?></td>
         <td><?php echo $document->date; ?></td>
         <td><?php echo $this->subjectModel->getSubjectName($document->subject_id); ?></td>

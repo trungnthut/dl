@@ -1,7 +1,7 @@
 <?php
 defined ('_JEXEC') or die ('Access denied');
 
-$filterLinkPrefix = 'index.php?task=documentLibrary';
+$filterLinkPrefix = 'index.php?option=com_documentlibrary&task=documentLibrary';
 
 if ($this->selectedSubjectId > 0) {
     $filterLinkPrefix .= '&subject=' . $this->selectedSubjectId;

@@ -64,9 +64,9 @@ function uiText($text) {
 
 <p>
     <?php
-        $upload_url = JRoute::_('index.php?com=documentLibrary&task=upload');
-        $upload_new_version_url = JRoute::_('index.php?com=documentLibrary&task=upload&parent=' . $this->documentId);
-        $download_url = JRoute::_('index.php?com=documentLibrary&task=download&document=' . $this->documentId);
+        $upload_url = JRoute::_('index.php?option=com_documentlibrary&task=upload');
+        $upload_new_version_url = JRoute::_('index.php?option=com_documentlibrary&task=upload&parent=' . $this->documentId);
+        $download_url = JRoute::_('index.php?option=com_documentlibrary&task=download&document=' . $this->documentId);
     ?>
     <a href="<?php echo $upload_url; ?>"><?php echo uiText('UPLOAD_NEW_DOCUMENT'); ?></a>
     &nbsp;&nbsp;&nbsp;

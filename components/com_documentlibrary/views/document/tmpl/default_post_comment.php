@@ -1,7 +1,7 @@
 <?php
 defined ('_JEXEC') or die ('Access denied');
 
-$post_url = JRoute::_('index.php?com=documentLibrary&task=comment');
+$post_url = JRoute::_('index.php?option=com_documentlibrary&task=comment');
 ?>
 <form action='<?php echo $post_url?>' method='POST'>
     <p>
