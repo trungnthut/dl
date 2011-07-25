@@ -27,6 +27,7 @@ class DocumentLibraryController extends JController {
     }
     
     function upload() {
+    	$this->requireLogin();
         if ($this->processUploadedFile()) {
             echo "redirect to document view";
             return;
@@ -145,9 +146,16 @@ class DocumentLibraryController extends JController {
     
     function comment() {
         $document_id = JRequest::getVar('document', 0);
+		{
+			$returnURI = $this->url('document', array('document' => $document_id));
+			if ($this->requireLogin($returnURI)) {
+				return;
+			}
+		}
         $user = JFactory::getUser();
         $user_id = $user->id;
         $comment = JRequest::getVar('comment');
+		
         $time = mktime();
         if ($document_id > 0 && $user_id > 0 && !empty ($comment) ) {
             $dataObj = new stdClass();
@@ -180,7 +188,14 @@ class DocumentLibraryController extends JController {
     }
     
     function download() {
-        $document_id = JRequest::getVar('document', 0);
+    	$document_id = JRequest::getVar('document', 0);
+		{
+			$returnURI = $this->url('download', array('document' => $document_id));
+			if ($this->requireLogin($returnURI)) {
+				return;
+			}
+		}
+        
         $user = JFactory::getUser();
         // to subtract user score 
         $downloadData = new stdClass();
@@ -258,6 +273,24 @@ class DocumentLibraryController extends JController {
 		var_dump($query);
 		
 		return JRoute::_('index.php'.$query);
+	}
+	
+	private function requireLogin($returnURI = '') {
+		$currentUser = JFactory::getUser();
+		
+		var_dump($currentUser->id);
+		if (empty($currentUser) || !$currentUser->id || $currentUser->id <= 0) {
+			if (empty($returnURI)) { 
+				$returnURI = JRequest::getURI();
+			}
+			$returnURI = base64_encode($returnURI);
+		
+			$loginURI = $this->url('', array('view' => 'login', 'return' => $returnURI ), 'com_users');
+			var_dump($loginURI);
+			$this->setRedirect($loginURI);
+			return true;
+		}
+		return false;
 	}
 }
 ?>
