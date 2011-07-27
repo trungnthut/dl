@@ -4,6 +4,8 @@ defined ('_JEXEC') or die ('Restricted access');
 
 jimport('joomla.application.component.controller');
 
+include_once JPATH_COMPONENT.DS.'helpers'.DS.'documentlibrary.php';
+
 /**
  * DocumentLibraryController
  */
@@ -253,32 +255,12 @@ class DocumentLibraryController extends JController {
     }
 	
 	private function url($task = '', $otherOptions = null, $component = 'com_documentlibrary') {
-		$query = 'option=' . $component;
-		
-		if (!empty($task)) {
-			$query .= '&task=' . $task;
-		}
-
-		if (!empty($otherOptions)) {
-			if (is_array($otherOptions)) {
-				foreach ($otherOptions as $key => $value) {
-					$query .= '&' . $key . '=' . $value;
-				}
-			}
-		}
-	
-		if (!empty($query)) {
-			$query = '?' . $query;
-		}
-		var_dump($query);
-		
-		return JRoute::_('index.php'.$query);
+		return DocumentLibraryHelper::url($task, $otherOptions, $component);
 	}
 	
 	private function requireLogin($returnURI = '') {
 		$currentUser = JFactory::getUser();
 		
-		var_dump($currentUser->id);
 		if (empty($currentUser) || !$currentUser->id || $currentUser->id <= 0) {
 			if (empty($returnURI)) { 
 				$returnURI = JRequest::getURI();
@@ -286,11 +268,35 @@ class DocumentLibraryController extends JController {
 			$returnURI = base64_encode($returnURI);
 		
 			$loginURI = $this->url('', array('view' => 'login', 'return' => $returnURI ), 'com_users');
-			var_dump($loginURI);
 			$this->setRedirect($loginURI);
 			return true;
 		}
 		return false;
+	}
+
+	function search() {
+		JRequest::setVar('view', JRequest::getCmd('view', 'search'));
+		$view = $this->getView(JRequest::getVar('view'), 'html', 'DocumentLibraryView');
+		
+		$classModel = & $this->getModel('Classes');
+		$view->setModel($classModel);
+		
+		$subjectModel = & $this->getModel('Subjects');
+		$view->setModel($subjectModel);
+		
+		$documentTypeModel = & $this->getModel('DocumentType');
+		$view->setModel($documentTypeModel);
+		
+		$search = JRequest::getVar('search', null);
+		if (!empty($search)) {
+			$documentLibraryModel = & $this->getModel('DocumentLibrary');
+			$view->setModel($documentLibraryModel);
+			
+			$documentModel = & $this->getModel('Document');
+			$view->setModel($documentModel);
+		}
+		
+		parent::display();
 	}
 }
 ?>
