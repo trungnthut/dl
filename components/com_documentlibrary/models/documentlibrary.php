@@ -23,11 +23,36 @@ class DocumentLibraryModelDocumentLibrary extends JModelList {
         
         $subject_id = JRequest::getVar('subject', 0);
         $class_id = 0;
-        if ($subject_id > 0) {
+		$search = JRequest::getVar('search', null);
+        if ($subject_id > 0 || !empty($search)) {
             $class_id = JRequest::getVar('class', 0);
         }
         $filter_id = JRequest::getVar('filter', 0);
         
+		$search_where = array();
+		{
+			// if we are searching document. Then, class & subject is only valid if advance search box is opened.		
+			if (!empty($search)) {
+				$advanceBoxDisplay = JRequest::getVar('advance_box_display', 'none');
+				$documentTypes = JRequest::getVar('documentTypes', null);
+				if ($advanceBoxDisplay ==  'none') {
+					$subject_id = 0;
+					$class_id = 0;
+					$documentTypes = null;
+				}
+				
+				if (!empty($documentTypes)) {
+					$documentTypesStr = implode(',', $documentTypes);
+					$search_where[] = 'D.type_id IN (' . $documentTypesStr . ')';
+				}
+				
+				$quick_keyword = JRequest::getVar('quick_keyword', null);
+				if (!empty($quick_keyword)) {
+					$search_where[] = 'D.title LIKE "%' . $quick_keyword . '%"';
+				}
+			}
+		}
+		
         $where = array(
             'D.uploader_id = U.id',
             'D.original_id = 0' // only fetch document that's not the update version of other
@@ -41,6 +66,9 @@ class DocumentLibraryModelDocumentLibrary extends JModelList {
         if ($filter_id > 0) {
             $where[] = 'D.type_id = ' . $filter_id;
         }
+		if (!empty($search_where)) {
+			$where = array_merge($where, $search_where);
+		}
         
         $query->where($where);
         $query->group('D.document_id');

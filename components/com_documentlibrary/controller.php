@@ -4,6 +4,8 @@ defined ('_JEXEC') or die ('Restricted access');
 
 jimport('joomla.application.component.controller');
 
+include_once JPATH_COMPONENT.DS.'helpers'.DS.'documentlibrary.php';
+
 /**
  * DocumentLibraryController
  */
@@ -27,6 +29,7 @@ class DocumentLibraryController extends JController {
     }
     
     function upload() {
+    	$this->requireLogin();
         if ($this->processUploadedFile()) {
             echo "redirect to document view";
             return;
@@ -145,9 +148,16 @@ class DocumentLibraryController extends JController {
     
     function comment() {
         $document_id = JRequest::getVar('document', 0);
+		{
+			$returnURI = $this->url('document', array('document' => $document_id));
+			if ($this->requireLogin($returnURI)) {
+				return;
+			}
+		}
         $user = JFactory::getUser();
         $user_id = $user->id;
         $comment = JRequest::getVar('comment');
+		
         $time = mktime();
         if ($document_id > 0 && $user_id > 0 && !empty ($comment) ) {
             $dataObj = new stdClass();
@@ -180,7 +190,14 @@ class DocumentLibraryController extends JController {
     }
     
     function download() {
-        $document_id = JRequest::getVar('document', 0);
+    	$document_id = JRequest::getVar('document', 0);
+		{
+			$returnURI = $this->url('download', array('document' => $document_id));
+			if ($this->requireLogin($returnURI)) {
+				return;
+			}
+		}
+        
         $user = JFactory::getUser();
         // to subtract user score 
         $downloadData = new stdClass();
@@ -238,26 +255,48 @@ class DocumentLibraryController extends JController {
     }
 	
 	private function url($task = '', $otherOptions = null, $component = 'com_documentlibrary') {
-		$query = 'option=' . $component;
-		
-		if (!empty($task)) {
-			$query .= '&task=' . $task;
-		}
-
-		if (!empty($otherOptions)) {
-			if (is_array($otherOptions)) {
-				foreach ($otherOptions as $key => $value) {
-					$query .= '&' . $key . '=' . $value;
-				}
-			}
-		}
+		return DocumentLibraryHelper::url($task, $otherOptions, $component);
+	}
 	
-		if (!empty($query)) {
-			$query = '?' . $query;
-		}
-		var_dump($query);
+	private function requireLogin($returnURI = '') {
+		$currentUser = JFactory::getUser();
 		
-		return JRoute::_('index.php'.$query);
+		if (empty($currentUser) || !$currentUser->id || $currentUser->id <= 0) {
+			if (empty($returnURI)) { 
+				$returnURI = JRequest::getURI();
+			}
+			$returnURI = base64_encode($returnURI);
+		
+			$loginURI = $this->url('', array('view' => 'login', 'return' => $returnURI ), 'com_users');
+			$this->setRedirect($loginURI);
+			return true;
+		}
+		return false;
+	}
+
+	function search() {
+		JRequest::setVar('view', JRequest::getCmd('view', 'search'));
+		$view = $this->getView(JRequest::getVar('view'), 'html', 'DocumentLibraryView');
+		
+		$classModel = & $this->getModel('Classes');
+		$view->setModel($classModel);
+		
+		$subjectModel = & $this->getModel('Subjects');
+		$view->setModel($subjectModel);
+		
+		$documentTypeModel = & $this->getModel('DocumentType');
+		$view->setModel($documentTypeModel);
+		
+		$search = JRequest::getVar('search', null);
+		if (!empty($search)) {
+			$documentLibraryModel = & $this->getModel('DocumentLibrary');
+			$view->setModel($documentLibraryModel);
+			
+			$documentModel = & $this->getModel('Document');
+			$view->setModel($documentModel);
+		}
+		
+		parent::display();
 	}
 }
 ?>

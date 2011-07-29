@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
     </tr>
     <tr>
         <td>
-            <?php echo $this->loadTemplate('center'); ?>
+            <?php echo $this->loadTemplate('document_list'); ?>
         </td>
     </tr>
 </table>

@@ -19,17 +19,32 @@ function selectionBox($optionsArr, $fieldOptions) {
     
     return $selectBox;
 }
-echo $this->errorMessage;
+
+function uiText($text) {
+	if (empty($text)) {
+		return '';
+	}
+	
+	return JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_' . $text);
+}
+
 ?>
 <form method="post" enctype="multipart/form-data">
     <fieldset class='userdata'>
         <p style='display: block'>
-            <label style='display:block; width: 7.2em; float: left'><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_TITLE'); ?>:</label>
-            <input type="text" name="documentTitle" class='inputbox' size="75.7em" value="<?php echo $this->parentDocument->title?>"/>
+            <label style='display:block; width: 10.9em; float: left'><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_TITLE'); ?>:</label>
+            <input type="text" name="documentTitle" class='inputbox' size="67em" value="<?php echo $this->parentDocument->title?>"/>
         </p>
 
+		<?php if ($this->parent_id > 0) { ?>
+		<p style='display: block; clear: left'>
+			<label style='display:block; width: 10.9em; float: left'><?php echo uiText('LABEL_UPDATE_FROM'); ?>:</label>
+			<label><?php echo $this->parentDocument->version; ?></label>
+		</p>
+		<?php } ?>
+
         <p style='display: block; clear: left'>
-            <label style='display:block; width: 7.2em; float: left'><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_TYPE');?>:</label>
+            <label style='display:block; width: 10.9em; float: left'><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_TYPE');?>:</label>
             <?php
                 $typeHtmlOptions = array(
                     'name' => 'documentType',
@@ -42,7 +57,7 @@ echo $this->errorMessage;
         </p>
 
         <p style='display: block; clear: left'>
-            <label style='display: block; width: 7.2em; float: left;'><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_SUBJECT'); ?>:</label>
+            <label style='display: block; width: 10.9em; float: left;'><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_SUBJECT'); ?>:</label>
             <?php
                 $subjectHtmlOptions = array(
                     'name' => 'subject',
@@ -80,7 +95,7 @@ echo $this->errorMessage;
         </p>
 
         <p>
-            <label style='display: block; width: 7.2em; float: left;'><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_FILE');?>:</label>
+            <label style='display: block; width: 10.9em; float: left;'><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_FILE');?>:</label>
             <input type='file' name='documentFile' class='input'/>
         </p>
         
