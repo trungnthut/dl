@@ -11,5 +11,5 @@
 //$input->render();
 
 ?>
-hmm, hh
-	klfkfkffk
+<table>
+</table>
