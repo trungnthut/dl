@@ -1,6 +1,8 @@
 <?php
 defined ('_JEXEC') or die ('Access denied');
 
+include_once JPATH_COMPONENT.DS.'helpers'.DS.'documentlibrary.php';
+
 function uiText($text) {
     return JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_' . $text);
 }
@@ -13,8 +15,8 @@ function uiText($text) {
 </p>
 
 <!--<p>
-    <label><?php echo uiText('LABEL_DOCUMENT_VERSION'); ?>:</label>
-    <label><?php echo $this->documentVersion; ?></label>
+    <label><?php //echo uiText('LABEL_DOCUMENT_VERSION'); ?>:</label>
+    <label><?php //echo $this->documentVersion; ?></label>
 </p>-->
 
 <p>
@@ -80,5 +82,8 @@ function uiText($text) {
 </p>
 
 <p>
-    <?php echo $this->loadTemplate('comments'); ?>
+    <?php
+		$this->addTemplatePath(JPATH_COMPONENT . DS . 'views' . DS . 'documentcomments' . DS . 'tmpl' ); 
+		echo $this->loadTemplate('comments'); 
+	?>
 </p>

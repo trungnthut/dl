@@ -1,5 +1,9 @@
 <?php
 defined ('_JEXEC') or die ('Access denied');
+
+include_once JPATH_COMPONENT.DS.'helpers'.DS.'documentlibrary.php';
+DocumentLibraryHelper::setUiTextPrefix('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_COMMENTS_');
+
 ?>
 
 <?php foreach ($this->comments as $comment) { ?>
@@ -7,7 +11,7 @@ defined ('_JEXEC') or die ('Access denied');
 <p style='padding-left: 1.5em'>
     <label>
         <font size='2'>
-            <?php echo uiText('COMMENT_POSTER'); ?>: <?php echo $comment->name; ?>
+            <?php echo DocumentLibraryHelper::uiText('COMMENT_POSTER'); ?>: <?php echo $comment->name; ?>
             &nbsp;&nbsp;<i><?php echo $comment->time; ?></i>
         </font>
     </label>
@@ -17,5 +21,3 @@ defined ('_JEXEC') or die ('Access denied');
 </p>
 </div>
 <?php } ?>
-
-
