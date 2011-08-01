@@ -7,6 +7,8 @@ function uiText($text) {
     return JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_' . $text);
 }
 
+$documentDownloadsUrl = DocumentLibraryHelper::url('documentDownloads', array('document' => $this->documentInfo->document_id));
+
 ?>
 
 <p>
@@ -47,7 +49,7 @@ function uiText($text) {
 
 <p>
     <label><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_DOWNLOADED_TIMES');?>:</label>
-    <label><?php echo $this->documentDownloadedTimes; ?></label>
+    <a href='<?php echo $documentDownloadsUrl; ?>'><?php echo $this->documentDownloadedTimes; ?></a>
 </p>
 
 <p>

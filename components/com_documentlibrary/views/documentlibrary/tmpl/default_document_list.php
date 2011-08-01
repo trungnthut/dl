@@ -23,6 +23,7 @@ DocumentLibraryHelper::setUiTextPrefix('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_LIBRA
     <?php foreach ($this->documents as $i => $document) { ?>
     <?php
     	$documentCommentsUrl = DocumentLibraryHelper::url('documentComments', array('document' => $document->document_id));
+		$documentDownloadsUrl = DocumentLibraryHelper::url('documentDownloads', array('document' => $document->document_id));
     ?>
     <tr>
         <td><?php echo $document->document_id; ?></td>
@@ -32,7 +33,7 @@ DocumentLibraryHelper::setUiTextPrefix('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_LIBRA
         <td><?php echo $this->subjectModel->getSubjectName($document->subject_id); ?></td>
         <td><?php echo $this->classModel->getClassName($document->class_id); ?></td>
         <td><?php echo $this->documentTypeModel->getTypeName($document->type_id); ?></td>
-        <td><?php echo $document->no_downloads; ?></td>
+        <td><a href='<?php echo $documentDownloadsUrl; ?>'><?php echo $document->no_downloads; ?></a></td>
         <td><a href='<?php echo $documentCommentsUrl; ?>'><?php echo $this->documentModel->countComments($document->document_id); ?></a></td>
         <td><?php echo $this->documentModel->countVersions($document->document_id); ?></td>
     </tr>
