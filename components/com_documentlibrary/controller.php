@@ -298,5 +298,25 @@ class DocumentLibraryController extends JController {
 		
 		parent::display();
 	}
+	
+	function documentComments() {
+		JRequest::setVar('view', JRequest::getCmd('view', 'documentComments'));
+		$view = $this->getView(JRequest::getVar('view'), 'html', 'DocumentLibraryView');
+		
+		$documentModel = & $this->getModel('Document');
+		$view->setModel($documentModel);
+		
+		parent::display();
+	}
+
+	function documentDownloads() {
+		JRequest::setVar('view', JRequest::getCmd('view', 'documentDownloads'));
+		$view = $this->getView(JRequest::getVar('view'), 'html', 'DocumentLibraryView');
+		
+		$documentModel = & $this->getModel('Document');
+		$view->setModel($documentModel);
+		
+		parent::display();
+	}
 }
 ?>

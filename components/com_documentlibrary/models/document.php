@@ -150,5 +150,23 @@ class DocumentLibraryModelDocument extends JModelItem {
         $db->insertObject('#__document_downloads', $obj, 'download_id');
         return $db->insertid();
     }
+	
+	// function getNoDownloads($id = 0) {
+		// if ($id <= 0) {
+            // $id = JRequest::getVar('document', 0);
+        // }
+        // if ($id <= 0) {
+            // return 0;
+        // }
+        // // temporary for now
+        // $db = JFactory::getDbo();
+		// $query = 'SELECT COUNT(download_id) FROM #__document_downloads WHERE document_id = ' . $id;
+		// $db->query($query);
+// 		
+		// $result = $db->loadObject();
+		// var_dump($result);
+// 		//what's wrong ?
+		// return $db->loadResult();
+	// }
 }
 ?>
