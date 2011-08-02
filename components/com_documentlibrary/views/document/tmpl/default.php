@@ -8,6 +8,7 @@ function uiText($text) {
 }
 
 $documentDownloadsUrl = DocumentLibraryHelper::url('documentDownloads', array('document' => $this->documentInfo->document_id));
+$documentTreeUrl = DocumentLibraryHelper::url('documentTree', array('document' => $this->documentInfo->document_id));
 
 ?>
 
@@ -59,7 +60,7 @@ $documentDownloadsUrl = DocumentLibraryHelper::url('documentDownloads', array('d
 
 <p>
     <label><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_NO_VERSIONS');?>:</label>
-    <label><?php echo $this->documentNoVersions; ?></label>
+    <a href='<?php echo $documentTreeUrl; ?>'><?php echo $this->documentNoVersions; ?></a>
 </p>
 
 <p>

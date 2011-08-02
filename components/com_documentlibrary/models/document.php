@@ -161,12 +161,82 @@ class DocumentLibraryModelDocument extends JModelItem {
         // // temporary for now
         // $db = JFactory::getDbo();
 		// $query = 'SELECT COUNT(download_id) FROM #__document_downloads WHERE document_id = ' . $id;
-		// $db->query($query);
+		// $db->setQuery($query);
 // 		
 		// $result = $db->loadObject();
 		// var_dump($result);
 // 		//what's wrong ?
 		// return $db->loadResult();
 	// }
+	
+	function getVersionTree($id = 0) {
+		if ($id <= 0) {
+			$id = JRequest::getVar('document', 0);
+		}
+		
+		if ($id <= 0) {
+			return null;
+		}
+
+		$original_id = 0;
+        {
+            $db = JFactory::getDbo();
+            $query = 'SELECT original_id FROM #__documents WHERE document_id = ' . $id;
+            $db->setQuery($query);
+            $original_id = $db->loadResult();
+        }
+		if ($original_id == 0) {
+			$original_id = $id;
+		}
+		
+		$root = new stdClass();
+		$root->id = $original_id;
+		$root->version = $original_id . '.1';
+		$root->children = array();
+		$tree = array();
+		$tree[$original_id] = $root;
+		
+		$nodesInfo = $this->getChildrenOf($original_id);
+		
+		while (!empty($nodesInfo)) {
+			foreach ($nodesInfo['tree'] as $child => $info) {
+				$parent = $info['parent'];
+				$node = new stdClass();
+				$node->id = $child;
+				$node->version = $original_id . '.' . $info['version'];
+				$tree[$child] = $node;
+				$tree[$parent]->children[] = $node;
+			}
+			$new_parents = $nodesInfo['children'];
+			$nodesInfo = $this->getChildrenOf($new_parents);
+		}
+		
+		return $root;
+	}
+	
+	function getChildrenOf($ids = null) {
+		if (empty($ids)) {
+			return null;
+		}
+		if (!is_array($ids)) {
+			$ids = array($ids);
+		}
+		
+		$db = JFactory::getDbo();
+		$query = 'SELECT document_id, parent_id, version FROM #__documents WHERE parent_id IN (' . implode(',', $ids) . ')';
+		$db->setQuery($query);
+		$nodes = $db->loadRowList();
+		if (empty($nodes)) {
+			return null;
+		}
+		$subtree = array();
+		$children = array();
+		foreach ($nodes as $node) {
+			$children[] = $node[0];
+			$subtree[$node[0]] = array('parent' => $node[1], 'version' => $node[2]);
+		}
+		
+		return array('children' => $children, 'tree' => $subtree);
+	}
 }
 ?>

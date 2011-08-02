@@ -318,5 +318,15 @@ class DocumentLibraryController extends JController {
 		
 		parent::display();
 	}
+	
+	function documentTree() {
+		JRequest::setVar('view', JRequest::getCmd('view', 'documentTree'));
+		$view = $this->getView(JRequest::getVar('view'), 'html', 'DocumentLibraryView');
+		
+		$documentModel = & $this->getModel('Document');
+		$view->setModel($documentModel);
+		
+		parent::display();
+	}
 }
 ?>
