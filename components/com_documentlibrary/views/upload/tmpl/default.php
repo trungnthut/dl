@@ -33,10 +33,10 @@ function uiText($text) {
     <fieldset class='userdata'>
         <p style='display: block'>
             <label style='display:block; width: 10.9em; float: left'><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_TITLE'); ?>:</label>
-            <input type="text" name="documentTitle" class='inputbox' size="67em" value="<?php echo $this->parentDocument->title?>"/>
+            <input type="text" name="documentTitle" class='inputbox' size="67em" value="<?php echo $this->parentDocument ? $this->parentDocument->title : '';?>"/>
         </p>
 
-		<?php if ($this->parent_id > 0) { ?>
+		<?php if ($this->parent_id > 0 && $this->parentDocument) { ?>
 		<p style='display: block; clear: left'>
 			<label style='display:block; width: 10.9em; float: left'><?php echo uiText('LABEL_UPDATE_FROM'); ?>:</label>
 			<label><?php echo $this->parentDocument->version; ?></label>
@@ -69,7 +69,7 @@ function uiText($text) {
             ?>
             
             <label style='display: block; width: 4.2em; float: left; margin-left: 1em'><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_LESSON'); ?>:</label>
-            <input type='text' name='lesson' style='float: left; width: 4.9em' value='<?php echo $this->parentDocument->lesson; ?>'/>
+            <input type='text' name='lesson' style='float: left; width: 4.9em' value='<?php echo $this->parentDocument ? $this->parentDocument->lesson : ''; ?>'/>
             <label style='display: block; width: 4.2em; float: left; margin-left: 1em'><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_CLASS'); ?>:</label>
             <?php
                 $classHtmlOptions = array(
@@ -83,14 +83,14 @@ function uiText($text) {
         <p>
             <label><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_SUMMARY');?>:</label>
             <br/>
-            <textarea cols='70' rows='7' name='summary' ><?php echo $this->parentDocument->summary; ?></textarea>
+            <textarea cols='70' rows='7' name='summary' ><?php echo $this->parentDocument ? $this->parentDocument->summary : ''; ?></textarea>
             <br/>
         </p>
 
         <p>
             <label><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_QUESTION');?>:</label>
             <br/>
-            <textarea cols='70' rows='2' name='question' ><?php echo $this->parentDocument->question; ?></textarea>
+            <textarea cols='70' rows='2' name='question' ><?php echo $this->parentDocument ? $this->parentDocument->question : ''; ?></textarea>
             <br/>
         </p>
 
@@ -98,8 +98,8 @@ function uiText($text) {
             <label style='display: block; width: 10.9em; float: left;'><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_FILE');?>:</label>
             <input type='file' name='documentFile' class='input'/>
         </p>
-        
-        <input type='hidden' name='original' value='<?php echo $this->parentDocument->original_id; ?>' />
+        <!-- TODO: check and remove original  field -->
+        <input type='hidden' name='original' value='<?php echo $this->parentDocument ? $this->parentDocument->original_id : 0; ?>' />
         <input type='hidden' name='parent' value='<?php echo $this->parent_id; ?>' />
 
         <input type='submit' name='submit' class='button' value='<?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_UPLOAD'); ?>'/>
