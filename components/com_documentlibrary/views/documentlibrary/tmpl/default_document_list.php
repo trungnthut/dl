@@ -22,7 +22,7 @@ DocumentLibraryHelper::setUiTextPrefix('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_LIBRA
     
     <?php foreach ($this->documents as $i => $document) { ?>
     <?php
-    	$documentCommentsUrl = DocumentLibraryHelper::url('documentComments', array('document' => $document->document_id));
+    	$documentCommentsUrl = DocumentLibraryHelper::url('documentComments', array('document' => $document->document_id, 'viewAll' => 1));
 		$documentDownloadsUrl = DocumentLibraryHelper::url('documentDownloads', array('document' => $document->document_id));
 		$documentTreeUrl = DocumentLibraryHelper::url('documentTree', array('document' => $document->document_id));
     ?>

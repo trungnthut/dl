@@ -49,7 +49,7 @@ class DocumentLibraryModelDocument extends JModelItem {
             return array();
         }
         
-        if ($this->document_id == $id) {
+        if ($this->document_id == $id || in_array($id, $this->version_list)) {
             return $this->version_list;
         }
         
@@ -112,12 +112,19 @@ class DocumentLibraryModelDocument extends JModelItem {
      */
     function countComments($id) {
         $ids = $this->versionList($id);
+		$viewAll = DocumentLibraryHelper::viewAllValue();
+		if ($viewAll) {
+			$ids = $this->versionList($id);
+		} else {
+			$ids = array($id);
+		}
         $count = 0;
-        foreach ($ids as $did) {
-            $count += $this->countCommentsForOneDocument($did);
-        }
+
+		$db = JFactory::getDbo();
+		$query = 'SELECT COUNT(comment_id) FROM #__document_comments WHERE document_id IN (' . implode(',', $ids) . ')';
+        $db->setQuery($query);
         
-        return $count;
+        return $db->loadResult();
     }
     
     function getNoComments($id = -1) {

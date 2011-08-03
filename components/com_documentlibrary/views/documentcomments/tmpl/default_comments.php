@@ -7,12 +7,20 @@ DocumentLibraryHelper::setUiTextPrefix('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_COMME
 ?>
 
 <?php foreach ($this->comments as $comment) { ?>
+<?php
+	$documentUrl = DocumentLibraryHelper::url('document', array('document' => $comment->document_id));
+	// $documentNumber = DocumentLibraryHelper::documentNumber($comment->original_id, $comment->version, $comment->document_id);
+	$documentNumber = $comment->version;
+?>
 <div style='border: 1px solid lightgray; width: 45em; border-radius: 0.7em; margin-bottom: 1.5em'>
 <p style='padding-left: 1.5em'>
     <label>
         <font size='2'>
             <?php echo DocumentLibraryHelper::uiText('COMMENT_POSTER'); ?>: <?php echo $comment->name; ?>
             &nbsp;&nbsp;<i><?php echo $comment->time; ?></i>
+            <?php if ($this->viewAll) { ?>
+            	&nbsp;&nbsp;<i>(<?php echo DocumentLibraryHelper::uiText('VERSION') ?>: <a href='<?php echo $documentUrl?>'><?php echo $documentNumber; ?></a>)</i>
+            <?php	} ?>
         </font>
     </label>
 </p>

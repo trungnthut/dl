@@ -4,6 +4,16 @@ defined ('_JEXEC') or die ('Access denied');
 include_once JPATH_COMPONENT.DS.'helpers'.DS.'documentlibrary.php';
 DocumentLibraryHelper::setUiTextPrefix('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_COMMENTS_');
 
+$switchModeUrl = '';
+$switchModeText = '';
+if ($this->viewAll) {
+	$switchModeUrl = DocumentLibraryHelper::url('documentComments', array('document' => $this->document_id));
+	$switchModeText = DocumentLibraryHelper::uiText('THIS_VERSION_COMMENTS');
+} else {
+	$switchModeUrl = DocumentLibraryHelper::url('documentComments', array('document' => $this->document_id, 'viewAll' => 1));
+	$switchModeText = DocumentLibraryHelper::uiText('ALL_VERSION_COMMENTS');
+}
+
 ?>
 
 <?php if ($this->commentsMode) { ?>
@@ -22,6 +32,10 @@ DocumentLibraryHelper::setUiTextPrefix('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_COMME
 	<p>
 		<label><?php echo DocumentLibraryHelper::uiText('NUM_COMMENTS'); ?>:</label>
 		<label><?php echo $this->numComments; ?></label>
+	</p>
+	
+	<p>
+		<a href='<?php echo $switchModeUrl; ?>'><?php echo $switchModeText?></a>
 	</p>
 <?php } ?>
 

@@ -10,6 +10,8 @@ class DocumentLibraryViewDocument extends JView {
     }
     
     function display($tpl = null) {
+    	//disable view all
+    	JRequest::setVar('viewAll', 0);
         $this->documentInfo = $this->get('DocumentInfo');
         $this->documentVersion = $this->documentInfo->version;
         $this->documentTitle = $this->documentInfo->title;

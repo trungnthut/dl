@@ -9,6 +9,7 @@ function uiText($text) {
 
 $documentDownloadsUrl = DocumentLibraryHelper::url('documentDownloads', array('document' => $this->documentInfo->document_id));
 $documentTreeUrl = DocumentLibraryHelper::url('documentTree', array('document' => $this->documentInfo->document_id));
+$allVersionCommentsUrl = DocumentLibraryHelper::url('documentComments', array('document' => $this->documentInfo->document_id, 'viewAll' => 1));
 
 ?>
 
@@ -56,6 +57,7 @@ $documentTreeUrl = DocumentLibraryHelper::url('documentTree', array('document' =
 <p>
     <label><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_NO_COMMENTS');?>:</label>
     <label><?php echo $this->documentNoComments; ?></label>
+    (<a href='<?php echo $allVersionCommentsUrl;?>'><?php echo DocumentLibraryHelper::uiText('ALL_VERSION_COMMENTS', 'view', 'document'); ?></a>)
 </p>
 
 <p>

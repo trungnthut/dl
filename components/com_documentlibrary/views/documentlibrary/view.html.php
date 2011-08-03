@@ -11,6 +11,8 @@ jimport('joomla.application.component.view');
 class DocumentLibraryViewDocumentLibrary extends JView {
     // must overide display method or we'll get some error message in joomla (because we do not have template yet
     function display($tpl = null) {
+    	// set viewAll = 1 so count comments & count downloads will count for all version
+    	JRequest::setVar('viewAll', 1);
         // again, JView has a variable name msg == may be not, because template use a var with that name
         $this->msg = $this->get('msg');
         $this->subjectsclasses = $this->get('SubjectsClasses', 'SubjectsClasses');
