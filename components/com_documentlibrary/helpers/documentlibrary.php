@@ -61,18 +61,18 @@ abstract class DocumentLibraryHelper {
 	public static function uiText($text, $type = '', $class = '') {
 		static $prefix = 'COM_DOCUMENT_LIBRARY_';
 		if (!empty($type)) {
-			$type = strtoupper($type) . '_';
+			$type .= '_';
 		}
 		if (!empty($class)) {
-			$class = strtoupper($class) . '_';
+			$class .= '_';
 		}
 		
 		if (!empty($type) || !empty($class)) {
-			return JText::_($prefix . $type . $class . $text);
+			return JText::_(strtoupper($prefix . $type . $class . $text));
 		}
 		
 		// else old version
-		return JText::_(DocumentLibraryHelper::$uiTextPrefix . $text);
+		return JText::_(strtoupper(DocumentLibraryHelper::$uiTextPrefix . $text));
 	}
 	
 	public static function documentNumber($original_id, $version, $document_id) {

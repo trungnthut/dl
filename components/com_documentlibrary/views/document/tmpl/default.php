@@ -7,9 +7,10 @@ function uiText($text) {
     return JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_' . $text);
 }
 
-$documentDownloadsUrl = DocumentLibraryHelper::url('documentDownloads', array('document' => $this->documentInfo->document_id));
 $documentTreeUrl = DocumentLibraryHelper::url('documentTree', array('document' => $this->documentInfo->document_id));
 $allVersionCommentsUrl = DocumentLibraryHelper::url('documentComments', array('document' => $this->documentInfo->document_id, 'viewAll' => 1));
+$thisVersionDownloadsUrl = DocumentLibraryHelper::url('documentDownloads', array('document' => $this->documentInfo->document_id));
+$allVersionDownloadsUrl = DocumentLibraryHelper::url('documentDownloads', array('document' => $this->documentInfo->document_id, 'viewAll' => 1));
 
 ?>
 
@@ -51,7 +52,8 @@ $allVersionCommentsUrl = DocumentLibraryHelper::url('documentComments', array('d
 
 <p>
     <label><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_DOWNLOADED_TIMES');?>:</label>
-    <a href='<?php echo $documentDownloadsUrl; ?>'><?php echo $this->documentDownloadedTimes; ?></a>
+    <a href='<?php echo $thisVersionDownloadsUrl; ?>'><?php echo $this->documentDownloadedTimes; ?></a>
+    (<a href='<?php echo $allVersionDownloadsUrl?>'><?php echo  DocumentLibraryHelper::uiText('ALL_VERSION_DOWNLOADS', 'view', 'document'); ?></a>)
 </p>
 
 <p>

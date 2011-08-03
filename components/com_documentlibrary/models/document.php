@@ -245,5 +245,34 @@ class DocumentLibraryModelDocument extends JModelItem {
 		
 		return array('children' => $children, 'tree' => $subtree);
 	}
+	
+	function countDownloads($id) {
+        $ids = $this->versionList($id);
+		$viewAll = DocumentLibraryHelper::viewAllValue();
+		if ($viewAll) {
+			$ids = $this->versionList($id);
+		} else {
+			$ids = array($id);
+		}
+        $count = 0;
+
+		$db = JFactory::getDbo();
+		$query = 'SELECT COUNT(download_id) FROM #__document_downloads WHERE document_id IN (' . implode(',', $ids) . ')';
+        $db->setQuery($query);
+        
+        return $db->loadResult();
+    }
+	
+	function getNoDownloads($id = 0) {
+		if ($id <= 0) {
+            $id = JRequest::getVar('document', 0);
+        }
+        if ($id <= 0) {
+            return 0;
+        }
+        
+        return $this->countDownloads($id);
+	}
+    
 }
 ?>

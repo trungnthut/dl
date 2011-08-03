@@ -12,12 +12,21 @@ class DocumentLibraryModelDocumentDownloads extends JModelList {
             return "";
         }
         
+		$ids = array($id);
+		$viewAll = DocumentLibraryHelper::viewAllValue();
+		if ($viewAll) {
+			include_once 'document.php';
+			$documentModel = new DocumentLibraryModelDocument();
+			$ids = $documentModel->versionList($id);
+		}
+		
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
-        $query->select('DD.*, U.name');
-        $query->from('#__document_downloads DD, #__users U');
-        $query->where('DD.document_id = '. $id);
+        $query->select('DD.*, U.name, D.version, D.original_id');
+        $query->from('#__document_downloads DD, #__users U, #__documents D');
+        $query->where('DD.document_id IN ('. implode(',', $ids) . ')');
         $query->where('DD.user_id = U.id');
+		$query->where('DD.document_id = D.document_id');
 
         return $query;
     }

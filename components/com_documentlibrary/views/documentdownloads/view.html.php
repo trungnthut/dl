@@ -22,7 +22,9 @@ class DocumentLibraryViewDocumentDownloads extends JView {
 			$number = $this->documentInfo->document_id;
 		}
 		$this->documentNumber = $number . '.' . $this->documentInfo->version;
-		$this->numDownloads = $this->documentInfo->no_downloads;
+		$this->numDownloads = $this->get('NoDownloads', 'Document');
+		
+		$this->viewAll = DocumentLibraryHelper::viewAllValue();
 		
 		if (empty($this->documentDownloads)) {
 			JError::raiseNotice(157, JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_DOWNLOADS_NO_DOWNLOADS'));
