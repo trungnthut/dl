@@ -13,6 +13,7 @@ class DocumentLibraryViewDocumentLibrary extends JView {
     function display($tpl = null) {
     	// set viewAll = 1 so count comments & count downloads will count for all version
     	JRequest::setVar('viewAll', 1);
+		$this->viewAll = 1;
         // again, JView has a variable name msg == may be not, because template use a var with that name
         $this->msg = $this->get('msg');
         $this->subjectsclasses = $this->get('SubjectsClasses', 'SubjectsClasses');

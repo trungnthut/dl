@@ -53,10 +53,15 @@ class DocumentLibraryModelDocumentLibrary extends JModelList {
 			}
 		}
 		
+		// for search function
+		$listAll = JRequest::getVar('listAll');
+		
         $where = array(
-            'D.uploader_id = U.id',
-            'D.original_id = 0' // only fetch document that's not the update version of other
+            'D.uploader_id = U.id'
         );
+		if (!$listAll) {
+			$where[] = 'D.original_id = 0'; // only fetch document that's not the update version of other
+		}
         if ($subject_id > 0) {
             $where[] = 'D.subject_id = ' . $subject_id;
         }

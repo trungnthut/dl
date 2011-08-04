@@ -22,12 +22,16 @@ DocumentLibraryHelper::setUiTextPrefix('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_LIBRA
     
     <?php foreach ($this->documents as $i => $document) { ?>
     <?php
-    	$documentCommentsUrl = DocumentLibraryHelper::url('documentComments', array('document' => $document->document_id, 'viewAll' => 1));
-		$documentDownloadsUrl = DocumentLibraryHelper::url('documentDownloads', array('document' => $document->document_id, 'viewAll' => 1));
+    $optionArr = array('document' => $document->document_id);
+	if ($this->viewAll) {
+		$optionArr['viewAll'] = 1;
+	}
+    	$documentCommentsUrl = DocumentLibraryHelper::url('documentComments', $optionArr);
+		$documentDownloadsUrl = DocumentLibraryHelper::url('documentDownloads', $optionArr);
 		$documentTreeUrl = DocumentLibraryHelper::url('documentTree', array('document' => $document->document_id));
     ?>
     <tr>
-        <td align='center'><?php echo $document->document_id; ?></td>
+        <td align='center'><?php echo DocumentLibraryHelper::documentNumber($document->original_id, $document->version, $document->document_id); ?></td>
         <td align='center'><a href='<?php echo JRoute::_('index.php?option=com_documentlibrary&task=document&document=' . $document->document_id);?>'><?php echo $document->title; ?></a></td>
         <td align='center'><?php echo $document->user; ?></td>
         <td align='center'><?php echo $document->date; ?></td>

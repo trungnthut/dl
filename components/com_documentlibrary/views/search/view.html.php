@@ -31,8 +31,10 @@ class DocumentLibraryViewSearch extends JView {
 		$this->documentTypes = $this->get('DocumentTypes', 'DocumentType');
 		$this->selectedTypes = JRequest::getVar('documentTypes', null);
 		
+		// when user pressing "Search" button
 		$search = JRequest::getVar('search', null);
 		if (!empty($search)) {
+			JRequest::setVar('listAll', 1);
 			$this->documents = $this->get('Items', 'DocumentLibrary');
 			
 			if (!empty($this->documents)) {
