@@ -54,3 +54,36 @@ CREATE TABLE IF NOT EXISTS `#__document_downloads` (
   `time` datetime NOT NULL,
   PRIMARY KEY (`download_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `#__document_subjects`
+--
+
+
+DROP TABLE IF EXISTS `#__document_subjects`;
+CREATE TABLE IF NOT EXISTS `jos_document_subjects` (
+  `subject_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(300) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `in_used` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`subject_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+
+--
+-- Dumping data for table `jos_document_subjects`
+--
+
+INSERT INTO `jos_document_subjects` (`subject_id`, `name`, `in_used`) VALUES
+(1, 'COM_DOCUMENT_LIBRARY_MODEL_SUBJECTS_ICT', 1),
+(2, 'COM_DOCUMENT_LIBRARY_MODEL_SUBJECTS_MATH', 1),
+(3, 'COM_DOCUMENT_LIBRARY_MODEL_SUBJECTS_PHY', 1),
+(4, 'COM_DOCUMENT_LIBRARY_MODEL_SUBJECTS_CHEMISCHY', 1),
+(5, 'COM_DOCUMENT_LIBRARY_MODEL_SUBJECTS_BIO', 1),
+(6, 'COM_DOCUMENT_LIBRARY_MODEL_SUBJECTS_LITERATURE', 1),
+(7, 'COM_DOCUMENT_LIBRARY_MODEL_SUBJECTS_HISTORY', 1),
+(8, 'COM_DOCUMENT_LIBRARY_MODEL_SUBJECTS_GEO', 1),
+(9, 'COM_DOCUMENT_LIBRARY_MODEL_SUBJECTS_ENG', 1),
+(10, 'COM_DOCUMENT_LIBRARY_MODEL_SUBJECTS_FRE', 1),
+(11, 'COM_DOCUMENT_LIBRARY_MODEL_SUBJECTS_GDCD', 1),
+(12, 'COM_DOCUMENT_LIBRARY_MODEL_SUBJECTS_KTCN', 1);

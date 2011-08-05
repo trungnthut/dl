@@ -20,3 +20,10 @@ DROP TABLE IF EXISTS `#__document_comments`;
 
 DROP TABLE IF EXISTS `#__document_downloads`;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `#__document_subjects`
+--
+
+DROP TABLE IF EXISTS `#__document_subjects`;
