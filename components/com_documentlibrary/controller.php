@@ -186,6 +186,11 @@ class DocumentLibraryController extends JController {
     
     function homepage() {
         JRequest::setVar('view', JRequest::getCmd('view', 'homepage'));
+        $view = $this->getView(JRequest::getVar('view'), 'html', 'DocumentLibraryView');
+        
+        $documentLibraryModel = & $this->getModel('DocumentLibrary');
+        $view->setModel($documentLibraryModel);
+		
         parent::display();
     }
     
