@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `#__document_downloads` (
 
 
 DROP TABLE IF EXISTS `#__document_subjects`;
-CREATE TABLE IF NOT EXISTS `jos_document_subjects` (
+CREATE TABLE IF NOT EXISTS `#__document_subjects` (
   `subject_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(300) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `in_used` tinyint(1) NOT NULL DEFAULT '1',
@@ -71,10 +71,10 @@ CREATE TABLE IF NOT EXISTS `jos_document_subjects` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
--- Dumping data for table `jos_document_subjects`
+-- Dumping data for table `#__document_subjects`
 --
 
-INSERT INTO `jos_document_subjects` (`subject_id`, `name`, `in_used`) VALUES
+INSERT INTO `#__document_subjects` (`subject_id`, `name`, `in_used`) VALUES
 (1, 'COM_DOCUMENT_LIBRARY_MODEL_SUBJECTS_ICT', 1),
 (2, 'COM_DOCUMENT_LIBRARY_MODEL_SUBJECTS_MATH', 1),
 (3, 'COM_DOCUMENT_LIBRARY_MODEL_SUBJECTS_PHY', 1),
