@@ -13,6 +13,7 @@ class DocumentLibraryViewDocumentDownloads extends JView {
 		$this->downloadsMode = true;
 		
 		$this->documentDownloads = $this->get('Items');
+		$this->pager = $this->get('Pagination');
 		
 		$this->documentInfo = $this->get('DocumentInfo', 'Document');
 		$this->documentTitle = $this->documentInfo->title;

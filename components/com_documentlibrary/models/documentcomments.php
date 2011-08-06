@@ -34,6 +34,7 @@ class DocumentLibraryModelDocumentComments extends JModelList {
         $query->from('#__document_comments DC, #__users U, #__documents D');
         $query->where('DC.document_id IN ('. implode(',', $ids) . ')');
         $query->where('DC.poster_id = U.id');
+		$query->where('DC.poster_id > 0');
 		$query->where('DC.document_id = D.document_id');
 
         return $query;

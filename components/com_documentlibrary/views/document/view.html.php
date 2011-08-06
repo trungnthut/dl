@@ -17,6 +17,7 @@ class DocumentLibraryViewDocument extends JView {
         $this->documentTitle = $this->documentInfo->title;
         $this->documentSummary = $this->documentInfo->summary;
         $this->documentQuestion = $this->documentInfo->question;
+		$this->documentUploaderId = $this->documentInfo->uploader_id;
         $this->documentUploader = $this->documentInfo->name;
         $this->documentDate = $this->documentInfo->date;
         $this->documentDownloadedTimes = $this->documentInfo->no_downloads;

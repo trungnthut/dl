@@ -26,6 +26,7 @@ class DocumentLibraryModelDocumentDownloads extends JModelList {
         $query->from('#__document_downloads DD, #__users U, #__documents D');
         $query->where('DD.document_id IN ('. implode(',', $ids) . ')');
         $query->where('DD.user_id = U.id');
+		$query->where('DD.user_id > 0');
 		$query->where('DD.document_id = D.document_id');
 
         return $query;

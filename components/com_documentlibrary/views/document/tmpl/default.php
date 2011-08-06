@@ -42,7 +42,7 @@ $allVersionDownloadsUrl = DocumentLibraryHelper::url('documentDownloads', array(
 
 <p>
     <label><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_UPLOADER');?>:</label>
-    <label><?php echo $this->documentUploader; ?></label>
+    <a href='<?php echo DocumentLibraryHelper::profile($this->documentUploaderId);?>'><?php echo $this->documentUploader; ?></a>
 </p>
 
 <p>

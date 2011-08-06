@@ -121,7 +121,7 @@ class DocumentLibraryModelDocument extends JModelItem {
         $count = 0;
 
 		$db = JFactory::getDbo();
-		$query = 'SELECT COUNT(comment_id) FROM #__document_comments WHERE document_id IN (' . implode(',', $ids) . ')';
+		$query = 'SELECT COUNT(comment_id) FROM #__document_comments WHERE document_id IN (' . implode(',', $ids) . ') AND poster_id > 0';
         $db->setQuery($query);
         
         return $db->loadResult();
@@ -257,7 +257,7 @@ class DocumentLibraryModelDocument extends JModelItem {
         $count = 0;
 
 		$db = JFactory::getDbo();
-		$query = 'SELECT COUNT(download_id) FROM #__document_downloads WHERE document_id IN (' . implode(',', $ids) . ')';
+		$query = 'SELECT COUNT(download_id) FROM #__document_downloads WHERE document_id IN (' . implode(',', $ids) . ') AND user_id > 0';
         $db->setQuery($query);
         
         return $db->loadResult();

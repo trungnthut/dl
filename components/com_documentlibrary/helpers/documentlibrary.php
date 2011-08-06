@@ -95,5 +95,19 @@ abstract class DocumentLibraryHelper {
 		}
 		return $viewAll;
 	}
+
+	public static function profile($user_id, $edit = false) {
+		$query='option=com_users';
+		if ($edit) {
+			$query .= '&task=profile.edit';
+		} else {
+			$query .= '&view=profile';
+		}
+		if ($user_id >0 ) {
+			$query .= '&user_id=' . $user_id;
+		}
+
+		return JRoute::_('index.php?' . $query);
+	}
 }
 ?>
