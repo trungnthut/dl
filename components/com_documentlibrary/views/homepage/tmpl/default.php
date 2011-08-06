@@ -63,22 +63,34 @@ function uiText($text) {
 			</table>
 		</td>
 		<td valign="top">
+			<br />
 			<table width="100%">
 				<tr>
-					<td>
+					<td align="center">
 						<a href="<?php echo $this->uploadUrl; ?>"><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_UPLOAD_NEW_DOCUMENT');?></a>
 					</td>
 				</tr>
 			</table>
+			<br />
 			<table width="100%">
 				<tr>
 					<td>
-						<input type='text'>&nbsp;<input type="button" value="Search"><br>
-						Advanced Search&nbsp;<input type='text'><br>
-						Tìm kiếm theo số tài liệu:
+						<form name="frmSearch" method="post" action="<?php echo $this->searchURL?>">
+							<input type='hidden' name="quick_keyword_type" value="1">
+							<input type='text' name="quick_keyword">&nbsp;<input type="submit" name="search" value="Search">
+							<br>
+						</form>
+						<a href="<?php echo JRoute::_($this->advancedSearchURL);?>"><?php echo uiText('ADVANCED_SEARCH');?></a>
+						<br>
+						<form name="frmSearch2" method="post" action="<?php echo $this->searchURL?>">
+							<input type='hidden' name="quick_keyword_type" value="1">
+							<input type='text' name="quick_keyword">&nbsp;<input type="submit" name="" value="<?php echo uiText('OPEN_DOCUMENT_BY_VERSION');?>">
+							<br>
+						</form>
 					</td>
 				</tr>
 			</table>
+			<br />
 			<table width="100%">
 				<tr>
 					<td>

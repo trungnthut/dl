@@ -17,7 +17,14 @@ class DocumentLibraryViewHomePage extends JView {
 		// get 10 most interested document
 		$listMostInterestedDocument = $documentLibraryModel->getMostInterestedDocument(10);
 		$this->listMostInterestedDocument = $listMostInterestedDocument;
-
+		
+		// search form
+		$searchURL = DocumentLibraryHelper::url('search');
+		$advancedSearchURL = DocumentLibraryHelper::url('search', array('advance_box_display' => 1));
+		$this->searchURL = $searchURL;
+		$this->advancedSearchURL = $advancedSearchURL;
+		//echo $advancedSearchURL;
+		
 		// get current date
 		date_default_timezone_set('UTC');
 		$currentDate = date("F j, Y, g:i a");
