@@ -30,8 +30,10 @@ abstract class DocumentLibraryHelper {
     	$options = array();
     	$selectBox = '';
     	$name = isset ($fieldOptions['name']) ? $fieldOptions['name'] : 'name' ;
-    	$css = isset($fieldOptions['css']) ? $fieldOptions['css'] : 'class="inputbox"';
     	$default = isset($fieldOptions['default']) ? $fieldOptions['default'] : 1;
+		$disabled = isset($fieldOptions['disabled']) ? $fieldOptions['disabled'] : '';
+		$css = isset($fieldOptions['css']) ? $fieldOptions['css'] : 'class="inputbox"';
+		$css .= ' ' . $disabled;
     
     	foreach ($optionsArr as $key => $value) {
         	$options[] = JHtml::_('select.option', $key, $value);

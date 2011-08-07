@@ -69,7 +69,7 @@ class DocumentLibraryModelDocumentLibrary extends JModelList {
             $where[] = 'D.class_id = ' . $class_id;
         }
         if ($filter_id > 0) {
-            $where[] = 'D.type_id = ' . $filter_id;
+            $where[] = '(D.type_id = ' . $filter_id . ' OR D.type_id IN (SELECT type_id FROM #__document_types WHERE parent_id = ' . $filter_id . ') )';
         }
 		if (!empty($search_where)) {
 			$where = array_merge($where, $search_where);

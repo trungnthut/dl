@@ -12,6 +12,7 @@ jimport('joomla.application.component.view');
 class DocumentLibraryViewUpload extends JView {
     function display($tpl = null) {
         $this->documentTypes = $this->get('DocumentTypes', 'DocumentType');
+		$this->documentTypeModel = $this->getModel('DocumentType');
         $this->subjectList = $this->get('SubjectList', 'Subjects');
         $this->classList = $this->get('ClassList', 'Classes');
         $this->parent_id = JRequest::getVar('parent', 0);

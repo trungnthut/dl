@@ -116,6 +116,19 @@ class DocumentLibraryController extends JController {
                 $dataObj->subject_id = JRequest::getVar('subject');
                 $dataObj->class_id = JRequest::getVar('class');
                 $dataObj->type_id = JRequest::getVar('documentType');
+				{
+					// process type
+					$documentTypeModel = $this->getModel('DocumentType');
+					$selectedType = $documentTypeModel->getTypeInfo($dataObj->type_id);
+					if (empty($selectedType)) {
+						JError::raiseWarning(150, JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_INVALID_TYPE'));
+						return false;
+					}
+					if ($selectedType->extends) {
+						$subtypes = JRequest::getVar('documentSubtypes');
+						$dataObj->type_id = $subtypes[$dataObj->type_id];
+					}
+				}
                 
                 $documentModel = $this->getModel('Document');
                 $dataObj->version = $documentModel->getNoVersions($dataObj->parent_id) + 1;

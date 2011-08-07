@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `#__document_subjects` (
   `name` varchar(300) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `in_used` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`subject_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
 --
 -- Dumping data for table `#__document_subjects`

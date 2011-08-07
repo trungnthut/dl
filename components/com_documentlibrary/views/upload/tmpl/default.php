@@ -4,6 +4,8 @@ defined ('_JEXEC') or die ('Access denied');
 
 jimport ('joomla.html.html');
 
+include_once JPATH_COMPONENT.DS.'helpers'.DS.'documentlibrary.php';
+
 function selectionBox($optionsArr, $fieldOptions) {
     $options = array();
     $selectBox = '';
@@ -28,12 +30,13 @@ function uiText($text) {
 	return JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_' . $text);
 }
 
+$disable = $this->parent_id > 0 ? 'disabled' : ''; 
 ?>
 <form method="post" enctype="multipart/form-data">
     <fieldset class='userdata'>
         <p style='display: block'>
             <label style='display:block; width: 10.9em; float: left'><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_TITLE'); ?>:</label>
-            <input type="text" name="documentTitle" class='inputbox' size="67em" value="<?php echo $this->parentDocument ? $this->parentDocument->title : '';?>"/>
+            <input type="text" name="documentTitle" class='inputbox' size="67em" value="<?php echo $this->parentDocument ? $this->parentDocument->title : '';?>" <?php echo $disable;?>/>
         </p>
 
 		<?php if ($this->parent_id > 0 && $this->parentDocument) { ?>
@@ -43,18 +46,9 @@ function uiText($text) {
 		</p>
 		<?php } ?>
 
-        <p style='display: block; clear: left'>
-            <label style='display:block; width: 10.9em; float: left'><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_TYPE');?>:</label>
-            <?php
-                $typeHtmlOptions = array(
-                    'name' => 'documentType',
-//                    'css' => 'class="inputbox" style="float: left;"'
-                    'default' => $this->parentDocument ? $this->parentDocument->type_id : 1
-                );
-                
-                echo selectionBox($this->documentTypes, $typeHtmlOptions);
-            ?>
-        </p>
+		<p style='display: block; clear: left'>
+			<?php echo $this->loadTemplate('document_types'); ?>
+		</p>
 
         <p style='display: block; clear: left'>
             <label style='display: block; width: 10.9em; float: left;'><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_SUBJECT'); ?>:</label>
@@ -62,23 +56,33 @@ function uiText($text) {
                 $subjectHtmlOptions = array(
                     'name' => 'subject',
                     'css' => 'class="inputbox" style="float: left"',
-                    'default' => $this->parentDocument ? $this->parentDocument->subject_id : 1
+                    'default' => $this->parentDocument ? $this->parentDocument->subject_id : 1,
+                    'disabled' => $disable
                 );
                 
-                echo selectionBox($this->subjectList, $subjectHtmlOptions);
+                echo DocumentLibraryHelper::selectionBox($this->subjectList, $subjectHtmlOptions);
             ?>
             
             <label style='display: block; width: 4.2em; float: left; margin-left: 1em'><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_LESSON'); ?>:</label>
-            <input type='text' name='lesson' style='float: left; width: 4.9em' value='<?php echo $this->parentDocument ? $this->parentDocument->lesson : ''; ?>'/>
+            <input type='text' name='lesson' style='float: left; width: 4.9em' value='<?php echo $this->parentDocument ? $this->parentDocument->lesson : ''; ?>' <?php echo $disable; ?>/>
             <label style='display: block; width: 4.2em; float: left; margin-left: 1em'><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_CLASS'); ?>:</label>
             <?php
                 $classHtmlOptions = array(
                     'name' => 'class',
-                    'default' => $this->parentDocument ? $this->parentDocument->class_id : 1
+                    'default' => $this->parentDocument ? $this->parentDocument->class_id : 1,
+                    'disabled' => $disable
                 );
-                echo selectionBox($this->classList, $classHtmlOptions); 
+                echo DocumentLibraryHelper::selectionBox($this->classList, $classHtmlOptions); 
             ?>
         </p>
+        
+        <?php if ($this->parent_id > 0) { ?>
+        	<input type='hidden' name='documentTitle' value='<?php echo $this->parentDocument->title; ?>'/>
+        	<input type='hidden' name='documentType' value='<?php echo $this->parentDocument->type_id; ?>'/>
+        	<input type='hidden' name='subject' value='<?php echo $this->parentDocument->subject_id; ?>'/>
+        	<input type='hidden' name='lesson' value='<?php echo $this->parentDocument->lesson; ?>' />
+        	<input type='hidden' name='class' value='<?php echo $this->parentDocument->class_id; ?>'/> 
+        <?php } ?>
 
         <p>
             <label><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_SUMMARY');?>:</label>
