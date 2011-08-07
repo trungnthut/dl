@@ -96,7 +96,15 @@ class UsersModelProfile extends JModelForm
 	{
 		if ($this->data === null) {
 
-			$userId = $this->getState('user.id');
+			// TODO: hack begin
+			$user_id = (int)JRequest::getVar('user_id', 0);
+			if ($user_id > 0) {
+				$this->setState('user.id', $user_id);
+				$userId = $user_id;
+			} else {
+				$userId = $this->getState('user.id');
+			}
+			// TODO: hack end
 
 			// Initialise the table with JUser.
 			$this->data	= new JUser($userId);

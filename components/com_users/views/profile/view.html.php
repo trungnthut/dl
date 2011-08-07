@@ -33,7 +33,15 @@ class UsersViewProfile extends JView
 	 */
 	public function display($tpl = null)
 	{
-		// Get the view data.
+		// TODO: hack begin
+		$this->user_id = (int)JRequest::getVar('user_id', 0);
+		$this->otherUser = false;
+		if ($this->user_id > 0) {
+			$this->otherUser = true;
+		} else {
+			$this->user_id = null;
+		}
+		// TODO: hack end
 		$this->data		= $this->get('Data');
 		$this->form		= $this->get('Form');
 		$this->state	= $this->get('State');
@@ -74,7 +82,9 @@ class UsersViewProfile extends JView
 	{
 		$app		= JFactory::getApplication();
 		$menus		= $app->getMenu();
-		$user		= JFactory::getUser();
+		// TODO: hack begin
+		$user		= JFactory::getUser($this->user_id);
+		// TODO: hack end
 		$login		= $user->get('guest') ? true : false;
 		$title 		= null;
 
