@@ -346,5 +346,21 @@ class DocumentLibraryController extends JController {
 		
 		parent::display();
 	}
+	
+	function openDocumentByNumber() {
+		$number = JRequest::getVar('document_number', '');
+		$number_info = explode('.', $number);
+		$optionArr = array();
+		if (count($number_info) != 2) {
+			JError::raiseWarning(150, JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_INVALID_DOCUMENT_NUMBER'));		
+		} else {
+			$documentModel = $this->getModel('Document');
+			$document_id = $documentModel->getDocumentIdFromNumber($number_info[0], $number_info[1]);
+			$optionArr['document'] =  $document_id;
+		}
+
+		$url = DocumentLibraryHelper::url('document', $optionArr);
+		$this->setRedirect($url);
+	}
 }
 ?>

@@ -274,5 +274,12 @@ class DocumentLibraryModelDocument extends JModelItem {
         return $this->countDownloads($id);
 	}
     
+	function getDocumentIdFromNumber($orignal_id, $version = 1) {
+		$db = JFactory::getDbo();
+		$query = 'SELECT document_id FROM #__documents WHERE original_id = ' . $orignal_id . ' AND version = ' . $version;
+		$db->setQuery($query);
+		$result = $db->loadResult();
+		return $result;
+	}
 }
 ?>

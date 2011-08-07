@@ -21,6 +21,7 @@ class DocumentLibraryViewHomePage extends JView {
 		// search form
 		$searchURL = DocumentLibraryHelper::url('search');
 		$advancedSearchURL = DocumentLibraryHelper::url('search', array('advance_box_display' => 1));
+		$this->openByNumberUrl = DocumentLibraryHelper::url('openDocumentByNumber');
 		$this->searchURL = $searchURL;
 		$this->advancedSearchURL = $advancedSearchURL;
 		//echo $advancedSearchURL;
