@@ -1,10 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 	<!-- $Id: profile.xml 20156 2011-01-07 13:10:16Z eddieajau $ -->
 <form>
-	<fields name="profile">
+	<fields 
+		name="profile"
+		addfieldpath="components/com_documentlibrary/models/fields"
+		>
 		<fieldset name="profile"
 			label="PLG_USER_PROFILE_SLIDER_LABEL"
 		>
+			<field
+					name="dob"
+					type="calendar"
+					label="PLG_USER_PROFILE_FIELD_DOB_LABEL"
+					description="PLG_USER_PROFILE_FIELD_DOB_DESC"
+			/>
+			<field
+				name="degree"
+				type="list"
+				id="degree"
+				description="PLG_USER_PROFILE_FIELD_DEGREE_DESC"
+				label="PLG_USER_PROFILE_FIELD_DEGREE_LABEL"
+				>
+				<option value="1">PLG_USER_PROFILE_FIELD_DEGREE_BACHELOR_OPTION</option>
+				<option value="2">PLG_USER_PROFILE_FIELD_DEGREE_MASTER_OPTION</option>
+				<option value="3">PLG_USER_PROFILE_FIELD_DEGREE_DOCTOR_OPTION</option>
+			</field>
+			<field
+				name="subject"
+				type="subjects"
+				id="subject"
+				description="PLG_USER_PROFILE_FIELD_SUBJECT_DESC"
+				label="PLG_USER_PROFILE_FIELD_SUBJECT_LABEL"
+				>
+			</field>
 			<field
 				name="award"
 				type="text"
@@ -48,6 +76,7 @@
 				message="PLG_USER_PROFILE_FIELD_ADDRESS1_MESSAGE"
 				size="30"
 			/>
+			
 <!--
 			<field
 				name="city"
@@ -132,7 +161,7 @@
 				cols="30"
 				rows="5"
 				filter="safehtml"
-			/>
+			/> 
 			<field
 					name="tos"
 					type="radio"

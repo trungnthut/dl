@@ -69,6 +69,12 @@ class plgUserProfile extends JPlugin
 			if (!JHtml::isRegistered('users.tos')) {
 				JHtml::register('users.tos', array(__CLASS__, 'tos'));
 			}
+			if (!JHtml::isRegistered('users.degree')) {
+				JHtml::register('users.degree', array(__CLASS__, 'degree'));
+			}
+			if (!JHtml::isRegistered('users.subject')) {
+				JHtml::register('users.subject', array(__CLASS__, 'subject'));
+			}
 		}
 
 		return true;
@@ -109,6 +115,35 @@ class plgUserProfile extends JPlugin
 		else {
 			return JText::_('JNO');
 		}
+	}
+	
+	public static function degree($value) {
+		$values= array();
+		$values["1"] = "PLG_USER_PROFILE_FIELD_DEGREE_BACHELOR_OPTION";
+		$values["2"] = "PLG_USER_PROFILE_FIELD_DEGREE_MASTER_OPTION";
+		$values["3"] = "PLG_USER_PROFILE_FIELD_DEGREE_DOCTOR_OPTION";
+		return JText::_($values[$value]);
+		if (in_array($value, $values)) {
+			return JText::_($values[$value]);
+		}
+		return JText::_($value);
+	} 
+	
+	public static function subject($value) {
+		static $languageLoaded = false;
+		if (!$languageLoaded) {
+			$language =& JFactory::getLanguage();
+			$extension = 'com_documentlibrary';
+			$base_dir = JPATH_SITE . '/components/com_documentlibrary';
+			$language_tag = $language->getTag(); // loads the current language-tag
+			$language->load($extension, $base_dir, $language_tag, true);
+			$languageLoaded = true;
+		}
+		$db = JFactory::getDbo();
+		$query = 'SELECT name FROM #__document_subjects WHERE subject_id = ' . $value;
+		$db->setQuery($query);
+		$name = $db->loadResult();
+		return JText::_($name);
 	}
 
 	/**
@@ -235,6 +270,12 @@ class plgUserProfile extends JPlugin
 			$form->removeField('dob', 'profile');
 		}
 
+		// $oo = $form->getField('degree', 'profile');
+		// var_dump($oo);
+		// $subjectField = $this->createSubjectField();
+		// var_dump($subjectField);
+		// $form->setField($subjectField, 'profile', true);
+
 		return true;
 	}
 
@@ -326,5 +367,47 @@ class plgUserProfile extends JPlugin
 		}
 
 		return true;
+	}
+	
+	private function getDataAgain($userId, &$data)
+	{
+		if ($userid <= 0) {
+			return null;
+		}
+
+			$data	= new JUser($userId);
+
+			// Set the base user data.
+			$data->email1 = $data->get('email');
+			$data->email2 = $data->get('email');
+
+			// Override the base user data with any data in the session.
+			$temp = (array)JFactory::getApplication()->getUserState('com_users.edit.profile.data', array());
+			foreach ($temp as $k => $v) {
+				$data->$k = $v;
+			}
+
+			// Unset the passwords.
+			unset($data->password1);
+			unset($data->password2);
+
+			$registry = new JRegistry($data->params);
+			$data->params = $registry->toArray();
+
+			// Get the dispatcher and load the users plugins.
+			// $dispatcher	= JDispatcher::getInstance();
+			// JPluginHelper::importPlugin('user');
+// 
+			// // Trigger the data preparation event.
+			// $results = $dispatcher->trigger('onContentPrepareData', array('com_users.profile', $this->data));
+// 
+			// // Check for errors encountered while preparing the data.
+			// if (count($results) && in_array(false, $results, true)) {
+				// $this->setError($dispatcher->getError());
+				// $this->data = false;
+			// }
+		// }
+
+		return $data;
 	}
 }
