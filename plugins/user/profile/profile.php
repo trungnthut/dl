@@ -119,17 +119,22 @@ class plgUserProfile extends JPlugin
 	
 	public static function degree($value) {
 		$values= array();
-		$values["1"] = "PLG_USER_PROFILE_FIELD_DEGREE_BACHELOR_OPTION";
-		$values["2"] = "PLG_USER_PROFILE_FIELD_DEGREE_MASTER_OPTION";
-		$values["3"] = "PLG_USER_PROFILE_FIELD_DEGREE_DOCTOR_OPTION";
-		return JText::_($values[$value]);
-		if (in_array($value, $values)) {
+		$values[1] = "PLG_USER_PROFILE_FIELD_DEGREE_BACHELOR_OPTION";
+		$values[2] = "PLG_USER_PROFILE_FIELD_DEGREE_MASTER_OPTION";
+		$values[3] = "PLG_USER_PROFILE_FIELD_DEGREE_DOCTOR_OPTION";
+		if (empty($value)) {
+			return JHtml::_('users.value', $value);
+		}
+		if (array_key_exists($value, $values)) {
 			return JText::_($values[$value]);
 		}
 		return JText::_($value);
 	} 
 	
 	public static function subject($value) {
+		if (empty($value)) {
+			return JHtml::_('users.value', $value);
+		}
 		static $languageLoaded = false;
 		if (!$languageLoaded) {
 			$language =& JFactory::getLanguage();
