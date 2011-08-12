@@ -45,6 +45,7 @@
     <filename>templateDetails.xml</filename>
   </files>
   <images>
+  	<filename>images/banner.gif</filename>
     <filename>images/page_t.jpg</filename>
     <filename>images/page_g.jpg</filename>
     <filename>images/sheet_s.png</filename>
