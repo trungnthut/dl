@@ -28,7 +28,7 @@ function uiText($text) {
 					<td>
 						<form name="frmSearch" method="post" action="<?php echo $this->searchURL?>">
 							<input type='hidden' name="quick_keyword_type" value="1"/>
-							<input type='text' name="quick_keyword"/>&nbsp;<input type="submit" name="search" value="Search"/>
+							<input type='text' name="quick_keyword"/>&nbsp;<input type="submit" name="search" value="<?php echo uiText('SEARCH');?>"/>
 							<br>
 						</form>
 						<a href="<?php echo JRoute::_($this->advancedSearchURL);?>"><?php echo uiText('ADVANCED_SEARCH');?></a>
