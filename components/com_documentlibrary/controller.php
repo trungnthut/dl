@@ -21,6 +21,30 @@ class DocumentLibraryController extends JController {
     // default task: display will load the view 'views/documentlibrary/view.html.php'
     function display() {
 //        parent::display();
+		$view = JRequest::getCmd('view');
+		switch ($view) {
+			case 'upload':
+				$this->upload();
+				return;
+			case 'document':
+				$this->document();
+				return;
+			case 'documentLibrary':
+				$this->documentLibrary();
+				return;
+			case 'search':
+				$this->search();
+				return;
+			case 'documentComments':
+				$this->documentComments();
+				return;
+			case 'documentDownloads':
+				$this->documentDownloads();
+				return;
+			case 'documentTree':
+				$this->documentTree();
+				return;
+		}
         $this->homepage();
     }
     
