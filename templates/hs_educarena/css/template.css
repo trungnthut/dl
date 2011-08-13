@@ -1996,7 +1996,8 @@ pre
   background-repeat: no-repeat;
   padding-left: 16px;/* makes "ul li" not to align behind the image if they are in the same line */
   overflow-x: visible;
-  overflow-y: hidden;
+  overflow-y: visible
+/*  overflow-y: hidden;*/
 }
 
 

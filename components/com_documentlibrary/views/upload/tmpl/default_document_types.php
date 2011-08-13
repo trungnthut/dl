@@ -9,11 +9,13 @@ $checked = 'checked';
 ?>
 <?php if ($this->parent_id <= 0) { ?>
 <!--         <p style='display: block; clear: left'> -->
-            <fieldset>
-            	<legend>
-            		<label style='display:block; width: 10.9em; float: left'><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_TYPE');?>:</label><br/>
-            	</legend>
-            	<dl style='margin-left: 1.5em'>
+<!--             <fieldset> -->
+	<dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_TYPE');?>:</dt>
+<!--             	<legend style='font-weight: normal; font-size: 1.2em'>
+            		<label><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_TYPE');?>:</label><br/>
+            	</legend> -->
+            	<dd>
+            	<dl style=''>
             <?php foreach ($this->documentTypes as $id => $type ) { ?>
 <!-- 				<p> -->
 	<dt>
@@ -46,9 +48,10 @@ $checked = 'checked';
 				<!-- </p> -->
             <?php } ?>
             </dl>
-            </fieldset>
+            </dd>
+<!--             </fieldset> -->
 <!--        </p> -->
 <?php } else { ?>
-	<label style='display: block; width: 10.9em; float: left;'><?php echo DocumentLibraryHelper::uiText('LABEL_TYPE'); ?>:</label>
-	<label><?php echo $this->documentTypeModel->getTypeName($this->parentDocument->type_id); ?></label>
+	<dt><?php echo DocumentLibraryHelper::uiText('LABEL_TYPE'); ?>:</dt>
+	<dd><?php echo $this->documentTypeModel->getTypeName($this->parentDocument->type_id); ?></dd>
 <?php } ?>

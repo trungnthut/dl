@@ -12,7 +12,7 @@ DocumentLibraryHelper::setUiTextPrefix('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_COMME
 	// $documentNumber = DocumentLibraryHelper::documentNumber($comment->original_id, $comment->version, $comment->document_id);
 	$documentNumber = $comment->version;
 ?>
-<div style='border: 1px solid lightgray; width: 45em; border-radius: 0.7em; margin-bottom: 1.5em'>
+<div style='border: 1px solid lightgray; width: 99%; border-radius: 0.7em; margin-bottom: 1.5em; margin-left: 3px'>
 <p style='padding-left: 1.5em'>
     <label>
         <font size='2'>
@@ -25,7 +25,7 @@ DocumentLibraryHelper::setUiTextPrefix('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_COMME
     </label>
 </p>
 <p style='padding-left: 1.5em; padding-right: 1.5em'>
-    <i>"<?php echo $comment->contents; ?>"</i>
+    <i>"<?php echo str_replace( "\n", "<br/>", $comment->contents); ?>"</i>
 </p>
 </div>
 <?php } ?>

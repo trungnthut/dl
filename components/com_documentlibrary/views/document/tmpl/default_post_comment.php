@@ -8,7 +8,7 @@ $post_url = JRoute::_('index.php?option=com_documentlibrary&task=comment');
         <label><?php echo uiText('LABEL_POST_COMMENT'); ?></label>
     </p>
     <p>
-        <textarea name='comment' cols='70' rows='3'></textarea>
+        <textarea name='comment' style='width: 99%; height: 7em; border: 1px solid #CCCCCC; margin-left: 2px'></textarea>
     </p>
     <p>
         <input type='hidden' name='document' value='<?php echo $this->documentId?>'/>
