@@ -44,8 +44,17 @@ class DocumentLibraryController extends JController {
 			case 'documentTree':
 				$this->documentTree();
 				return;
+			case 'userContrib':
+				$this->userContrib();
+				return;
+			case 'userDownloads':
+				$this->userDownloads();
+				return;
+			default:
+				$this->homepage();
+				return;
 		}
-        $this->homepage();
+        parent::display();
     }
     
     function sayHello() {
@@ -385,6 +394,33 @@ class DocumentLibraryController extends JController {
 
 		$url = DocumentLibraryHelper::url('document', $optionArr);
 		$this->setRedirect($url);
+	}
+
+	function userContrib() {
+		$this->requireLogin();
+		$view = $this->getView(JRequest::getVar('view'), 'html', 'DocumentLibraryView');
+		
+        $documentModel = & $this->getModel('Document');
+        $view->setModel($documentModel);
+		
+		$documentTypeModel = & $this->getModel('DocumentType');
+		$view->setModel($documentTypeModel);
+		
+		parent::display();
+	}
+	
+	function userDownloads() {
+		$this->requireLogin();
+		
+		$view = $this->getView(JRequest::getVar('view'), 'html', 'DocumentLibraryView');
+		
+        $documentModel = & $this->getModel('Document');
+        $view->setModel($documentModel);
+		
+		$documentTypeModel = & $this->getModel('DocumentType');
+		$view->setModel($documentTypeModel);
+		
+		parent::display();
 	}
 }
 ?>

@@ -10,6 +10,7 @@ DocumentLibraryHelper::setUiTextPrefix('COM_DOCUMENT_LIBRARY_VIEW_SEARCH_');
 class DocumentLibraryViewSearch extends JView {
 	function display($tpl = null) {
 		$this->postUrl = DocumentLibraryHelper::url('search');
+		$this->searchMode = true;
 		
 		$this->quickKeywordTypes = array(
 			1 => DocumentLibraryHelper::uiText('BY_DOCUMENT_TITLE'),

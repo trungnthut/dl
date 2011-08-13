@@ -4,17 +4,17 @@ defined('_JEXEC') or die('Restricted access');
 ?>
 <h1><?php echo $this->msg; ?></h1>
 
-<table>
-    <tr>
-        <td rowspan="2">
+<table style='border: 1px solid #CCCCCC'>
+    <tr style='border: 1px solid #CCCCCC'>
+        <td rowspan="2" style='border: 1px solid #CCCCCC'>
             <?php echo $this->loadTemplate('left');?>
         </td>
-        <td>
+        <td style='border: 1px solid #CCCCCC'>
             <?php echo $this->loadTemplate('top'); ?>
         </td>
     </tr>
-    <tr>
-        <td>
+    <tr style='border: 1px solid #CCCCCC'>
+        <td style='border: 1px solid #CCCCCC; vertical-align:top;'>
             <?php echo $this->loadTemplate('document_list'); ?>
         </td>
     </tr>
