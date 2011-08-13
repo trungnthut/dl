@@ -18,7 +18,7 @@ $allVersionDownloadsUrl = DocumentLibraryHelper::url('documentDownloads', array(
 <fieldset>
 	<legend><?php echo DocumentLibraryHelper::uiText('LABEL_DOCUMENT_INFO'); ?></legend>
 <!-- <p> -->
-	<dl>
+	<dl style='float: left'>
     <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_LABEL_DOCUMENT_NUMBER');?>:</dt>
     <dd><?php echo $this->documentNumber; ?>.<?php echo $this->documentVersion; ?></dd>
 <!-- </p> -->
@@ -81,11 +81,17 @@ $allVersionDownloadsUrl = DocumentLibraryHelper::url('documentDownloads', array(
         $upload_new_version_url = JRoute::_('index.php?option=com_documentlibrary&task=upload&parent=' . $this->documentId);
         $download_url = JRoute::_('index.php?option=com_documentlibrary&task=download&document=' . $this->documentId);
     ?>
-    <a class="button" href="<?php echo $upload_url; ?>"><?php echo uiText('UPLOAD_NEW_DOCUMENT'); ?></a>
-    &nbsp;&nbsp;&nbsp;
-    <a class="button" href="<?php echo $upload_new_version_url; ?>"><?php echo uiText('UPLOAD_NEW_VERSION'); ?></a>
-    &nbsp;&nbsp;&nbsp;
-    <a class="button" href="<?php echo $download_url; ?>"><?php echo uiText('DOWNLOAD'); ?></a>
+    <table style='float: right'>
+    <tr>
+    	<td><a class="button" style='width: 15em; text-align: center' href="<?php echo $upload_url; ?>"><?php echo uiText('UPLOAD_NEW_DOCUMENT'); ?></a></td>
+    </tr>
+    <tr>
+    	<td><a class="button" style='width: 15em; text-align: center' href="<?php echo $upload_new_version_url; ?>"><?php echo uiText('UPLOAD_NEW_VERSION'); ?></a></td>
+    </tr>
+    <tr>
+    	<td><a class="button" style='width: 15em; text-align: center' href="<?php echo $download_url; ?>"><?php echo uiText('DOWNLOAD'); ?></a></td>
+    </tr>
+    </table>
 </p>
 
 </fieldset>

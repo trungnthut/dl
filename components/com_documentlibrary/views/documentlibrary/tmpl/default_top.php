@@ -18,7 +18,7 @@ if ($this->selectedSubjectId > 0) {
     <?php if ($this->filter != $id) { ?>
         <a href="<?php echo $filterLinkPrefix; ?>&filter=<?php echo $id; ?>"><?php echo $type->name; ?></a>
     <?php } else { ?>
-        <label><?php echo $type->name; ?></label>
+        <label><b><i><?php echo $type->name; ?></i></b></label>
     <?php } ?>
      &nbsp;
 <?php } ?>
