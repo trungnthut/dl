@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metafile version="1.6" client="administrator" method="upgrade">
+	<name>Vietnamese (Việt Nam)</name>
+	<version>1.6.2v1</version>
+	<creationDate>2011-04-20</creationDate>
+	<author>buaxua.vn</author>
+	<authorEmail>contact@buaxua.vn</authorEmail>
+	<authorUrl>www.buaxua.vn</authorUrl>
+	<copyright>Copyright (C) 2005 - 2011 Open Source Matters. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<description>Ngôn ngữ tiếng Việt cho Joomla 1.6 (Back-end)</description>
+	<metadata>
+		<name>Vietnamese (Việt Nam)</name>
+		<tag>vi-VN</tag>
+		<rtl>0</rtl>
+		<locale>vi_VN, vie_VN, vn, vietnam, viet nam, vietnamese, Việt Nam</locale>
+		<firstDay>1</firstDay>
+	</metadata>
+</metafile>
