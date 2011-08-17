@@ -173,6 +173,8 @@ class plgUserJoomla extends JPlugin
 			' WHERE `session_id` = '.$db->quote($session->getId())
 		);
 		$db->query();
+		
+		var_dump('So, user login !' . $instance->get('username'));
 
 		// Hit the user last visit field
 		$instance->setLastVisit();
