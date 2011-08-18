@@ -280,6 +280,16 @@
 					<option	value="1">JOPTION_OPTIONAL</option>
 					<option	value="0">JDISABLED</option>
 				</field>
+				<field
+					name="profile-require_sex"
+					type="list"
+					label="PLG_USER_DLPROFILE_FIELD_SEX_LABEL"
+					description="PLG_USER_DLPROFILE_FIELD_SEX_DESC"
+				 >
+					<option	value="2">JOPTION_REQUIRED</option>
+					<option	value="1">JOPTION_OPTIONAL</option>
+					<option	value="0">JDISABLED</option>
+				</field>
 			</fieldset>
 
 		</fields>
