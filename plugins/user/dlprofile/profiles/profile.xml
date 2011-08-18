@@ -15,6 +15,17 @@
 					description="PLG_USER_DLPROFILE_FIELD_DOB_DESC"
 			/>
 			<field
+				name="sex"
+				type="list"
+				id="sex"
+				description="PLG_USER_DLPROFILE_FIELD_SEX_DESC"
+				filter="string"
+				label="PLG_USER_DLPROFILE_FIELD_SEX_LABEL"
+				>
+				<option value="1">PLG_USER_DLPROFILE_FIELD_SEX_MAN_OPTION</option>
+				<option value="0">PLG_USER_DLPROFILE_FIELD_SEX_FEMALE_OPTION</option>
+			</field>
+			<field
 				name="degree"
 				type="list"
 				id="degree"
