@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-	<!-- $Id: profile.xml 21036 2011-03-31 09:12:46Z infograf768 $ -->
+	<!-- $Id: dlprofile.xml 21036 2011-08-20 09:12:46Z infograf768 $ -->
 <extension version="1.6" type="plugin" group="user">
 	<name>plg_user_dlprofile</name>
 	<author>Nguyen Thanh Trung</author>

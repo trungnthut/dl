@@ -75,9 +75,6 @@ class plgUserDlProfile extends JPlugin
 			if (!JHtml::isRegistered('users.subject')) {
 				JHtml::register('users.subject', array(__CLASS__, 'subject'));
 			}
-			if (!JHtml::isRegistered('users.anchor')) {
-				JHtml::register('user.anchor', array(__CLASS__, 'anchor'));
-			}
 		}
 
 		return true;
@@ -152,18 +149,6 @@ class plgUserDlProfile extends JPlugin
 		$db->setQuery($query);
 		$name = $db->loadResult();
 		return JText::_($name);
-	}
-
-	public static function anchor($value) {
-		// if (empty($value)) {
-			// return '';
-		// }
-		if ($value == 1) {
-			return '<a href="index.php?option=com_documentlibrary&view=userContrib">contrib</a>';
-		}
-		else {
-			return '<a href="index.php?option=com_documentlibrary&view=userDownloads">downloads</a>';
-		}
 	}
 	/**
 	 * @param	JForm	$form	The form to be altered.
