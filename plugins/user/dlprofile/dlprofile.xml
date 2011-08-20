@@ -27,140 +27,10 @@
 
 			<fieldset name="basic">
 				<field name="register-require-user" type="spacer" class="text"
-					label="PLG_USER_DLPROFILE_FIELD_NAME_REGISTER_REQUIRE_USER"
+					label="PLG_USER_DLPROFILE_FIELD_NAME_PROFILE_REQUIRE_USER"
 				/>
 
-				<field name="register-require_address1" type="list"
-					
-					description="PLG_USER_DLPROFILE_FIELD_ADDRESS1_DESC"
-					label="PLG_USER_DLPROFILE_FIELD_ADDRESS1_LABEL"
-				>
-					<option value="2">JOPTION_REQUIRED</option>
-					<option value="1">JOPTION_OPTIONAL</option>
-					<option value="0">JDISABLED</option>
-				</field>
-
-				<field name="register-require_address2" type="list"
-					
-					description="PLG_USER_DLPROFILE_FIELD_ADDRESS2_DESC"
-					label="PLG_USER_DLPROFILE_FIELD_ADDRESS2_LABEL"
-				>
-					<option value="2">JOPTION_REQUIRED</option>
-					<option value="1">JOPTION_OPTIONAL</option>
-					<option value="0">JDISABLED</option>
-				</field>
-
-				<field name="register-require_city" type="list"
-					
-					description="PLG_USER_DLPROFILE_FIELD_CITY_DESC"
-					label="PLG_USER_DLPROFILE_FIELD_CITY_LABEL"
-				>
-					<option value="2">JOPTION_REQUIRED</option>
-					<option value="1">JOPTION_OPTIONAL</option>
-					<option value="0">JDISABLED</option>
-				</field>
-
-				<field name="register-require_region" type="list"
-					
-					description="PLG_USER_DLPROFILE_FIELD_REGION_DESC"
-					label="PLG_USER_DLPROFILE_FIELD_REGION_LABEL"
-				>
-					<option value="2">JOPTION_REQUIRED</option>
-					<option value="1">JOPTION_OPTIONAL</option>
-					<option value="0">JDISABLED</option>
-				</field>
-
-				<field name="register-require_country" type="list"
-					
-					description="PLG_USER_DLPROFILE_FIELD_COUNTRY_DESC"
-					label="PLG_USER_DLPROFILE_FIELD_COUNTRY_LABEL"
-				>
-					<option value="2">JOPTION_REQUIRED</option>
-					<option value="1">JOPTION_OPTIONAL</option>
-					<option value="0">JDISABLED</option>
-				</field>
-
-				<field name="register-require_postal_code" type="list"
-					
-					description="PLG_USER_DLPROFILE_FIELD_POSTAL_CODE_DESC"
-					label="PLG_USER_DLPROFILE_FIELD_POSTAL_CODE_LABEL"
-				>
-					<option value="2">JOPTION_REQUIRED</option>
-					<option value="1">JOPTION_OPTIONAL</option>
-					<option value="0">JDISABLED</option>
-				</field>
-
-				<field name="register-require_phone" type="list"
-					
-					description="PLG_USER_DLPROFILE_FIELD_PHONE_DESC"
-					label="PLG_USER_DLPROFILE_FIELD_PHONE_LABEL"
-				>
-					<option value="2">JOPTION_REQUIRED</option>
-					<option value="1">JOPTION_OPTIONAL</option>
-					<option value="0">JDISABLED</option>
-				</field>
-
-				<field name="register-require_website" type="list"
-					
-					description="PLG_USER_DLPROFILE_FIELD_WEB_SITE_DESC"
-					label="PLG_USER_DLPROFILE_FIELD_WEB_SITE_LABEL"
-				>
-					<option value="2">JOPTION_REQUIRED</option>
-					<option value="1">JOPTION_OPTIONAL</option>
-					<option value="0">JDISABLED</option>
-				</field>
-				<field 	name="register-require_favoritebook"
-					type="list"
-					
-					label="PLG_USER_DLPROFILE_FIELD_FAVORITE_BOOK_LABEL"
-					description="PLG_USER_DLPROFILE_FIELD_FAVORITE_BOOK_DESC"
-				>
-					<option value="2">JOPTION_REQUIRED</option>
-					<option value="1">JOPTION_OPTIONAL</option>
-					<option value="0">JDISABLED</option>
-				</field>
-
-				<field
-					name="register-require_aboutme"
-					type="list"
-					
-					label="PLG_USER_DLPROFILE_FIELD_ABOUT_ME_LABEL"
-					description="PLG_USER_DLPROFILE_FIELD_ABOUT_ME_DESC"
-				>
-					<option	value="2">JOPTION_REQUIRED</option>
-					<option	value="1">JOPTION_OPTIONAL</option>
-					<option	value="0">JDISABLED</option>
-				</field>
-				<field
-					name="register-require_tos"
-					type="list"
-					
-					label="PLG_USER_DLPROFILE_FIELD_TOS_LABEL"
-					description="PLG_USER_DLPROFILE_FIELD_TOS_DESC"
-				>
-					<option	value="2">JOPTION_REQUIRED</option>
-					<option	value="1">JOPTION_OPTIONAL</option>
-					<option	value="0">JDISABLED</option>
-				</field>
-				<field
-					name="register-require_dob"
-					type="list"
-					
-					label="PLG_USER_DLPROFILE_FIELD_DOB_LABEL"
-					description="PLG_USER_DLPROFILE_FIELD_DOB_DESC">
-					<option	value="2">JOPTION_REQUIRED</option>
-					<option	value="1">JOPTION_OPTIONAL</option>
-					<option	value="0">JDISABLED</option>
-				</field>
-		 
-				<field name="spacer1" type="spacer"
-					hr="true"
-				/>				 
-				<field name="profile-require-user" type="spacer" class="text"
-					label="PLG_USER_DLPROFILE_FIELD_NAME_DLPROFILE_REQUIRE_USER"
-				/>
-
-				<field name="profile-require_address1" type="list"
+				<field name="dlprofile-require_address1" type="list"
 
 					description="PLG_USER_DLPROFILE_FIELD_ADDRESS1_DESC"
 					label="PLG_USER_DLPROFILE_FIELD_ADDRESS1_LABEL"
@@ -170,7 +40,7 @@
 					<option value="0">JDISABLED</option>
 				</field>
 
-				<field name="profile-require_address2" type="list"
+				<field name="dlprofile-require_address2" type="list"
 
 					description="PLG_USER_DLPROFILE_FIELD_ADDRESS2_DESC"
 					label="PLG_USER_DLPROFILE_FIELD_ADDRESS2_LABEL"
@@ -180,97 +50,8 @@
 					<option value="0">JDISABLED</option>
 				</field>
 
-				<field name="profile-require_city" type="list"
-
-					description="PLG_USER_DLPROFILE_FIELD_CITY_DESC"
-					label="PLG_USER_DLPROFILE_FIELD_CITY_LABEL"
-				>
-					<option value="2">JOPTION_REQUIRED</option>
-					<option value="1">JOPTION_OPTIONAL</option>
-					<option value="0">JDISABLED</option>
-				</field>
-
-				<field name="profile-require_region" type="list"
-
-					description="PLG_USER_DLPROFILE_FIELD_REGION_DESC"
-					label="PLG_USER_DLPROFILE_FIELD_REGION_LABEL"
-				>
-					<option value="2">JOPTION_REQUIRED</option>
-					<option value="1">JOPTION_OPTIONAL</option>
-					<option value="0">JDISABLED</option>
-				</field>
-
-				<field name="profile-require_country" type="list"
-
-					description="PLG_USER_DLPROFILE_FIELD_COUNTRY_DESC"
-					label="PLG_USER_DLPROFILE_FIELD_COUNTRY_LABEL"
-				>
-					<option value="2">JOPTION_REQUIRED</option>
-					<option value="1">JOPTION_OPTIONAL</option>
-					<option value="0">JDISABLED</option>
-				</field>
-
-				<field name="profile-require_postal_code" type="list"
-
-					description="PLG_USER_DLPROFILE_FIELD_POSTAL_CODE_DESC"
-					label="PLG_USER_DLPROFILE_FIELD_POSTAL_CODE_LABEL"
-				>
-					<option value="2">JOPTION_REQUIRED</option>
-					<option value="1">JOPTION_OPTIONAL</option>
-					<option value="0">JDISABLED</option>
-				</field>
-
-				<field name="profile-require_phone" type="list"
-
-					description="PLG_USER_DLPROFILE_FIELD_PHONE_DESC"
-					label="PLG_USER_DLPROFILE_FIELD_PHONE_LABEL"
-				>
-					<option value="2">JOPTION_REQUIRED</option>
-					<option value="1">JOPTION_OPTIONAL</option>
-					<option value="0">JDISABLED</option>
-				</field>
-
-				<field name="profile-require_website" type="list"
-
-					description="PLG_USER_DLPROFILE_FIELD_WEB_SITE_DESC"
-					label="PLG_USER_DLPROFILE_FIELD_WEB_SITE_LABEL"
-				>
-					<option value="2">JOPTION_REQUIRED</option>
-					<option value="1">JOPTION_OPTIONAL</option>
-					<option value="0">JDISABLED</option>
-				</field>
-				<field 	name="profile-require_favoritebook"
-					type="list"
-					
-					label="PLG_USER_DLPROFILE_FIELD_FAVORITE_BOOK_LABEL"
-					description="PLG_USER_DLPROFILE_FIELD_FAVORITE_BOOK_DESC">
-					<option value="2">JOPTION_REQUIRED</option>
-					<option value="1">JOPTION_OPTIONAL</option>
-					<option value="0">JDISABLED</option>
-				</field>
-
 				<field
-					name="profile-require_aboutme"
-					type="list"
-					
-					label="PLG_USER_DLPROFILE_FIELD_ABOUT_ME_LABEL"
-					description="PLG_USER_DLPROFILE_FIELD_ABOUT_ME_DESC">
-					<option	value="2">JOPTION_REQUIRED</option>
-					<option	value="1">JOPTION_OPTIONAL</option>
-					<option	value="0">JDISABLED</option>
-				</field>
-				<field
-					name="profile-require_tos"
-					type="list"
-					
-					label="PLG_USER_DLPROFILE_FIELD_TOS_LABEL"
-					description="PLG_USER_DLPROFILE_FIELD_TOS_DESC">
-					<option	value="2">JOPTION_REQUIRED</option>
-					<option	value="1">JOPTION_OPTIONAL</option>
-					<option	value="0">JDISABLED</option>
-				</field>
-				<field
-					name="profile-require_dob"
+					name="dlprofile-require_dob"
 					type="list"
 					
 					label="PLG_USER_DLPROFILE_FIELD_DOB_LABEL"
@@ -280,8 +61,56 @@
 					<option	value="1">JOPTION_OPTIONAL</option>
 					<option	value="0">JDISABLED</option>
 				</field>
+				
 				<field
-					name="profile-require_sex"
+					name="dlprofile-require_degree"
+					type="list"
+					
+					label="PLG_USER_DLPROFILE_FIELD_DEGREE_LABEL"
+					description="PLG_USER_DLPROFILE_FIELD_DEGREE_DESC"
+				 >
+					<option	value="2">JOPTION_REQUIRED</option>
+					<option	value="1">JOPTION_OPTIONAL</option>
+					<option	value="0">JDISABLED</option>
+				</field>
+				
+				<field
+					name="dlprofile-require_subject"
+					type="list"
+					
+					label="PLG_USER_DLPROFILE_FIELD_SUBJECT_LABEL"
+					description="PLG_USER_DLPROFILE_FIELD_SUBJECT_DESC"
+				 >
+					<option	value="2">JOPTION_REQUIRED</option>
+					<option	value="1">JOPTION_OPTIONAL</option>
+					<option	value="0">JDISABLED</option>
+				</field>
+				
+				<field
+					name="dlprofile-require_award"
+					type="list"
+					
+					label="PLG_USER_DLPROFILE_FIELD_AWARD_LABEL"
+					description="PLG_USER_DLPROFILE_FIELD_AWARD_DESC"
+				 >
+					<option	value="2">JOPTION_REQUIRED</option>
+					<option	value="1">JOPTION_OPTIONAL</option>
+					<option	value="0">JDISABLED</option>
+				</field>
+				
+				<field
+					name="dlprofile-require_school"
+					type="list"
+					
+					label="PLG_USER_DLPROFILE_FIELD_SCHOOL_LABEL"
+					description="PLG_USER_DLPROFILE_FIELD_SCHOOL_DESC"
+				 >
+					<option	value="2">JOPTION_REQUIRED</option>
+					<option	value="1">JOPTION_OPTIONAL</option>
+					<option	value="0">JDISABLED</option>
+				</field>
+				<field
+					name="dlprofile-require_sex"
 					type="list"
 					label="PLG_USER_DLPROFILE_FIELD_SEX_LABEL"
 					description="PLG_USER_DLPROFILE_FIELD_SEX_DESC"

@@ -13,6 +13,7 @@
 					type="calendar"
 					label="PLG_USER_DLPROFILE_FIELD_DOB_LABEL"
 					description="PLG_USER_DLPROFILE_FIELD_DOB_DESC"
+					required="true"
 			/>
 			<field
 				name="sex"
