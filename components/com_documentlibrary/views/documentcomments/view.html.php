@@ -15,6 +15,7 @@ class DocumentLibraryViewDocumentComments extends JView {
 		}
 		
 		$this->comments = $this->get('Items');
+		$this->pagination = $this->get('Pagination');
 		$this->commentsMode = true;
 		$this->viewAll = DocumentLibraryHelper::viewAllValue();
 		

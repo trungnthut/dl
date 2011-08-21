@@ -28,6 +28,7 @@ class DocumentLibraryViewUserContrib extends JView {
 		JRequest::setVar('user_id', $user_id);
 		
 		$this->documents = $this->get('Items');
+		$this->pagination = $this->get('Pagination');
 		
 		$this->documentModel = $this->getModel('Document');
 		$this->documentTypeModel = $this->getModel('DocumentType');

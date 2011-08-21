@@ -24,5 +24,10 @@ include_once JPATH_COMPONENT.DS.'helpers'.DS.'documentlibrary.php';
 			<td align='center'><?php echo $this->documentTypeModel->getTypeName($document->type_id); ?></td>
 		</tr>
 	<?php } ?>
+	<tfoot>
+	<tr>
+		<td colspan="7"><?php echo $this->pagination->getListFooter(); ?></td>
+	</tr>
+</tfoot>
 	</table>
 <?php } ?>

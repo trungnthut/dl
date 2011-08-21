@@ -30,11 +30,13 @@ DocumentLibraryHelper::setUiTextPrefix('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_DOWNL
 	<?php $id++ ?>
 <?php } ?>
 
+<form method="POST" action="<?php echo JRequest::getURI(); ?>">
 <tfoot>
 	<tr>
 		<td colspan="4"><?php echo $this->pager->getListFooter(); ?></td>
 	</tr>
 </tfoot>
+</form>
 
 </table>
 <?php } ?>

@@ -4,6 +4,7 @@ defined('_JEXEC') or die('Restricted access');
 ?>
 <h1><?php echo $this->msg; ?></h1>
 
+<form method="POST" action="<?php echo JRequest::getURI(); ?>">
 <table style='border: 1px solid #CCCCCC'>
     <tr style='border: 1px solid #CCCCCC'>
         <td rowspan="2" style='border: 1px solid #CCCCCC'>
@@ -19,5 +20,6 @@ defined('_JEXEC') or die('Restricted access');
         </td>
     </tr>
 </table>
+</form>
 
 

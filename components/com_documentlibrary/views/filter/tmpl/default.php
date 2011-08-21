@@ -16,7 +16,8 @@ include_once JPATH_COMPONENT.DS.'helpers'.DS.'documentlibrary.php';
 	</dl>
 </fieldset>
 <input type='submit' class='button' name='search' value='<?php echo DocumentLibraryHelper::uiText('LABEL_FILTER', 'VIEW', 'FILTER'); ?>'/>
-</for>
+<input type='hidden' name='search' value='1'/>
 <p>
 	<?php echo $this->loadTemplate('documents'); ?>
 </p>
+</form>

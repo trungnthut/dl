@@ -63,8 +63,8 @@ $subjectSelection = DocumentLibraryHelper::selectionBox($this->subjectList, arra
 	
 	<p>
 		<input type='submit' class='button' name='search' value='<?php echo DocumentLibraryHelper::uiText('BUTTON_SEARCH');?>'/>
+		<input type='hidden' name='search' value='1'/>
 	</p>
-</form>
 
 <p>
 	<?php
@@ -73,3 +73,4 @@ $subjectSelection = DocumentLibraryHelper::selectionBox($this->subjectList, arra
 	?>
 </p>
 
+</form>
