@@ -12,7 +12,7 @@ $subjectSelection = DocumentLibraryHelper::selectionBox($this->subjectList, arra
 
 ?>
 
-<form method='POST' action='<?php echo $this->postUrl; ?>'>
+<form name='search_form' method='POST' action='<?php echo $this->postUrl; ?>'>
 	<p>
 		<label> <?php echo DocumentLibraryHelper::uiText('LABEL_NORMAL_SEARCH');?>: </label>
 		<input type='text' name='quick_keyword' size='70em' value='<?php echo $this->defaultQuickKeyword; ?>'></text>
@@ -58,6 +58,10 @@ $subjectSelection = DocumentLibraryHelper::selectionBox($this->subjectList, arra
 	</p>
 	
 	<p>
+	<?php echo $this->loadTemplate('quick_open'); ?>
+	</p>
+	
+	<p>
 		<input type='submit' class='button' name='search' value='<?php echo DocumentLibraryHelper::uiText('BUTTON_SEARCH');?>'/>
 	</p>
 </form>
@@ -68,3 +72,4 @@ $subjectSelection = DocumentLibraryHelper::selectionBox($this->subjectList, arra
 		echo $this->loadTemplate('document_list'); 
 	?>
 </p>
+

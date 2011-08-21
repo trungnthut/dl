@@ -50,6 +50,9 @@ class DocumentLibraryController extends JController {
 			case 'userDownloads':
 				$this->userDownloads();
 				return;
+			case 'filter':
+				$this->filter();
+				return;
 			default:
 				$this->homepage();
 				return;
@@ -416,6 +419,23 @@ class DocumentLibraryController extends JController {
 		
         $documentModel = & $this->getModel('Document');
         $view->setModel($documentModel);
+		
+		$documentTypeModel = & $this->getModel('DocumentType');
+		$view->setModel($documentTypeModel);
+		
+		parent::display();
+	}
+	
+	function filter() {
+		//$this->requireLogin();
+		JRequest::setVar('view', JRequest::getCmd('view', 'filter'));
+		$view = $this->getView(JRequest::getVar('view'), 'html', 'DocumentLibraryView');
+		
+		$classModel = & $this->getModel('Classes');
+		$view->setModel($classModel);
+		
+		$subjectModel = & $this->getModel('Subjects');
+		$view->setModel($subjectModel);
 		
 		$documentTypeModel = & $this->getModel('DocumentType');
 		$view->setModel($documentTypeModel);
