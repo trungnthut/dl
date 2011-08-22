@@ -234,6 +234,10 @@ class DocumentLibraryController extends JController {
     }
     
     function homepage() {
+    	// redirect to the library
+    	$url = DocumentLibraryHelper::url('documentlibrary');
+		$this->setRedirect($url);
+		return;
         JRequest::setVar('view', JRequest::getCmd('view', 'homepage'));
         $view = $this->getView(JRequest::getVar('view'), 'html', 'DocumentLibraryView');
         
