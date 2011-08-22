@@ -305,4 +305,18 @@ class plgUserDlProfile extends JPlugin
 
 		return true;
 	}
+	
+	public function onUserLogin($user, $options = array()) {
+		$db = JFactory::getDbo();
+		$getIdQuery = 'SELECT id FROM #__users WHERE username = "' . $user['username'] . '"';
+		$db->setQuery($getIdQuery);
+		$id = $db->loadResult();
+		if ($id > 0) {
+			$data = new stdClass();
+			$data->user_id = $id;
+			$data->login = date( 'Y-m-d H:i:s', mktime());
+			$db->insertObject('#__user_login', $data, 'login_id');
+		}
+
+	}
 }

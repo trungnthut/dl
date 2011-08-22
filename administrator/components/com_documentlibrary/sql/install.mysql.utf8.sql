@@ -104,6 +104,21 @@ CREATE TABLE IF NOT EXISTS `#__document_types` (
   PRIMARY KEY (`type_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `#__user_login`
+--
+
+DROP TABLE IF EXISTS `#__user_login`;
+CREATE TABLE IF NOT EXISTS `#__user_login` (
+  `login_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `login` datetime NOT NULL,
+  PRIMARY KEY (`login_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
 --
 -- Dumping data for table `#__document_types`
 --
@@ -125,3 +140,5 @@ INSERT INTO `#__document_types` (`type_id`, `name`, `parent_id`, `in_used`, `ext
 (14, 'COM_DOCUMENT_LIBRARY_MODEL_DOCUMENT_TYPE_GOOD_STUDENT_EXAM_PROVINCE', 9, 1, 0),
 (15, 'COM_DOCUMENT_LIBRARY_MODEL_DOCUMENT_TYPE_GOOD_STUDENT_EXAM_COUNTRY', 9, 1, 0),
 (16, 'COM_DOCUMENT_LIBRARY_MODEL_DOCUMENT_TYPE_GOOD_STUDENT_EXAM_INTERNATIONAL', 9, 1, 0);
+
+
