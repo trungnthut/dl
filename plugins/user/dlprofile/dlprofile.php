@@ -307,6 +307,11 @@ class plgUserDlProfile extends JPlugin
 	}
 	
 	public function onUserLogin($user, $options = array()) {
+		// check for site
+		if (empty($options) || !isset($options['action']) || $options['action'] != 'core.login.site') {
+			// we only monitor login to site, not to admin
+			return true;
+		}
 		$db = JFactory::getDbo();
 		$getIdQuery = 'SELECT id FROM #__users WHERE username = "' . $user['username'] . '"';
 		$db->setQuery($getIdQuery);
@@ -317,6 +322,6 @@ class plgUserDlProfile extends JPlugin
 			$data->login = date( 'Y-m-d H:i:s', mktime());
 			$db->insertObject('#__user_login', $data, 'login_id');
 		}
-
+		return true;
 	}
 }
