@@ -2,7 +2,16 @@ Document library project
 
 To install:
 - clone this one
+- rename jinstallation to installation
 - install joomla from this one like normaly
-- create tables for com_document library
-- please, don't commit the deletion of installation folder
+- login to joomla administation site
+- discover extensions
+- extension to install:
+  + com_documentlibrary: main component of this site
+  + plg_dlprofile: extend user profile for registration + user profile view. Please enable this plugin and disable "JOOMLA user profile " plugin if enabled.
+  + vi-VN: vietnamese language for joomla 1.6.4 (fixed some translation bug of contact form in original version)
+  + hs_educarena: template to use with this site
+  + mod_ten_most_interested_documents: module to display ten most interested documents
+  + mod_ten_lastest_uploaded_documents: module to display ten newest documents
+  
 
