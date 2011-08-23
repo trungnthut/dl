@@ -4,7 +4,7 @@ include_once JPATH_COMPONENT.DS.'helpers'.DS.'documentlibrary.php';
 
 DocumentLibraryHelper::setUiTextPrefix('COM_DOCUMENT_LIBRARY_VIEW_SEARCH_');
 
-$quickOpenUrl = DocumentLibraryHelper::url('openDocumentByNumber');
+$quickOpenUrl = JRoute::_('index.php?option=com_documentlibrary&task=openDocumentByNumber');
 ?>
 	<div id='open_warning' style='display: none; background-color:yellow; border: 1px solid orange; padding: 0.7em'>
 	<?php echo DocumentLibraryHelper::uiText('EMPTY_NUMBER'); ?>

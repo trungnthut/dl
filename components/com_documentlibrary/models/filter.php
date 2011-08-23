@@ -11,6 +11,7 @@ class DocumentLibraryModelFilter extends JModelList {
 		$subject_id = JRequest::getInt('subject', 0);
 		$class_id = JRequest::getInt('class', 0);
 		$type_id = JRequest::getInt('type', 0);
+		$title = JRequest::getString('title', '');
 		
 		$query->select('D.*, U.name AS user, DATE(D.uploaded_time) AS date');
 		$query->from('#__documents D, #__users U');
@@ -23,6 +24,9 @@ class DocumentLibraryModelFilter extends JModelList {
 		}
 		if ($type_id > 0) {
 			$query->where('D.type_id = ' . $type_id);
+		}
+		if (!empty($title)) {
+			$query->where('D.title LIKE "%' . $title . '%"');
 		}
 		
 		return $query;

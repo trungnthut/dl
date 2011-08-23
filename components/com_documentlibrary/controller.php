@@ -53,6 +53,18 @@ class DocumentLibraryController extends JController {
 			case 'filter':
 				$this->filter();
 				return;
+			case 'comment':
+			    // FIXME: not good in the logicstic
+				$this->comment();
+				return;
+			case 'download':
+				// FIXME: this should be task only
+				$this->download();
+				return;
+			// case 'openDocumentByNumber':
+				// // FIXME: task only
+				// $this->openDocumentByNumber();
+				// return;
 			default:
 				$this->homepage();
 				return;

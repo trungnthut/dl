@@ -23,6 +23,8 @@ class DocumentLibraryViewFilter extends JView {
 		}
 		$this->defaultType = JRequest::getInt('type', 0);
 		
+		$this->currentTitle = JRequest::getString('title', '');
+		
 		$filter = JRequest::getVar('search', null);
 		if ($filter) {
 			// pretty much like search function !

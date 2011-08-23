@@ -8,7 +8,7 @@ abstract class DocumentLibraryHelper {
 		$query = 'option=' . $component;
 		
 		if (!empty($task)) {
-			$query .= '&task=' . $task;
+			$query .= '&view=' . $task;
 		}
 
 		if (!empty($otherOptions)) {
