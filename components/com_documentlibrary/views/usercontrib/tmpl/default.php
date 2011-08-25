@@ -6,6 +6,7 @@ DocumentLibraryHelper::setUiTextPrefix('COM_DOCUMENT_LIBRARY_VIEW_USER_CONTRIB_'
 
 $idx = 0;
 ?>
+<form method="POST" action="<?php echo JRequest::getURI(); ?>">
 <?php if (count($this->documents) > 0) { ?>
 	<fieldset>
 		<legend><?php JText::printf('COM_DOCUMENT_LIBRARY_VIEW_USER_CONTRIB_BY_USER', $this->userName); ?></legend>
@@ -44,8 +45,13 @@ $idx = 0;
     </tr>
         
     <?php } ?>
-    
+    <tfoot>
+	<tr>
+		<td colspan="8"><?php echo $this->pagination->getListFooter(); ?></td>
+	</tr>
+	</tfoot>
 </table>
 </fieldset>
 
 <?php } ?>
+</form>

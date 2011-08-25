@@ -40,3 +40,9 @@ if ($this->viewAll) {
 <?php } ?>
 
 <?php echo $this->loadTemplate('comments'); ?>
+
+<form method="POST" action="<?php echo JRequest::getURI(); ?>">
+<p>
+	<?php echo $this->pagination->getListFooter(); ?>
+</p>
+</form>

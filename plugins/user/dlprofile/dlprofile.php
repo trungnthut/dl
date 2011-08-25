@@ -75,9 +75,6 @@ class plgUserDlProfile extends JPlugin
 			if (!JHtml::isRegistered('users.subject')) {
 				JHtml::register('users.subject', array(__CLASS__, 'subject'));
 			}
-			if (!JHtml::isRegistered('users.anchor')) {
-				JHtml::register('user.anchor', array(__CLASS__, 'anchor'));
-			}
 		}
 
 		return true;
@@ -153,18 +150,6 @@ class plgUserDlProfile extends JPlugin
 		$name = $db->loadResult();
 		return JText::_($name);
 	}
-
-	public static function anchor($value) {
-		// if (empty($value)) {
-			// return '';
-		// }
-		if ($value == 1) {
-			return '<a href="index.php?option=com_documentlibrary&view=userContrib">contrib</a>';
-		}
-		else {
-			return '<a href="index.php?option=com_documentlibrary&view=userDownloads">downloads</a>';
-		}
-	}
 	/**
 	 * @param	JForm	$form	The form to be altered.
 	 * @param	array	$data	The associated data for the form.
@@ -193,113 +178,42 @@ class plgUserDlProfile extends JPlugin
 		JForm::addFormPath(dirname(__FILE__).'/profiles');
 		$form->loadFile('profile', false);
 
-		// Toggle whether the address1 field is required.
-		if ($this->params->get('register-require_address1', 1) > 0) {
-			$form->setFieldAttribute('address1', 'required', $this->params->get('register-require_address1') == 2, 'profile');
-		}
-		else {
-			$form->removeField('address1', 'profile');
-		}
-
-		// Toggle whether the address2 field is required.
-		if ($this->params->get('register-require_address2', 1) > 0) {
-			$form->setFieldAttribute('address2', 'required', $this->params->get('register-require_address2') == 2, 'profile');
-		}
-		else {
-			$form->removeField('address2', 'profile');
-		}
-
-		// Toggle whether the city field is required.
-		if ($this->params->get('register-require_city', 1) > 0) {
-			$form->setFieldAttribute('city', 'required', $this->params->get('register-require_city') == 2, 'profile');
-		}
-		else {
-			$form->removeField('city', 'profile');
-		}
-
-		// Toggle whether the region field is required.
-		if ($this->params->get('register-require_region', 1) > 0) {
-			$form->setFieldAttribute('region', 'required', $this->params->get('register-require_region') == 2, 'profile');
-		}
-		else {
-			$form->removeField('region', 'profile');
-		}
-
-		// Toggle whether the country field is required.
-		if ($this->params->get('register-require_country', 1) > 0) {
-			$form->setFieldAttribute('country', 'required', $this->params->get('register-require_country') == 2, 'profile');
-		}
-		else {
-			$form->removeField('country', 'profile');
-		}
-
-		// Toggle whether the postal code field is required.
-		if ($this->params->get('register-require_postal_code', 1) > 0) {
-			$form->setFieldAttribute('postal_code', 'required', $this->params->get('register-require_postal_code') == 2, 'profile');
-		}
-		else {
-			$form->removeField('postal_code', 'profile');
-		}
-
-		// Toggle whether the phone field is required.
-		if ($this->params->get('register-require_phone', 1) > 0) {
-			$form->setFieldAttribute('phone', 'required', $this->params->get('register-require_phone') == 2, 'profile');
-		}
-		else {
-			$form->removeField('phone', 'profile');
-		}
-
-		// Toggle whether the website field is required.
-		if ($this->params->get('register-require_website', 1) > 0) {
-			$form->setFieldAttribute('website', 'required', $this->params->get('register-require_website') == 2, 'profile');
-		}
-		else {
-			$form->removeField('website', 'profile');
-		}
-
-		// Toggle whether the favoritebook field is required.
-		if ($this->params->get('register-require_favoritebook', 1) > 0) {
-			$form->setFieldAttribute('favoritebook', 'required', $this->params->get('register-require_favoritebook') == 2, 'profile');
-		}
-		else {
-			$form->removeField('favoritebook', 'profile');
-		}
-
-		// Toggle whether the aboutme field is required.
-		if ($this->params->get('register-require_aboutme', 1) > 0) {
-			$form->setFieldAttribute('aboutme', 'required', $this->params->get('register-require_aboutme') == 2, 'profile');
-		}
-		else {
-			$form->removeField('aboutme', 'profile');
-		}
-
-		// Toggle whether the tos field is required.
-		if ($this->params->get('register-require_tos', 1) > 0) {
-			$form->setFieldAttribute('tos', 'required', $this->params->get('register-require_tos') == 2, 'profile');
-		}
-		else {
-			$form->removeField('tos', 'profile');
-		}
-
 		// Toggle whether the dob field is required.
-		if ($this->params->get('register-require_dob', 1) > 0) {
-			$form->setFieldAttribute('dob', 'required', $this->params->get('register-require_dob') == 2, 'profile');
-		}
-		else {
-			$form->removeField('dob', 'profile');
-		}
+		$this->toggleRequiredField('dob', 'dlprofile-require_dob', $form);
+		
+		// Toggle whether the sex field is required
+		$this->toggleRequiredField('sex', 'dlprofile-require_sex', $form);
+		
+		// Toggle whether the degree field is required
+		$this->toggleRequiredField('degree', 'dlprofile-require_degree', $form);
+		
+		// Toggle whether the subject field is required
+		$this->toggleRequiredField('subject', 'dlprofile-require_subject', $form);
+		
+		// Toggle whether the award field is required
+		$this->toggleRequiredField('award', 'dlprofile-require_award', $form);
+		
+		// Toggle whether the school field is required
+		$this->toggleRequiredField('school', 'dlprofile-require_school', $form);
+		
+		// Toggle whether the district field is required.
+		$this->toggleRequiredField('address1', 'dlprofile-require_address1', $form);
 
-		if (!in_array($form->getName(), array('com_admin.profile', 'com_users.profile'))) {
-			$form->removeGroup('diary');
-		}
-
-		// $oo = $form->getField('degree', 'profile');
-		// var_dump($oo);
-		// $subjectField = $this->createSubjectField();
-		// var_dump($subjectField);
-		// $form->setField($subjectField, 'profile', true);
+		// Toggle whether the city/provine field is required.
+		$this->toggleRequiredField('address2', 'dlprofile-require_address2', $form);
 
 		return true;
+	}
+	
+	private function toggleRequiredField($field, $param, $form, $section = 'profile') {
+		if (empty ($form)) {
+			return;
+		}
+		if ($this->params->get($param, 1) > 0) {
+			$form->setFieldAttribute($field, 'required', $this->params->get($param) == 2, $section);
+		} else {
+			$form->removeField($field, $section);
+		}
 	}
 
 	function onUserAfterSave($data, $isNew, $result, $error)
@@ -392,45 +306,22 @@ class plgUserDlProfile extends JPlugin
 		return true;
 	}
 	
-	private function getDataAgain($userId, &$data)
-	{
-		if ($userid <= 0) {
-			return null;
+	public function onUserLogin($user, $options = array()) {
+		// check for site
+		if (empty($options) || !isset($options['action']) || $options['action'] != 'core.login.site') {
+			// we only monitor login to site, not to admin
+			return true;
 		}
-
-			$data	= new JUser($userId);
-
-			// Set the base user data.
-			$data->email1 = $data->get('email');
-			$data->email2 = $data->get('email');
-
-			// Override the base user data with any data in the session.
-			$temp = (array)JFactory::getApplication()->getUserState('com_users.edit.profile.data', array());
-			foreach ($temp as $k => $v) {
-				$data->$k = $v;
-			}
-
-			// Unset the passwords.
-			unset($data->password1);
-			unset($data->password2);
-
-			$registry = new JRegistry($data->params);
-			$data->params = $registry->toArray();
-
-			// Get the dispatcher and load the users plugins.
-			// $dispatcher	= JDispatcher::getInstance();
-			// JPluginHelper::importPlugin('user');
-// 
-			// // Trigger the data preparation event.
-			// $results = $dispatcher->trigger('onContentPrepareData', array('com_users.profile', $this->data));
-// 
-			// // Check for errors encountered while preparing the data.
-			// if (count($results) && in_array(false, $results, true)) {
-				// $this->setError($dispatcher->getError());
-				// $this->data = false;
-			// }
-		// }
-
-		return $data;
+		$db = JFactory::getDbo();
+		$getIdQuery = 'SELECT id FROM #__users WHERE username = "' . $user['username'] . '"';
+		$db->setQuery($getIdQuery);
+		$id = $db->loadResult();
+		if ($id > 0) {
+			$data = new stdClass();
+			$data->user_id = $id;
+			$data->login = date( 'Y-m-d H:i:s', mktime());
+			$db->insertObject('#__user_login', $data, 'login_id');
+		}
+		return true;
 	}
 }

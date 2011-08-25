@@ -276,6 +276,9 @@ class DocumentLibraryModelDocument extends JModelItem {
     
 	function getDocumentIdFromNumber($orignal_id, $version = 1) {
 		$db = JFactory::getDbo();
+		if ($version = 1) {
+			return $orignal_id;
+		}
 		$query = 'SELECT document_id FROM #__documents WHERE original_id = ' . $orignal_id . ' AND version = ' . $version;
 		$db->setQuery($query);
 		$result = $db->loadResult();

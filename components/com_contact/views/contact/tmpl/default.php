@@ -22,6 +22,23 @@ $cparams = JComponentHelper::getParams ('com_media');
 			<span class="contact-name"><?php echo $this->contact->name; ?></span>
 		</h2>
 	<?php endif;  ?>
+	<?php // BEGIN OTHER INFORMATION ?>
+	<?php if ($this->contact->misc && $this->params->get('show_misc')) : ?>
+		<?php //if ($this->params->get('presentation_style')!='plain'){?>
+			<?php //echo JHtml::_($this->params->get('presentation_style').'.panel', JText::_('COM_CONTACT_OTHER_INFORMATION'), 'display-misc');} ?>
+		<?php //if ($this->params->get('presentation_style')=='plain'):?>
+			<?php //echo '<h3>'. JText::_('COM_CONTACT_OTHER_INFORMATION').'</h3>'; ?>
+		<?php //endif; ?>
+				<div class="contact-miscinfo">
+					<div class="<?php echo $this->params->get('marker_class'); ?>">
+						<?php //echo $this->params->get('marker_misc'); ?>
+					</div>
+					<div class="contact-misc">
+						<?php echo $this->contact->misc; ?>
+					</div>
+				</div>
+	<?php endif; ?>
+	<?php // END OTHER INFORMATION ?>
 	<?php if ($this->params->get('show_contact_category') == 'show_no_link') : ?>
 		<h3>
 			<span class="contact-category"><?php echo $this->contact->category_title; ?></span>
@@ -96,21 +113,7 @@ $cparams = JComponentHelper::getParams ('com_media');
 		<?php endif; ?>
 		<?php echo $this->loadTemplate('profile'); ?>
 	<?php endif; ?>
-	<?php if ($this->contact->misc && $this->params->get('show_misc')) : ?>
-		<?php if ($this->params->get('presentation_style')!='plain'){?>
-			<?php echo JHtml::_($this->params->get('presentation_style').'.panel', JText::_('COM_CONTACT_OTHER_INFORMATION'), 'display-misc');} ?>
-		<?php if ($this->params->get('presentation_style')=='plain'):?>
-			<?php echo '<h3>'. JText::_('COM_CONTACT_OTHER_INFORMATION').'</h3>'; ?>
-		<?php endif; ?>
-				<div class="contact-miscinfo">
-					<div class="<?php echo $this->params->get('marker_class'); ?>">
-						<?php echo $this->params->get('marker_misc'); ?>
-					</div>
-					<div class="contact-misc">
-						<?php echo $this->contact->misc; ?>
-					</div>
-				</div>
-	<?php endif; ?>
+	<?php // OTHER INFORMATION WAS HERE ?>
 	<?php if ($this->params->get('presentation_style')!='plain'){?>
 			<?php echo JHtml::_($this->params->get('presentation_style').'.end');} ?>
 </div>

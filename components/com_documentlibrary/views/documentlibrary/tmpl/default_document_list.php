@@ -48,4 +48,11 @@ DocumentLibraryHelper::setUiTextPrefix('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_LIBRA
     <?php } ?>
 
 <?php } ?>
+<?php if (isset($this->pagination)) { ?>
+<tfoot>
+	<tr>
+		<td colspan="10"><?php echo $this->pagination->getListFooter(); ?></td>
+	</tr>
+</tfoot>
+<?php } ?>
 </table>

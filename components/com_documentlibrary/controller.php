@@ -50,6 +50,21 @@ class DocumentLibraryController extends JController {
 			case 'userDownloads':
 				$this->userDownloads();
 				return;
+			case 'filter':
+				$this->filter();
+				return;
+			case 'comment':
+			    // FIXME: not good in the logicstic
+				$this->comment();
+				return;
+			case 'download':
+				// FIXME: this should be task only
+				$this->download();
+				return;
+			// case 'openDocumentByNumber':
+				// // FIXME: task only
+				// $this->openDocumentByNumber();
+				// return;
 			default:
 				$this->homepage();
 				return;
@@ -231,6 +246,10 @@ class DocumentLibraryController extends JController {
     }
     
     function homepage() {
+    	// redirect to the library
+    	$url = DocumentLibraryHelper::url('documentlibrary');
+		$this->setRedirect($url);
+		return;
         JRequest::setVar('view', JRequest::getCmd('view', 'homepage'));
         $view = $this->getView(JRequest::getVar('view'), 'html', 'DocumentLibraryView');
         
@@ -416,6 +435,23 @@ class DocumentLibraryController extends JController {
 		
         $documentModel = & $this->getModel('Document');
         $view->setModel($documentModel);
+		
+		$documentTypeModel = & $this->getModel('DocumentType');
+		$view->setModel($documentTypeModel);
+		
+		parent::display();
+	}
+	
+	function filter() {
+		//$this->requireLogin();
+		JRequest::setVar('view', JRequest::getCmd('view', 'filter'));
+		$view = $this->getView(JRequest::getVar('view'), 'html', 'DocumentLibraryView');
+		
+		$classModel = & $this->getModel('Classes');
+		$view->setModel($classModel);
+		
+		$subjectModel = & $this->getModel('Subjects');
+		$view->setModel($subjectModel);
 		
 		$documentTypeModel = & $this->getModel('DocumentType');
 		$view->setModel($documentTypeModel);

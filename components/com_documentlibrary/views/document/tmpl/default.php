@@ -68,7 +68,10 @@ $allVersionDownloadsUrl = DocumentLibraryHelper::url('documentDownloads', array(
 
 <!-- <p> -->
     <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_NO_VERSIONS');?>:</dt>
-    <dd><a href='<?php echo $documentTreeUrl; ?>'><?php echo $this->documentNoVersions; ?></a></dd>
+    <dd>
+    	<label><?php echo $this->documentNoVersions; ?></label>
+    	(<a href='<?php echo $documentTreeUrl; ?>'><?php echo DocumentLibraryHelper::uiText('DOCUMENT_TREE', 'VIEW', 'DOCUMENT'); ?></a>)
+    </dd>
 <!-- </p> -->
 </dl>
 
