@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="1.6.0" client="site" method="upgrade">
+    <name>mod_search_dl</name>
+    <author>Nguyen Thi Thanh Thuy</author>
+    <version>1.6.0</version>
+    <description>Search DL Module</description>
+    <files>
+		<filename module="mod_search_dl">mod_search_dl.php</filename>
+        <filename>mod_search_dl.xml</filename>
+        <filename>index.html</filename>
+        <filename>helper.php</filename>
+        <filename>tmpl/default.php</filename>
+        <filename>tmpl/index.html</filename>
+    </files>
+	<languages>
+		<language tag="en-GB">en-GB.mod_search_dl.ini</language>
+		<language tag="en-GB">en-GB.mod_search_dl.sys.ini</language>
+		<language tag="vi-VN">vi-VN.mod_search_dl.ini</language>
+		<language tag="vi-VN">vi-VN.mod_search_dl.sys.ini</language>
+	</languages>
+    <fields>
+    </fields>
+</extension>
