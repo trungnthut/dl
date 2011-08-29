@@ -30,6 +30,7 @@ class DocumentLibraryController extends JController {
 				$this->document();
 				return;
 			case 'documentLibrary':
+			case 'documentlibrary':
 				$this->documentLibrary();
 				return;
 			case 'search':
