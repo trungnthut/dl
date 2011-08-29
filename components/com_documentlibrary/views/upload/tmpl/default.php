@@ -71,7 +71,7 @@ $filterLink = DocumentLibraryHelper::url('filter');
             ?></dd>
             
             <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_LESSON'); ?>:</dt>
-            <dd><input type='text' name='lesson' value='<?php echo $this->parentDocument ? $this->parentDocument->lesson : ''; ?>' <?php echo $disable; ?>/></dd>
+            <dd><input type='text' name='lesson' value='<?php echo isset($this->parentDocument) ? $this->parentDocument->lesson : ''; ?>' <?php echo $disable; ?>/></dd>
             <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_CLASS'); ?>:</dt>
             <dd>
             <?php
