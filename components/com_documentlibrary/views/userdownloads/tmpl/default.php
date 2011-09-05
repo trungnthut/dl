@@ -26,9 +26,9 @@ $idx = 0;
     $idx++;
 	$document = $this->documents[$download->document_id];
     $optionArr = array('document' => $download->document_id);
-	if ($this->viewAll) {
-		$optionArr['viewAll'] = 1;
-	}
+	// if ($this->viewAll) {
+		// $optionArr['viewAll'] = 1;
+	// }
     	$documentCommentsUrl = DocumentLibraryHelper::url('documentComments', $optionArr);
 		$documentDownloadsUrl = DocumentLibraryHelper::url('documentDownloads', $optionArr);
 		$documentTreeUrl = DocumentLibraryHelper::url('documentTree', array('document' => $document->document_id));
