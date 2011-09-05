@@ -42,17 +42,19 @@ class DocumentLibraryViewDocument extends JView {
         // breadcrumbs
         $mainFrame = & JFactory::getApplication();
         $pathway = & $mainFrame->getPathway();
-        $pathway->addItem($this->uiText('LIBRARY'), JRoute::_('index.php?com=documentLibrary&task=documentLibrary'));
+        $pathway->addItem($this->uiText('LIBRARY'), JRoute::_('index.php?com=documentLibrary&view=documentLibrary'));
         
 		if ($this->documentInfo) {
         	$class_id = $this->documentInfo->class_id;
         	$classModel = $this->getModel('Classes');
         	$class = $classModel->getClassName($class_id);
+			$this->documentClass = $class;
         	$pathway->addItem($class);
 
         	$subject_id = $this->documentInfo->subject_id;
         	$subjectModel = $this->getModel('Subjects');
         	$subject = $subjectModel->getSubjectName($subject_id);
+			$this->documentSubject = $subject;
         	$pathway->addItem($subject);
 		}
         // finish breadcrumbs
