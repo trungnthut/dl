@@ -6,7 +6,7 @@ defined('_JEXEC') or die('Restricted access');
 
 <form method="POST" action="<?php echo JRequest::getURI(); ?>">
 <table style='border: 1px solid #CCCCCC'>
-    <tr style='border: 1px solid #CCCCCC'>
+    <tr style='border: 1px solid #CCCCCC; vertical-align:top;'>
         <td rowspan="2" style='border: 1px solid #CCCCCC'>
             <?php echo $this->loadTemplate('left');?>
         </td>

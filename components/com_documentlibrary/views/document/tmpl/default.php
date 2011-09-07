@@ -17,72 +17,62 @@ $allVersionDownloadsUrl = DocumentLibraryHelper::url('documentDownloads', array(
 ?>
 <fieldset>
 	<legend><?php echo DocumentLibraryHelper::uiText('LABEL_DOCUMENT_INFO'); ?></legend>
-<!-- <p> -->
+
 	<dl style='float: left'>
     <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_LABEL_DOCUMENT_NUMBER');?>:</dt>
     <dd><?php echo $this->documentNumber; ?>.<?php echo $this->documentVersion; ?></dd>
-<!-- </p> -->
 
 <!--<p>
     <label><?php //echo uiText('LABEL_DOCUMENT_VERSION'); ?>:</label>
     <label><?php //echo $this->documentVersion; ?></label>
 </p>-->
 
-<!-- <p> -->
     <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_LABEL_TITLE'); ?>:</dd>
     <dd><?php echo $this->documentTitle; ?></dd>
-<!-- </p> -->
 
-<!-- <p> -->
     <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_LABEL_SUMMARY'); ?>:</dt>
     <dd><?php echo $this->documentSummary; ?></dd>
-<!-- </p> -->
 
-<!-- <br/> -->
-<!-- <p> -->
+	<?php if (isset($this->documentInfo)) { ?>
+	<dt><?php echo DocumentLibraryHelper::uiText('LABEL_SUBJECT', 'VIEW', 'DOCUMENT'); ?></dt>
+	<dd><?php echo $this->documentSubject; ?></dd>
+	
+	<dt><?php echo DocumentLibraryHelper::uiText('LABEL_CLASS', 'VIEW', 'DOCUMENT'); ?></dt>
+	<dd><?php echo $this->documentClass; ?></dd>
+	<?php } ?>
+
     <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_QUESTION');?>:</dt>
     <dd><?php echo $this->documentQuestion; ?></dd>
-<!-- </p> -->
 
-<!-- <p> -->
     <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_UPLOADER');?>:</dt>
     <dd><a href='<?php echo DocumentLibraryHelper::profile($this->documentUploaderId);?>'><?php echo $this->documentUploader; ?></a></dd>
-<!-- </p> -->
 
-<!-- <p> -->
     <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_DATE');?>:</dt>
     <dd><?php echo $this->documentDate; ?></dd>
-<!-- </p> -->
 
-<!-- <p> -->
     <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_DOWNLOADED_TIMES');?>:</dt>
     <dd><a href='<?php echo $thisVersionDownloadsUrl; ?>'><?php echo $this->documentDownloadedTimes; ?></a>
     (<a href='<?php echo $allVersionDownloadsUrl?>'><?php echo  DocumentLibraryHelper::uiText('ALL_VERSION_DOWNLOADS', 'view', 'document'); ?></a>)</dd>
-<!-- </p> -->
 
-<!-- <p> -->
     <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_NO_COMMENTS');?>:</dd>
     <dd><label><?php echo $this->documentNoComments; ?></label>
     (<a href='<?php echo $allVersionCommentsUrl;?>'><?php echo DocumentLibraryHelper::uiText('ALL_VERSION_COMMENTS', 'view', 'document'); ?></a>)</dd>
-<!-- </p> -->
 
-<!-- <p> -->
     <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_NO_VERSIONS');?>:</dt>
     <dd>
     	<label><?php echo $this->documentNoVersions; ?></label>
     	(<a href='<?php echo $documentTreeUrl; ?>'><?php echo DocumentLibraryHelper::uiText('DOCUMENT_TREE', 'VIEW', 'DOCUMENT'); ?></a>)
     </dd>
-<!-- </p> -->
 </dl>
 
 <p>
-<!--    <label>Noi dung tai lieu</label>-->
 </p>
 <p>
     <?php
         $upload_url = JRoute::_('index.php?option=com_documentlibrary&task=upload');
         $upload_new_version_url = JRoute::_('index.php?option=com_documentlibrary&task=upload&parent=' . $this->documentId);
         $download_url = JRoute::_('index.php?option=com_documentlibrary&task=download&document=' . $this->documentId);
+		$onDownloadClicked = "alert('" . JTEXT::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_DOWNLOAD_ACK') . "')"; 
     ?>
     <table style='float: right'>
     <tr>
@@ -92,7 +82,7 @@ $allVersionDownloadsUrl = DocumentLibraryHelper::url('documentDownloads', array(
     	<td><a class="button" style='width: 15em; text-align: center' href="<?php echo $upload_new_version_url; ?>"><?php echo uiText('UPLOAD_NEW_VERSION'); ?></a></td>
     </tr>
     <tr>
-    	<td><a class="button" style='width: 15em; text-align: center' href="<?php echo $download_url; ?>"><?php echo uiText('DOWNLOAD'); ?></a></td>
+    	<td><a class="button" style='width: 15em; text-align: center' href="<?php echo $download_url; ?>" onclick="<?php echo $onDownloadClicked; ?>"><?php echo uiText('DOWNLOAD'); ?></a></td>
     </tr>
     </table>
 </p>

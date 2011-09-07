@@ -43,7 +43,7 @@ $filterLink = DocumentLibraryHelper::url('filter');
     	<dl>
 <!--         <p style='display: block'> -->
             <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_TITLE'); ?>:</dt>
-            <dd><input type="text" name="documentTitle" class='inputbox' style='width: 70%' value="<?php echo $this->parentDocument ? $this->parentDocument->title : '';?>" <?php echo $disable;?>/></dd>
+            <dd><input type="text" name="documentTitle" class='inputbox' style='width: 70%' value="<?php echo isset($this->parentDocument) ? $this->parentDocument->title : '';?>" <?php echo $disable;?>/></dd>
 <!--         </p> -->
 
 		<?php if ($this->parent_id > 0 && $this->parentDocument) { ?>
@@ -63,7 +63,7 @@ $filterLink = DocumentLibraryHelper::url('filter');
                 $subjectHtmlOptions = array(
                     'name' => 'subject',
                     'css' => 'class="inputbox"',
-                    'default' => $this->parentDocument ? $this->parentDocument->subject_id : 1,
+                    'default' => isset($this->parentDocument) ? $this->parentDocument->subject_id : 1,
                     'disabled' => $disable
                 );
                 
@@ -71,13 +71,13 @@ $filterLink = DocumentLibraryHelper::url('filter');
             ?></dd>
             
             <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_LESSON'); ?>:</dt>
-            <dd><input type='text' name='lesson' value='<?php echo $this->parentDocument ? $this->parentDocument->lesson : ''; ?>' <?php echo $disable; ?>/></dd>
+            <dd><input type='text' name='lesson' value='<?php echo isset($this->parentDocument) ? $this->parentDocument->lesson : ''; ?>' <?php echo $disable; ?>/></dd>
             <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_CLASS'); ?>:</dt>
             <dd>
             <?php
                 $classHtmlOptions = array(
                     'name' => 'class',
-                    'default' => $this->parentDocument ? $this->parentDocument->class_id : 1,
+                    'default' => isset($this->parentDocument) ? $this->parentDocument->class_id : 1,
                     'disabled' => $disable
                 );
                 echo DocumentLibraryHelper::selectionBox($this->classList, $classHtmlOptions); 
@@ -95,14 +95,14 @@ $filterLink = DocumentLibraryHelper::url('filter');
 <!--         <p> -->
             <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_SUMMARY');?>:</dt>
 <!--             <br/> -->
-            <dd><textarea style='width: 99%; height: 9em; border: 1px solid #CCCCCC; margin-left: 2px' ><?php echo $this->parentDocument ? $this->parentDocument->summary : ''; ?></textarea></dd>
+            <dd><textarea style='width: 99%; height: 9em; border: 1px solid #CCCCCC; margin-left: 2px' ><?php echo isset($this->parentDocument) ? $this->parentDocument->summary : ''; ?></textarea></dd>
 <!--             <br/> -->
 <!--         </p> -->
 
 <!--         <p> -->
             <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_QUESTION');?>:</dt>
 <!--             <br/> -->
-            <dd><textarea style='width: 99%; height: 3em; border: 1px solid #CCCCCC; margin-left: 2px' ><?php echo $this->parentDocument ? $this->parentDocument->question : ''; ?></textarea></dd>
+            <dd><textarea style='width: 99%; height: 3em; border: 1px solid #CCCCCC; margin-left: 2px' ><?php echo isset($this->parentDocument) ? $this->parentDocument->question : ''; ?></textarea></dd>
 <!--             <br/> -->
 <!--         </p> -->
 
@@ -113,7 +113,7 @@ $filterLink = DocumentLibraryHelper::url('filter');
         </dl>
     </fieldset>
            <!-- TODO: check and remove original  field -->
-        <input type='hidden' name='original' value='<?php echo $this->parentDocument ? $this->parentDocument->original_id : 0; ?>' />
+        <input type='hidden' name='original' value='<?php echo isset($this->parentDocument) ? $this->parentDocument->original_id : 0; ?>' />
         <input type='hidden' name='parent' value='<?php echo $this->parent_id; ?>' />
 
         <input type='submit' name='submit' class='button' value='<?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_UPLOAD'); ?>'/>

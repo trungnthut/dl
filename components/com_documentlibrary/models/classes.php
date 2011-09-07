@@ -14,13 +14,18 @@ class DocumentLibraryModelClasses extends JModelItem {
         $this->fixedData = array(
             1 => 10,
             2 => 11,
-            3 => 12
+            3 => 12,
+            4 => -1
         );
         
         $this->lastFixedId = count($this->fixedData);
         
         foreach ($this->fixedData as $id => $class) {
-            $className = JText::_('COM_DOCUMENT_LIBRARY_MODEL_CLASSES_CLASS_PREFIX') . ' ' . $class;
+        	if ($class > 0) {
+            	$className = JText::_('COM_DOCUMENT_LIBRARY_MODEL_CLASSES_CLASS_PREFIX') . ' ' . $class;
+			} else {
+				$className = JText::_('COM_DOCUMENT_LIBRARY_MODEL_CLASSES_OTHER_CLASS');
+			}
             $this->displayData[$id] = $className;
         }
     }
