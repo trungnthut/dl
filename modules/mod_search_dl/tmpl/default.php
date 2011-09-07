@@ -6,7 +6,7 @@ defined ('_JEXEC') or die ('Access denied');
 		<td>
 			<form name="frmSearch" method="post" action="<?php echo $searchURL?>">
 				<input type='hidden' name="quick_keyword_type" value="1"/>
-				<input type='text' name="quick_keyword"/>&nbsp;<input type="submit" class="button" name="search" value="<?php echo JText::_("MOD_SEARCH_DL");?>"/>
+				<input type='text' name="quick_keyword"/>&nbsp;<br/><input type="submit" class="button" name="search" value="<?php echo JText::_("MOD_SEARCH_DL");?>"/>
 				<br>
 			</form>
 		</td>
@@ -20,7 +20,7 @@ defined ('_JEXEC') or die ('Access denied');
 		<td>
 			<form name="frmSearch2" method="post" action="<?php echo $openByNumberURL?>">
 				<label><?php echo JText::_('MOD_SEARCH_DL_OPEN_DOCUMENT_BY_VERSION');?></label>
-				<input type='text' name="document_number"/>&nbsp;<input type="submit" name="" class="button" value="<?php echo JText::_('MOD_SEARCH_DL_OPEN'); ?>">
+				<input type='text' name="document_number"/>&nbsp;<br/><input type="submit" name="" class="button" value="<?php echo JText::_('MOD_SEARCH_DL_OPEN'); ?>">
 				<br>
 			</form>
 		</td>
