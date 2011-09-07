@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="1.6.0" client="site" method="upgrade">
+    <name>mod_ten_most_downloaded_documents</name>
+    <author>Nguyen Thi Thanh Thuy</author>
+    <version>1.6.0</version>
+    <description>Display ten most downloaded documents module!</description>
+    <files>
+		 <filename module="mod_ten_most_downloaded_documents">mod_ten_most_downloaded_documents.php</filename>
+        <filename>mod_ten_most_downloaded_documents.xml</filename>
+        <filename>index.html</filename>
+        <filename>helper.php</filename>
+        <filename>tmpl/default.php</filename>
+        <filename>tmpl/index.html</filename>
+    </files>
+    <fields>
+    </fields>
+</extension>
