@@ -11,7 +11,7 @@ class ModTenMostInterestedDocumentsHelper
 				.' FROM #__documents D, #__document_comments C, #__users U'
 				.' WHERE (D.document_id = C.document_id) AND (D.uploader_id = U.id)'
 				.' GROUP BY C.document_id'
-				.' ORDER BY total_comment DESC'
+				.' ORDER BY total_comment DESC, D.document_id DESC'
 				.' LIMIT 0,'. $num;
 		//echo $query;
 		$db = JFactory::getDbo();
