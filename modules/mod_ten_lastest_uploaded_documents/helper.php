@@ -10,7 +10,7 @@ class ModTenLastestUploadedDocumentsHelper
 		$query = 'SELECT D.*, DATE(D.uploaded_time) AS uploaded_date, U.name as uploader' 
             .' FROM #__documents D, #__users U'
 			.' WHERE (D.uploader_id = U.id)'
-            .' ORDER BY D.uploaded_time DESC'
+            .' ORDER BY D.uploaded_time DESC, D.document_id DESC'
 			.' LIMIT 0,' . $num;
 		//echo $query;
 		$db = JFactory::getDbo();
