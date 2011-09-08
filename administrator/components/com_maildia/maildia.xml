@@ -33,6 +33,7 @@
 		<filename>index.html</filename>
 		<filename>maildia.php</filename>
 		<filename>controller.php</filename>
+		<filename>SMTP.php</filename>
 		<folder>views</folder>
 <!-- 		<folder>models</folder> -->
 <!-- 		<folder>language</folder> -->

@@ -4,6 +4,8 @@ defined ('_JEXEC') or die ('Restricted access');
 
 jimport('joomla.application.component.controller');
 
+include_once ('SMTP.php');
+
 /**
  * MailDiaController
  */
@@ -17,7 +19,8 @@ class MailDiaController extends JController {
 				$this->phpmail();
 				break;
 			case 'smtp':
-				$this->smtpmail();
+				// $this->smtpmail();
+				$this->smtpDirect();
 				break;
 		}
 
@@ -82,6 +85,30 @@ class MailDiaController extends JController {
 		} else {
 			JError::raiseNotice(99, "ok");
 		}
+	}
+	
+	function smtpDirect() {
+		$to = JRequest::getString('to');
+		$subject = JRequest::getString('subject');
+		$message = JRequest::getString('message');
+		
+		$server = JRequest::getString('server');
+		$auth = JRequest::getVar('auth');
+		$secure = JRequest::getString('secure');
+		$port = JRequest::getString('port');
+		$username = JRequest::getString('username');
+		$password = JRequest::getString('password');
+		
+		$opt = array(
+			'server' => $server,
+			'port' => $port,
+			'username' => $username,
+			'password' => $password,
+			'secure' => $secure
+		);
+		
+		$log = authgMail($username, $username, $to, $to, $subject, $message, $opt);
+		var_dump($log);
 	}
 }
 
