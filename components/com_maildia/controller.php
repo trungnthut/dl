@@ -3,7 +3,6 @@
 defined ('_JEXEC') or die ('Restricted access');
 
 jimport('joomla.application.component.controller');
-include 'Mail/Mail.php';
 
 /**
  * MailDiaController
@@ -11,6 +10,7 @@ include 'Mail/Mail.php';
 class MailDiaController extends JController {
 	function display() {
 		$mailType = JRequest::getVar('mail');
+		var_dump($_POST);
 
 		switch ($mailType) {
 			case 'php':
@@ -29,16 +29,31 @@ class MailDiaController extends JController {
 		$subject = JRequest::getString('subject');
 		$message = JRequest::getString('message');
 		
-		$result = mail($to, $subject, $message);
-
-		$info = 'Send to: ' . $to . ";\n Subject: " . $subject . ";\n Message: " . $message;
-		if ($result) {
-			$info = "Ok !\n" . $info;
+		// $result = mail($to, $subject, $message);
+		$mailer = JFactory::getMailer();
+		$mailer->setSender('testing@giaovien.phutho.vn');
+		$mailer->addRecipient($to);
+		$mailer->setSubject($subject);
+		$mailer->setBody($message);
+		$mailer->useSendmail();
+		
+		$result = $mailer->Send();
+		var_dump($result);
+		
+		if ($result == false) {
+			JError::raiseError(100, "Error !");
 		} else {
-			$info = "Error !\n" . $info;
+			JError::raiseNotice(99, "ok");
 		}
 
- 		JError::raiseNotice(150, $info);
+		// $info = 'Send to: ' . $to . ";\n Subject: " . $subject . ";\n Message: " . $message;
+		// if ($result) {
+			// $info = "Ok !\n" . $info;
+		// } else {
+			// $info = "Error !\n" . $info;
+		// }
+
+ 		// JError::raiseNotice(150, $info);
 	}
 	
 	function smtpmail() {
@@ -48,31 +63,24 @@ class MailDiaController extends JController {
 		
 		$server = JRequest::getString('server');
 		$auth = JRequest::getVar('auth');
+		$secure = JRequest::getString('secure');
 		$port = JRequest::getInt('port');
 		$username = JRequest::getString('username');
 		$password = JRequest::getString('password');
 		
-		$header = array(
-			'From' => $username,
-			'To' => $to,
-			'Subject' => $subject
-		);
+		$mailer = JFactory::getMailer();
+		$mailer->setSender($username);
+		$mailer->addRecipient($to);
+		$mailer->setSubject($subject);
+		$mailer->setBody($message);
+		$mailer->useSMTP($auth, $server, $username, $password, $secure, $port);
 		
-		$smtp = Mail::factory('smtp',
-			array(
-				'host' => $server,
-				'auth' => true,
-				'username' => $username,
-				'password' => $password
-			)
-		);
+		$result = $mailer->Send();
 		
-		$mail = $smtp->send($to, $header, $message);
-		
-		if (PEAR::isError($mail)) {
-			JError::raiseError(150, $mail->getMessage());
+		if ($result == false) {
+			JError::raiseError(100, "Error !");
 		} else {
-			JError::raiseNotice(150, 'SMTP OK !');
+			JError::raiseNotice(99, "ok");
 		}
 	}
 }

@@ -12,7 +12,8 @@ class MailDiaViewMailDia extends JView {
 		$this->message = JRequest::getString('message', 'a message');
 		
 		$this->server = JRequest::getString('server', 'smtp.googlemail.com');
-		$this->auth = JRequest::getVar('auth', 'none'); // ?
+		$this->auth = JRequest::getVar('auth', 'true'); // ?
+		$this->secure = JRequest::getVar('secure', 'ssl');
 		$this->port = JRequest::getInt('port', 465);
 		
 		$this->username = JRequest::getString('username', 'trungnthut@gmail.com');

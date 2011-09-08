@@ -29,7 +29,10 @@ $action_url = JRoute::_('index.php?option=com_maildia&mail=smtp');
 		<dl><input type='text' name='server' value='<?php echo $this->server; ?>' size=50/></dl>
 		
 		<dt>Auth:</dt>
-		<dl><input type='text' name='auth' value='<?php echo $this->auth; ?>' size=50/></dl>
+		<dl><input type='checkbox' name='auth' value='<?php echo $this->auth; ?>' <?php echo $this->auth == 'true' ? 'checked' : ''; ?>/></dl>
+		
+		<dt>Secure:</dt>
+		<dl><input type='text' name='secure' value='<?php echo $this->secure; ?>' size=50/></dl>
 		
 		<dt>Port:</dt>
 		<dl><input type='text' name='port' value='<?php echo $this->port; ?>' size=50/></dl>
