@@ -1,9 +1,7 @@
 <?php
 defined ('_JEXEC') or die ('Access denied');
 ?>
-<table>
-	<tr>
-		<td>
+
 			<ol>
 				<?php foreach ($listMostDownloadedDocument as $i => $doc):?>
 					<li>
@@ -14,6 +12,3 @@ defined ('_JEXEC') or die ('Access denied');
 					</li>
 				<?php endforeach;?>
 			</ol>
-		</td>
-	</tr>
-</table>
