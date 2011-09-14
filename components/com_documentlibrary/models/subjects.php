@@ -47,7 +47,7 @@ class DocumentLibraryModelSubjects extends JModelItem {
     	}
 		
         $db = JFactory::getDbo();
-		$query = 'SELECT * FROM #__document_subjects WHERE in_used = 1';
+		$query = 'SELECT * FROM #__document_subjects WHERE published = 1 ORDER BY subject_order ASC, subject_id ASC';
 		$db->setQuery($query);
 		$result = $db->loadObjectList();
 		
