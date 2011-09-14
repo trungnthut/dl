@@ -41,7 +41,7 @@
  
 	<administration>
 		<!-- Administration Menu Section -->
-		<!-- <menu>COM_DOCUMENTLIBRARY_MENU</menu> -->
+		<menu>COM_DOCUMENTLIBRARY_MENU</menu>
 		<!-- Administration Main File Copy Section -->
 		<!-- Note the folder attribute: This attribute describes the folder
 			to copy FROM in the package to install therefore files copied
@@ -50,6 +50,7 @@
 			<!-- Admin Main File Copy Section -->
 			<filename>index.html</filename>
 			<filename>documentlibrary.php</filename>
+			<filename>controller.php</filename>
 			<!-- <filename>controller.php</filename> -->
 			<!-- SQL files section -->
 			<folder>sql</folder>
@@ -59,10 +60,13 @@
 			<folder>models</folder>
 			<!-- views files section -->
 			<folder>views</folder>
+			<folder>controllers</folder>
 		</files>
 		<languages folder="admin">
-<!-- 			<language tag="en-GB">language/en-GB/en-GB.com_helloworld.ini</language> -->
+			<language tag="en-GB">language/en-GB/en-GB.com_documentlibrary.ini</language>
 			<language tag="en-GB">language/en-GB/en-GB.com_documentlibrary.sys.ini</language>
+			<language tag="en-GB">language/vi-VN/vi-VN.com_documentlibrary.ini</language>
+			<language tag="en-GB">language/vi-VN/vi-VN.com_documentlibrary.sys.ini</language>
 		</languages>
 	</administration>
  
