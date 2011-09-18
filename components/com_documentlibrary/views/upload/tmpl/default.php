@@ -95,14 +95,14 @@ $filterLink = DocumentLibraryHelper::url('filter');
 <!--         <p> -->
             <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_SUMMARY');?>:</dt>
 <!--             <br/> -->
-            <dd><textarea style='width: 99%; height: 9em; border: 1px solid #CCCCCC; margin-left: 2px' ><?php echo isset($this->parentDocument) ? $this->parentDocument->summary : ''; ?></textarea></dd>
+            <dd><textarea name='summary' style='width: 99%; height: 9em; border: 1px solid #CCCCCC; margin-left: 2px' ><?php echo isset($this->parentDocument) ? $this->parentDocument->summary : ''; ?></textarea></dd>
 <!--             <br/> -->
 <!--         </p> -->
 
 <!--         <p> -->
             <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_QUESTION');?>:</dt>
 <!--             <br/> -->
-            <dd><textarea style='width: 99%; height: 3em; border: 1px solid #CCCCCC; margin-left: 2px' ><?php echo isset($this->parentDocument) ? $this->parentDocument->question : ''; ?></textarea></dd>
+            <dd><textarea name='question' style='width: 99%; height: 3em; border: 1px solid #CCCCCC; margin-left: 2px' ><?php echo isset($this->parentDocument) ? $this->parentDocument->question : ''; ?></textarea></dd>
 <!--             <br/> -->
 <!--         </p> -->
 
