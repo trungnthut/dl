@@ -18,7 +18,7 @@ DocumentLibraryHelper::setUiTextPrefix('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_COMME
         <font size='2'>
             <?php echo DocumentLibraryHelper::uiText('COMMENT_POSTER'); ?>: <a href='<?php echo DocumentLibraryHelper::profile($comment->poster_id); ?>'><?php echo $comment->name; ?></a>
             &nbsp;&nbsp;<i><?php echo $comment->time; ?></i>
-            <?php if ($this->viewAll) { ?>
+            <?php if (isset($this->viewAll)) { ?>
             	&nbsp;&nbsp;<i>(<?php echo DocumentLibraryHelper::uiText('VERSION') ?>: <a href='<?php echo $documentUrl?>'><?php echo $documentNumber; ?></a>)</i>
             <?php	} ?>
         </font>

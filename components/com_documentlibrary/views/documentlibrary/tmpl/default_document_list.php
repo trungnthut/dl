@@ -25,7 +25,7 @@ DocumentLibraryHelper::setUiTextPrefix('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_LIBRA
     <?php foreach ($this->documents as $i => $document) { ?>
     <?php
     $optionArr = array('document' => $document->document_id);
-	if ($this->viewAll) {
+	if (isset($this->viewAll)) {
 		$optionArr['viewAll'] = 1;
 	}
     	$documentCommentsUrl = DocumentLibraryHelper::url('documentComments', $optionArr);

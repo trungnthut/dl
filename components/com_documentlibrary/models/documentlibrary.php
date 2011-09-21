@@ -77,7 +77,8 @@ class DocumentLibraryModelDocumentLibrary extends JModelList {
         
         $query->where($where);
         $query->group('D.document_id');
-        
+		$query->order('D.uploaded_time DESC');
+
         return $query;
     }
     

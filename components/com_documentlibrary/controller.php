@@ -145,7 +145,9 @@ class DocumentLibraryController extends JController {
     private function processUploadedFile() {
         if (isset($_FILES['documentFile'])) {
             $targetPath = $this->uploadDir;
-            mkdir($targetPath);
+			if (!file_exists($targetPath)) {
+				mkdir($targetPath);
+			}
             
             $user = JFactory::getUser();
             $uploader_id = $user->id;
