@@ -3,6 +3,7 @@
 defined ('_JEXEC') or die ('Access denied');
 
 jimport ('joomla.html.html');
+jimport ('joomla.html.jform');
 
 include_once JPATH_COMPONENT.DS.'helpers'.DS.'documentlibrary.php';
 
@@ -33,6 +34,8 @@ function uiText($text) {
 $disable = $this->parent_id > 0 ? 'disabled' : ''; 
 
 $filterLink = DocumentLibraryHelper::url('filter');
+
+$form = JForm::getInstance('upload', JPATH_COMPONENT.DS.'models'.DS.'forms'.DS.'upload.xml');
 ?>
 <p>
 	<a href='<?php echo $filterLink; ?>'><?php echo DocumentLibraryHelper::uiText('UPLOAD_NEW_VERSION', 'VIEW', 'UPLOAD');?></a>
@@ -41,6 +44,24 @@ $filterLink = DocumentLibraryHelper::url('filter');
     <fieldset>
     	<legend><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_UPLOAD_TITLE'); ?></legend>
     	<dl>
+    		<?php
+// Iterate through the fields and display them.
+foreach($form->getFieldset($fieldset->name) as $field):
+    // If the field is hidden, only use the input.
+    if ($field->hidden):
+        echo $field->input;
+    else:
+    ?>
+    <dt>
+        <?php echo $field->label; ?>
+    </dt>
+    <dd<?php echo ($field->type == 'Editor' || $field->type == 'Textarea') ? ' style="clear: both; margin: 0;"' : ''?>>
+        <?php echo $field->input ?>
+    </dd>
+    <?php
+    endif;
+endforeach;
+?>
 <!--         <p style='display: block'> -->
             <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_TITLE'); ?>:</dt>
             <dd><input type="text" name="documentTitle" class='inputbox' style='width: 70%' value="<?php echo isset($this->parentDocument) ? $this->parentDocument->title : '';?>" <?php echo $disable;?>/></dd>
@@ -95,14 +116,14 @@ $filterLink = DocumentLibraryHelper::url('filter');
 <!--         <p> -->
             <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_SUMMARY');?>:</dt>
 <!--             <br/> -->
-            <dd><textarea style='width: 99%; height: 9em; border: 1px solid #CCCCCC; margin-left: 2px' ><?php echo isset($this->parentDocument) ? $this->parentDocument->summary : ''; ?></textarea></dd>
+            <dd><textarea name='summary' style='width: 99%; height: 9em; border: 1px solid #CCCCCC; margin-left: 2px' ><?php echo isset($this->parentDocument) ? $this->parentDocument->summary : ''; ?></textarea></dd>
 <!--             <br/> -->
 <!--         </p> -->
 
 <!--         <p> -->
             <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_QUESTION');?>:</dt>
 <!--             <br/> -->
-            <dd><textarea style='width: 99%; height: 3em; border: 1px solid #CCCCCC; margin-left: 2px' ><?php echo isset($this->parentDocument) ? $this->parentDocument->question : ''; ?></textarea></dd>
+            <dd><textarea name='question' style='width: 99%; height: 3em; border: 1px solid #CCCCCC; margin-left: 2px' ><?php echo isset($this->parentDocument) ? $this->parentDocument->question : ''; ?></textarea></dd>
 <!--             <br/> -->
 <!--         </p> -->
 
