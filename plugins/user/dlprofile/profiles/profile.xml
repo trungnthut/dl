@@ -88,6 +88,17 @@
 				message="PLG_USER_DLPROFILE_FIELD_ADDRESS1_MESSAGE"
 				size="30"
 			/>
+			
+			<field
+				name="contact_address"
+				type="text"
+				id="contact_address"
+				description="PLG_USER_DLROFILE_FIELD_CONTACT_ADDRESS_DESC"
+				filter="string"
+				label="PLG_USER_DLPROFILE_FIELD_CONTACT_ADDRESS_LABEL"
+				message="PLG_USER_DLPROFILE_FIELD_CONTACT_ADDRESS_MESSAGE"
+				size="30"
+			/>
 		</fieldset>
 	</fields>
 </form>

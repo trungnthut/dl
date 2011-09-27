@@ -201,6 +201,9 @@ class plgUserDlProfile extends JPlugin
 
 		// Toggle whether the city/provine field is required.
 		$this->toggleRequiredField('address2', 'dlprofile-require_address2', $form);
+		
+		// Toggle whether the contact_address fileld is required.
+		$this->toggleRequiredField('contact_address', 'dlprofile-require_contact_address', $form);
 
 		return true;
 	}
