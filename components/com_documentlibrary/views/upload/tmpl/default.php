@@ -3,7 +3,6 @@
 defined ('_JEXEC') or die ('Access denied');
 
 jimport ('joomla.html.html');
-jimport ('joomla.html.jform');
 
 include_once JPATH_COMPONENT.DS.'helpers'.DS.'documentlibrary.php';
 
@@ -35,32 +34,6 @@ $disable = $this->parent_id > 0 ? 'disabled' : '';
 
 $filterLink = DocumentLibraryHelper::url('filter');
 
-$form = JForm::getInstance('upload', JPATH_COMPONENT.DS.'models'.DS.'forms'.DS.'upload.xml');
-?>
-<p>
-	<a href='<?php echo $filterLink; ?>'><?php echo DocumentLibraryHelper::uiText('UPLOAD_NEW_VERSION', 'VIEW', 'UPLOAD');?></a>
-</p>
-<form method="post" enctype="multipart/form-data">
-    <fieldset>
-    	<legend><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_UPLOAD_TITLE'); ?></legend>
-    	<dl>
-    		<?php
-// Iterate through the fields and display them.
-foreach($form->getFieldset($fieldset->name) as $field):
-    // If the field is hidden, only use the input.
-    if ($field->hidden):
-        echo $field->input;
-    else:
-    ?>
-    <dt>
-        <?php echo $field->label; ?>
-    </dt>
-    <dd<?php echo ($field->type == 'Editor' || $field->type == 'Textarea') ? ' style="clear: both; margin: 0;"' : ''?>>
-        <?php echo $field->input ?>
-    </dd>
-    <?php
-    endif;
-endforeach;
 ?>
 <!--         <p style='display: block'> -->
             <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_TITLE'); ?>:</dt>
