@@ -35,6 +35,13 @@ $disable = $this->parent_id > 0 ? 'disabled' : '';
 $filterLink = DocumentLibraryHelper::url('filter');
 
 ?>
+<p>
+       <a href='<?php echo $filterLink; ?>'><?php echo DocumentLibraryHelper::uiText('UPLOAD_NEW_VERSION', 'VIEW', 'UPLOAD');?></a>
+</p>
+<form method="post" enctype="multipart/form-data">
+    <fieldset>
+       <legend><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_UPLOAD_TITLE'); ?></legend>
+       <dl>
 <!--         <p style='display: block'> -->
             <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_TITLE'); ?>:</dt>
             <dd><input type="text" name="documentTitle" class='inputbox' style='width: 70%' value="<?php echo isset($this->parentDocument) ? $this->parentDocument->title : '';?>" <?php echo $disable;?>/></dd>
