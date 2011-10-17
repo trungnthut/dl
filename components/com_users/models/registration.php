@@ -384,6 +384,7 @@ class UsersModelRegistration extends JModelForm
 				$data['password_clear']
 			);
 		} else {
+			return $user->id;
 
 			$emailSubject	= JText::sprintf(
 				'COM_USERS_EMAIL_ACCOUNT_DETAILS',
