@@ -139,5 +139,13 @@ class DocumentLibraryModelDocumentLibrary extends JModelList {
         $db->setQuery($query);
 		return $db->loadObject();
     }
+	
+	function updateDocument($data = null) {
+		if (is_null($data) || empty($data)) {
+			return;
+		}
+		$db = JFactory::getDbo();
+		return $db->updateObject('#__documents', $data, 'document_id', false);
+	}
 }
 ?>

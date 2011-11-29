@@ -3,6 +3,8 @@
 defined ('_JEXEC') or die ('Restricted access');
 
 jimport('joomla.application.component.controller');
+jimport('joomla.form.form');
+jimport( 'joomla.user.helper' );
 
 include_once JPATH_COMPONENT.DS.'helpers'.DS.'documentlibrary.php';
 
@@ -11,10 +13,12 @@ include_once JPATH_COMPONENT.DS.'helpers'.DS.'documentlibrary.php';
  */
 class DocumentLibraryController extends JController {
     private $uploadDir;
+	private $adminGroups;
     
     function __construct($config = array()) {
         parent::__construct($config);
         $this->uploadDir = 'upload/';
+		$this->adminGroups = array(7, 8);
     }
     
     // nothing ? some default action will be done
@@ -61,6 +65,9 @@ class DocumentLibraryController extends JController {
 			case 'download':
 				// FIXME: this should be task only
 				$this->download();
+				return;
+			case 'edit':
+				$this->edit();
 				return;
 			// case 'openDocumentByNumber':
 				// // FIXME: task only
@@ -116,6 +123,14 @@ class DocumentLibraryController extends JController {
         
         $documentCommentsModel = & $this->getModel('DocumentComments');
         $view->setModel($documentCommentsModel);
+		
+		// var_dump($this->getModel());
+		// var_dump($this->getModel('Document'));
+		$documentId = JRequest::getInt('document');
+		$documentInfo = &$this->getModel('Document')->getDocumentInfo($documentId);
+		$canEdit = &$this->canEdit($documentInfo);
+		$view->assignRef('documentInfo', $documentInfo);
+		$view->assignRef('canEdit', $canEdit);
         
         parent::display();
     }
@@ -141,6 +156,13 @@ class DocumentLibraryController extends JController {
         
         parent::display();
     }
+	
+	private function validateUpload($obj) {
+		$return = true; 
+		$return = $return && $obj != null && $obj->uploader_id > 0 && $obj->subject_id > 0 && $obj->class_id > 0 && $obj->type_id > 0
+				&& is_int($obj->lesson) && $obj->lesson > 0 && !empty($obj->title);
+		return $return;
+	}
     
     private function processUploadedFile() {
         if (isset($_FILES['documentFile'])) {
@@ -183,12 +205,17 @@ class DocumentLibraryController extends JController {
                 
                 $documentModel = $this->getModel('Document');
                 $dataObj->version = $documentModel->getNoVersions($dataObj->parent_id) + 1;
-                $dataObj->lesson = JRequest::getVar('lesson');
+                $dataObj->lesson = JRequest::getInt('lesson');
                 $dataObj->title = JRequest::getVar('documentTitle');
                 $dataObj->summary = JRequest::getVar('summary');
                 $dataObj->question = JRequest::getVar('question');
                 $dataObj->uploaded_time = date( 'Y-m-d H:i:s', $time);
                 $dataObj->fileName = $_FILES['documentFile']['name'];
+				
+				if (!$this->validateUpload($dataObj)) {
+					JError::raiseWarning(150, JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_ERROR'));
+                	return false;
+				}
                 
                 $model = $this->getModel();
                 $document_id = $model->insertDocument($dataObj);
@@ -314,6 +341,44 @@ class DocumentLibraryController extends JController {
 			$this->setRedirect($url);
         }
     }
+
+	function edit() {
+		$this->requireLogin();
+
+        $documentModel = & $this->getModel('Document');     
+		$documentId = JRequest::getInt('document');
+		$documentInfo = &$documentModel->getDocumentInfo($documentId);
+		$canEdit = &$this->canEdit($documentInfo);
+		if (!$canEdit) {
+			JError::raiseError('adsad');
+			die("Access denied");
+		}
+
+		$this->processEdit();
+
+        JRequest::setVar('view', JRequest::getCmd('view', 'edit'));
+        $view = & $this->getView(JRequest::getVar('view'), 'html', 'DocumentLibraryView');
+        
+		$view->assignRef('documentInfo', $documentInfo);
+		$view->assignRef('canEdit', $canEdit);
+		
+		$view->setModel($documentModel);
+		
+        $documentTypeModel =& $this->getModel('DocumentType');
+        $view->setModel($documentTypeModel);
+        
+        $subjectModel = & $this->getModel('Subjects');
+        $view->setModel($subjectModel);
+        
+        $classModel = & $this->getModel('Classes');
+        $view->setModel($classModel);
+        
+        if ((int)JRequest::getVar('parent', 0) > 0) {
+
+        }
+        
+        parent::display();
+	}
     
     private function mimeType($fileName) {
         $fileInfo = pathinfo($fileName);
@@ -460,6 +525,76 @@ class DocumentLibraryController extends JController {
 		$view->setModel($documentTypeModel);
 		
 		parent::display();
+	}
+	
+	private function canEdit($documentInfo) {
+		
+		$user = JFactory::getUser();
+		if (empty($user->id) || empty($documentInfo)) {
+			return false;
+		}
+ 		$user_groups = (JUserHelper::getUserGroups($user->id));
+		$intersect = array_intersect($this->adminGroups, $user_groups);
+		
+		//admin group id = 7
+		// super user group id = 8
+		if ($user->id == $documentInfo->document_id || !empty($intersect)) {
+			return true;
+		}
+		return false;
+	}
+	
+	private function processEdit() {
+		var_dump($_POST);
+		$submit = JRequest::getVar('submit', '');
+		if (!empty($submit)) {
+			$this->updateFileData();
+		}
+		
+		return false;
+	}
+	
+	private function updateFileData() {
+		$dataObj = new stdClass();
+		$dataObj->document_id = JRequest::getVar('document', 0);
+		if ($dataObj->document_id <= 0) {
+			JError::raiseWarning(150, JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPDATE_ERROR'));
+			return false;
+		}
+		// $dataObj->uploader_id = $uploader_id;
+		$dataObj->subject_id = JRequest::getVar('subject');
+		$dataObj->class_id = JRequest::getVar('class');
+		$dataObj->type_id = JRequest::getVar('documentType');
+		{
+			// process type
+			$documentTypeModel = & $this->getModel('DocumentType');
+			$selectedType = $documentTypeModel->getTypeInfo($dataObj->type_id);
+			if (empty($selectedType)) {
+				JError::raiseWarning(150, JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_INVALID_TYPE'));
+				return false;
+			}
+			if ($selectedType->extends) {
+				$subtypes = JRequest::getVar('documentSubtypes');
+				$dataObj->type_id = $subtypes[$dataObj->type_id];
+			}
+		}
+                
+		$dataObj->lesson = JRequest::getInt('lesson');
+		$dataObj->title = JRequest::getVar('documentTitle');
+		$dataObj->summary = JRequest::getVar('summary');
+		$dataObj->question = JRequest::getVar('question');
+				
+		// if (!$this->validateUpload($dataObj)) {
+			// JError::raiseWarning(150, JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPDATE_ERROR'));
+			// return false;
+		// }
+//                 
+		$model = & $this->getModel('DocumentLibrary');
+		$model->updateDocument($dataObj);
+                // $link = JRoute::_('index.php?com=documentLibrary&task=document&document=' . $document_id);
+		$link = $this->url('document', array('document' => $dataObj->document_id));
+		$this->setRedirect($link);
+		return true;
 	}
 }
 ?>

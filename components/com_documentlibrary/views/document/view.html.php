@@ -12,8 +12,8 @@ class DocumentLibraryViewDocument extends JView {
     function display($tpl = null) {
     	//disable view all
     	JRequest::setVar('viewAll', 0);
-        $this->documentInfo = $this->get('DocumentInfo');
-		if ($this->documentInfo) {
+        // $this->documentInfo = $this->get('DocumentInfo');
+		if (isset($this->documentInfo) && !empty($this->documentInfo)) {
         	$this->documentVersion = $this->documentInfo->version;
         	$this->documentTitle = $this->documentInfo->title;
         	$this->documentSummary = $this->documentInfo->summary;
@@ -28,6 +28,7 @@ class DocumentLibraryViewDocument extends JView {
 			$this->documentId = 0;
         	$this->documentOriginalId = $this->documentInfo->original_id;
         	$this->documentId = $this->documentInfo->document_id;
+			$this->fileName = $this->documentInfo->fileName;
         	if ($this->documentOriginalId == 0) {
             	$this->documentOriginalId = $this->documentId;
         	}

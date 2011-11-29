@@ -29,15 +29,18 @@ $allVersionDownloadsUrl = DocumentLibraryHelper::url('documentDownloads', array(
 
     <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_LABEL_TITLE'); ?>:</dd>
     <dd><?php echo $this->documentTitle; ?></dd>
+    
+    <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_LABEL_FILENAME'); ?>:</dt>
+    <dd><?php echo $this->fileName; ?></dd>
 
     <dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_LABEL_SUMMARY'); ?>:</dt>
     <dd><?php echo $this->documentSummary; ?></dd>
 
 	<?php if (isset($this->documentInfo)) { ?>
-	<dt><?php echo DocumentLibraryHelper::uiText('LABEL_SUBJECT', 'VIEW', 'DOCUMENT'); ?></dt>
+	<dt><?php echo DocumentLibraryHelper::uiText('LABEL_SUBJECT', 'VIEW', 'DOCUMENT'); ?>:</dt>
 	<dd><?php echo $this->documentSubject; ?></dd>
 	
-	<dt><?php echo DocumentLibraryHelper::uiText('LABEL_CLASS', 'VIEW', 'DOCUMENT'); ?></dt>
+	<dt><?php echo DocumentLibraryHelper::uiText('LABEL_CLASS', 'VIEW', 'DOCUMENT'); ?>:</dt>
 	<dd><?php echo $this->documentClass; ?></dd>
 	<?php } ?>
 
@@ -73,6 +76,7 @@ $allVersionDownloadsUrl = DocumentLibraryHelper::url('documentDownloads', array(
         $upload_new_version_url = JRoute::_('index.php?option=com_documentlibrary&task=upload&parent=' . $this->documentId);
         $download_url = JRoute::_('index.php?option=com_documentlibrary&task=download&document=' . $this->documentId);
 		$onDownloadClicked = "alert('" . JTEXT::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_DOWNLOAD_ACK') . "')"; 
+		$edit_url = JRoute::_('index.php?option=com_documentlibrary&view=edit&document=' . $this->documentId);
     ?>
     <table style='float: right'>
     <tr>
@@ -84,6 +88,12 @@ $allVersionDownloadsUrl = DocumentLibraryHelper::url('documentDownloads', array(
     <tr>
     	<td><a class="button" style='width: 15em; text-align: center' href="<?php echo $download_url; ?>" onclick="<?php echo $onDownloadClicked; ?>"><?php echo uiText('DOWNLOAD'); ?></a></td>
     </tr>
+    <?php if ($this->canEdit) { ?>
+    <tr>
+    	<td><a class="button" style='width: 15em; text-align: center' href="<?php echo $edit_url; ?>"><?php echo uiText('EDIT'); ?></a></td>
+    </tr>
+    <?php } ?>
+
     </table>
 </p>
 

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+    <fields 
+    	addfieldpath="components/com_documentlibrary/models/fields"
+    	>
+        <fieldset name="upload">
+            <!-- Fields go here -->
+            <field
+            	name="documentTitle"
+            	type="text"
+            	label="COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_TITLE"
+            	size="70"
+            	maxLength="255"
+            	required="true"
+            	>
+            </field>
+            <field
+            	name="documentType"
+            	type="documenttypes"
+            	label="COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_TYPE"
+            	>
+            </field>
+            <field
+            	name="subject"
+            	type="subjects"
+            	label="COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_SUBJECT"
+            	>
+            </field>
+            <field
+            	name="lesson"
+            	type="label"
+            	required="true"
+            	filter="integer"
+            	class="input validate-numeric"
+            	validate="numeric"
+            	label="COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_LESSON"
+            	>
+            </field>
+            <field
+            	name="class"
+            	type="classes"
+            	label="COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_CLASS"
+            	>
+            </field>
+            <field
+            	name="summary"
+            	type="documenttextarea"
+            	label="COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_SUMMARY"
+            	rows="7"
+            	>
+            </field>
+            <field
+            	name="question"
+            	type="documenttextarea"
+            	label="COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_QUESTION"
+            	rows="2"
+            	>
+            </field>
+            <field
+            	name="documentFile"
+            	type="file"
+            	required="true"
+            	label="COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_FILE"
+            	>
+            </field>
+        </fieldset>
+    </fields>
+</form>
