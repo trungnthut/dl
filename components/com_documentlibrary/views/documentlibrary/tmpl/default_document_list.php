@@ -34,7 +34,7 @@ DocumentLibraryHelper::setUiTextPrefix('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_LIBRA
     ?>
     <tr>
         <td align='center'><?php echo DocumentLibraryHelper::documentNumber($document->original_id, $document->version, $document->document_id); ?></td>
-        <td align='left'><a href='<?php echo JRoute::_('index.php?option=com_documentlibrary&view=document&document=' . $document->document_id);?>'><?php echo $document->title; ?></a></td>
+        <td align='left'><a href='<?php echo JRoute::_('index.php?option=com_documentlibrary&view=document&document=' . $document->document_id);?>'><?php echo !empty($document->title) ? $document->title : $document->fileName; ?></a></td>
         <td align='center'><a href='<?php echo DocumentLibraryHelper::profile($document->uploader_id); ?>'><?php echo $document->user; ?></a></td>
         <td align='center'><?php echo $document->date; ?></td>
         <td align='center'><?php echo $this->subjectModel->getSubjectName($document->subject_id); ?></td>

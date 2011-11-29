@@ -545,7 +545,6 @@ class DocumentLibraryController extends JController {
 	}
 	
 	private function processEdit() {
-		var_dump($_POST);
 		$submit = JRequest::getVar('submit', '');
 		if (!empty($submit)) {
 			$this->updateFileData();
