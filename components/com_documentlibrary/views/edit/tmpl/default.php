@@ -9,7 +9,7 @@ include_once JPATH_COMPONENT.DS.'helpers'.DS.'documentlibrary.php';
 
 JHTML::_('behavior.formvalidation');
 
-$disable = $this->parent_id > 0 ? 'disabled' : ''; 
+$disable = (isset($this->parent_id) && $this->parent_id > 0) ? 'disabled' : ''; 
 
 $filterLink = DocumentLibraryHelper::url('filter');
 
@@ -72,7 +72,7 @@ $form->removeField('documentFile');
 					<dd><?php echo $field->input; ?></dd>
 				</dl>
 			<?php } ?>
-			<?php if ($field->name == 'documentTitle' && $this->parent_id > 0 && $this->parentDocument) { ?>
+			<?php if ($field->name == 'documentTitle' && isset($this->parent_id) && $this->parent_id > 0 && $this->parentDocument) { ?>
 				<dl>
 					<dt><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_UPDATE_FROM') ?></dt>	
 					<dd><?php echo $this->parentDocument->version; ?></dd>

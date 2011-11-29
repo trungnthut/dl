@@ -298,16 +298,6 @@ class DocumentLibraryController extends JController {
 			}
 		}
         
-        $user = JFactory::getUser();
-        // to subtract user score 
-        $downloadData = new stdClass();
-        $downloadData->document_id = $document_id;
-        $downloadData->user_id = $user->id;
-        $downloadData->time = date( 'Y-m-d H:i:s', mktime());
-        
-        $documentModel = $this->getModel('Document');
-        $documentModel->insertDownload($downloadData);
-
         if ($document_id > 0) {
             $documentModel = & $this->getModel('Document');
             $fileInfo = $documentModel->getDocumentInfo($document_id);
@@ -316,6 +306,17 @@ class DocumentLibraryController extends JController {
             $storedFileName = $this->genUploadedFileName($fileInfo->uploader_id, $fileName, $unixTime);
             $filePath = $this->uploadDir . $storedFileName;
             if (is_file($filePath)) {
+            	
+				$user = JFactory::getUser();
+				// to subtract user score 
+				$downloadData = new stdClass();
+				$downloadData->document_id = $document_id;
+				$downloadData->user_id = $user->id;
+				$downloadData->time = date( 'Y-m-d H:i:s', mktime());
+        
+				// $documentModel = & $this->getModel('Document');
+				$documentModel->insertDownload($downloadData);
+				
                 $fileSize = filesize($filePath);
                 $mimeType = $this->mimeType($fileName);
                         
@@ -327,6 +328,7 @@ class DocumentLibraryController extends JController {
                 readfile($filePath);
 				// $url = $this->url('document', array('document' => $document_id));
 				// $this->setRedirect($url);
+				
                 exit();
             } else {
                 JError::raiseWarning(150, JTEXT::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_ERROR_DOWNLOAD_FILE_CORRUPTED'));
