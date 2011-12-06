@@ -99,7 +99,7 @@ class DocumentLibraryModelDocumentType extends JModelItem {
     }
 
 	function getTypeInfo($id) {
-		if ($id < 0) {
+		if (empty($id) || $id < 0) {
 			return null;
 		}
 		

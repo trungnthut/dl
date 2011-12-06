@@ -18,6 +18,8 @@
             	name="documentType"
             	type="documenttypes"
             	label="COM_DOCUMENT_LIBRARY_VIEW_UPLOAD_LABEL_TYPE"
+				class="validate-type"
+            	required="true"
             	>
             </field>
             <field
@@ -29,7 +31,6 @@
             <field
             	name="lesson"
             	type="label"
-            	required="true"
             	filter="integer"
             	class="input validate-numeric"
             	validate="numeric"
