@@ -160,7 +160,7 @@ class DocumentLibraryController extends JController {
 	private function validateUpload($obj) {
 		$return = true; 
 		$return = $return && $obj != null && $obj->uploader_id > 0 && $obj->subject_id > 0 && $obj->class_id > 0 && $obj->type_id > 0
-				&& is_int($obj->lesson) && $obj->lesson > 0 && !empty($obj->title);
+				&& (isset($obj->lesson) ? is_int($obj->lesson) : true) && !empty($obj->title);
 		return $return;
 	}
     
