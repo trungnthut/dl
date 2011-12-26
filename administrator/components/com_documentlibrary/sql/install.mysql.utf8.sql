@@ -119,6 +119,20 @@ CREATE TABLE IF NOT EXISTS `#__user_login` (
   PRIMARY KEY (`login_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `#__dl_score`
+--
+
+DROP TABLE IF EXISTS `#__dl_score`;
+CREATE TABLE IF NOT EXISTS `#_dl_score` (
+`user_id` INT( 11 ) NOT NULL ,
+`score` INT( 11 ) NOT NULL DEFAULT  '0',
+PRIMARY KEY (  `user_id` )
+) ENGINE = MYISAM;
+
 --
 -- Dumping data for table `#__document_types`
 --
