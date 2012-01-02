@@ -6,6 +6,8 @@ jimport('joomla.application.component.controller');
 jimport('joomla.form.form');
 jimport( 'joomla.user.helper' );
 
+include_once 'misc.php';
+
 include_once JPATH_COMPONENT.DS.'helpers'.DS.'documentlibrary.php';
 
 /**
@@ -176,6 +178,8 @@ class DocumentLibraryController extends JController {
             $time = mktime();
             
             $targetFile = $targetPath . $this->genUploadedFileName($uploader_id, $_FILES['documentFile']['name'], $time);
+			
+			$new_doc = true;
             
             if (move_uploaded_file($_FILES['documentFile']['tmp_name'], $targetFile)) {
                 $dataObj = new stdClass();
@@ -185,6 +189,9 @@ class DocumentLibraryController extends JController {
                 if ($dataObj->original_id <= 0) {
                     $dataObj->original_id = $dataObj->parent_id;
                 }
+				if ($dataObj->original_id > 0) {
+					$new_doc = false;
+				}
                 $dataObj->uploader_id = $uploader_id;
                 $dataObj->subject_id = JRequest::getVar('subject');
                 $dataObj->class_id = JRequest::getVar('class');
@@ -219,6 +226,12 @@ class DocumentLibraryController extends JController {
                 
                 $model = $this->getModel();
                 $document_id = $model->insertDocument($dataObj);
+				// upload user score when upload successful
+				if ($new_doc == true) {
+					$this->updateUserScore(USER_SCORE_UPLOAD_NEW, $user->id);
+				} else {
+					$this->updateUserScore(USER_SCORE_UPLOAD_VERSION, $user->id);
+				}
                 // $link = JRoute::_('index.php?com=documentLibrary&task=document&document=' . $document_id);
                 $link = $this->url('document', array('document' => $document_id));
                 $this->setRedirect($link);
@@ -261,6 +274,13 @@ class DocumentLibraryController extends JController {
         
             $model = $this->getModel('DocumentComments');
             $model->insertComment($dataObj);
+			
+			$documentModel = & $this->getModel('Document');
+			$documentInfo = $documentModel->getDocumentInfo($document_id);
+			if ($user->id != $documentInfo->uploader_id) {
+				// well, gonna update score then
+				$this->updateUserScore(USER_SCORE_COMMENT_OTHER_DOC, $user->id);
+			}
         }
         
         $url = '';
@@ -316,6 +336,11 @@ class DocumentLibraryController extends JController {
         
 				// $documentModel = & $this->getModel('Document');
 				$documentModel->insertDownload($downloadData);
+				
+				if ($fileInfo->uploader_id != $user->id) {
+					// update score then
+					$this->updateUserScore(USER_SCORE_DOWNLOAD, $user->id);
+				}
 				
                 $fileSize = filesize($filePath);
                 $mimeType = $this->mimeType($fileName);
@@ -596,6 +621,36 @@ class DocumentLibraryController extends JController {
 		$link = $this->url('document', array('document' => $dataObj->document_id));
 		$this->setRedirect($link);
 		return true;
+	}
+
+	private function updateUserScore($score, $user_id = 0) {
+		if ($user_id <= 0) {
+			$user = JFactory::getUser();
+			if (empty ($user)) {
+				return;
+			}
+			$user_id = $user->id;
+		}
+		if ($user_id <= 0) {
+			return;
+		}
+		$model = & $this->getModel('UserScore');
+		return $model->updateUserScore($user_id, $score); 
+	}
+	
+	private function getUserScore($user_id = 0) {
+		if ($user_id <= 0) {
+			$user = JFactory::getUser();
+			if (empty ($user)) {
+				return 0;
+			}
+			$user_id = $user->id;
+		}
+		if ($user_id <= 0) {
+			return 0;
+		}
+		$model = & $this->getModel('UserScore');
+		return $model->getUserScore($user_id);
 	}
 }
 ?>
