@@ -8,6 +8,11 @@ jimport( 'joomla.user.helper' );
 
 include_once JPATH_COMPONENT.DS.'helpers'.DS.'documentlibrary.php';
 
+define ('USER_SCORE_UPLOAD_NEW', 'plgaup_documentlibrary_upload_new');
+define ('USER_SCORE_UPLOAD_VERSION', 'plgaup_documentlibrary_upload_version');
+define ('USER_SCORE_DOWNLOAD', 'plgaup_documentlibrary_download');
+define ('USER_SCORE_DOCUMENT_COMMENT', 'plgaup_documentlirary_comment');
+
 /**
  * DocumentLibraryController
  */
@@ -219,6 +224,13 @@ class DocumentLibraryController extends JController {
                 
                 $model = $this->getModel();
                 $document_id = $model->insertDocument($dataObj);
+				if ($dataObj->original_id > 0) {
+					// new version
+					$this->updateScore(USER_SCORE_UPLOAD_VERSION);
+				} else {
+					// new document
+					$this->updateScore(USER_SCORE_UPLOAD_NEW);
+				}
                 // $link = JRoute::_('index.php?com=documentLibrary&task=document&document=' . $document_id);
                 $link = $this->url('document', array('document' => $document_id));
                 $this->setRedirect($link);
@@ -258,6 +270,14 @@ class DocumentLibraryController extends JController {
             $dataObj->time = date( 'Y-m-d H:i:s', $time);
             $dataObj->title = '';
             $dataObj->contents = $comment;
+			{
+				// update user score
+				$documentModel = &$this->getModel('Document');
+				$documentInfo = $documentModel->getDocumentInfo($document_id);
+				if ($documentInfo->uploader_id != $user_id) {
+					$this->updateScore(USER_SCORE_DOCUMENT_COMMENT);
+				}
+			}
         
             $model = $this->getModel('DocumentComments');
             $model->insertComment($dataObj);
@@ -316,6 +336,9 @@ class DocumentLibraryController extends JController {
         
 				// $documentModel = & $this->getModel('Document');
 				$documentModel->insertDownload($downloadData);
+				if ($user->id != $fileInfo->uploader_id) {
+					$this->updateScore(USER_SCORE_DOWNLOAD);
+				}
 				
                 $fileSize = filesize($filePath);
                 $mimeType = $this->mimeType($fileName);
@@ -596,6 +619,15 @@ class DocumentLibraryController extends JController {
 		$link = $this->url('document', array('document' => $dataObj->document_id));
 		$this->setRedirect($link);
 		return true;
+	}
+
+	private function updateScore($func_name) {
+		$api_AUP = JPATH_SITE.DS.'components'.DS.'com_alphauserpoints'.DS.'helper.php';
+		if ( file_exists($api_AUP))
+		{
+    		require_once ($api_AUP);
+    		AlphaUserPointsHelper::newpoints( $func_name );
+		}
 	}
 }
 ?>
