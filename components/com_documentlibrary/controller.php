@@ -224,12 +224,17 @@ class DocumentLibraryController extends JController {
                 
                 $model = $this->getModel();
                 $document_id = $model->insertDocument($dataObj);
+				$message_doc_number_orig_id = $dataObj->original_id > 0 ? $dataObj->original_id : $document_id; 
+				$message_doc_number =  $message_doc_number_orig_id . '.' . $dataObj->version;
+				$message_date = date('Y-m-d', $time);
 				if ($dataObj->original_id > 0) {
 					// new version
-					$this->updateScore(USER_SCORE_UPLOAD_VERSION);
+					$message = 'upload new version ' . $message_doc_number . ' (' . $message_date . ')';
+					$this->updateScore(USER_SCORE_UPLOAD_VERSION, $message);
 				} else {
 					// new document
-					$this->updateScore(USER_SCORE_UPLOAD_NEW);
+					$message = 'upload new document ' . $message_doc_number . ' (' . $message_date . ')';
+					$this->updateScore(USER_SCORE_UPLOAD_NEW, $message);
 				}
                 // $link = JRoute::_('index.php?com=documentLibrary&task=document&document=' . $document_id);
                 $link = $this->url('document', array('document' => $document_id));
@@ -275,7 +280,8 @@ class DocumentLibraryController extends JController {
 				$documentModel = &$this->getModel('Document');
 				$documentInfo = $documentModel->getDocumentInfo($document_id);
 				if ($documentInfo->uploader_id != $user_id) {
-					$this->updateScore(USER_SCORE_DOCUMENT_COMMENT);
+					$message = 'comment to document ' . $documentInfo->document_id . '.' . $documentInfo->version . ' (' . $dataObj->time . ')';
+					$this->updateScore(USER_SCORE_DOCUMENT_COMMENT, $message);
 				}
 			}
         
@@ -337,7 +343,8 @@ class DocumentLibraryController extends JController {
 				// $documentModel = & $this->getModel('Document');
 				$documentModel->insertDownload($downloadData);
 				if ($user->id != $fileInfo->uploader_id) {
-					$this->updateScore(USER_SCORE_DOWNLOAD);
+					$message = "download document " . $fileInfo->document_id .".". $fileInfo->version . " (" . $downloadData->time . ")";
+					$this->updateScore(USER_SCORE_DOWNLOAD, $message);
 				}
 				
                 $fileSize = filesize($filePath);
@@ -621,12 +628,12 @@ class DocumentLibraryController extends JController {
 		return true;
 	}
 
-	private function updateScore($func_name) {
+	private function updateScore($func_name, $ref_message = '') {
 		$api_AUP = JPATH_SITE.DS.'components'.DS.'com_alphauserpoints'.DS.'helper.php';
 		if ( file_exists($api_AUP))
 		{
     		require_once ($api_AUP);
-    		AlphaUserPointsHelper::newpoints( $func_name );
+    		AlphaUserPointsHelper::newpoints( $func_name, '', '', $ref_message );
 		}
 	}
 }

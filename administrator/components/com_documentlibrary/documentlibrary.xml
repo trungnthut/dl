@@ -10,7 +10,7 @@
 	<copyright>Trungnt</copyright>
 	<license>GPL</license>
 	<!--  The version string is recorded in the components table -->
-	<version>0.0.5</version>
+	<version>0.0.6</version>
 	<!-- The description is optional and defaults to the name -->
 	<description>COM_DOCUMENTLIBRARY_DESCRIPTION</description>
  
@@ -50,7 +50,7 @@
 			<!-- Admin Main File Copy Section -->
 			<filename>index.html</filename>
 			<filename>documentlibrary.php</filename>
-			<!-- <filename>controller.php</filename> -->
+			<filename>controller.php</filename>
 			<!-- SQL files section -->
 			<folder>sql</folder>
 			<!-- tables files section -->
