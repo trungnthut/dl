@@ -343,8 +343,10 @@ class DocumentLibraryController extends JController {
 				// $documentModel = & $this->getModel('Document');
 				$documentModel->insertDownload($downloadData);
 				if ($user->id != $fileInfo->uploader_id) {
-					$message = "download document " . $fileInfo->document_id .".". $fileInfo->version . " (" . $downloadData->time . ")";
-					$this->updateScore(USER_SCORE_DOWNLOAD, $message);
+					if ($this->shouldInsertDownloadScore($user->id, $document_id, $downloadData->time)) {
+						$message = "download document " . $fileInfo->document_id .".". $fileInfo->version . " (" . $downloadData->time . ")";
+						$this->updateScore(USER_SCORE_DOWNLOAD, $message);
+					}
 				}
 				
                 $fileSize = filesize($filePath);
@@ -635,6 +637,34 @@ class DocumentLibraryController extends JController {
     		require_once ($api_AUP);
     		AlphaUserPointsHelper::newpoints( $func_name, '', '', $ref_message );
 		}
+	}
+	
+	private function shouldInsertDownloadScore($user_id, $document_id, $date) {
+		$create_query = 'CREATE TABLE IF NOT EXISTS `#__document_download_date` ('
+						. 'user_id INT(11) NOT NULL,'
+						. 'document_id INT(11) NOT NULL,'
+						. 'downloaded_date DATE NOT NULL' 
+						. ')';
+		$db = JFactory::getDbo();
+		$db->setQuery($create_query);
+		$db->query();
+		
+		$query = 'SELECT * FROM #__document_download_date WHERE '
+				.' user_id = ' . $user_id
+				.' AND document_id = ' . $document_id
+				.' AND downloaded_date = DATE("' . $date . '")'
+				.';';
+		$db->setQuery($query);
+		$res = $db->loadObjectList();
+		$should_insert = count($res) <= 0;
+		
+		if ($should_insert) {
+			$insert_query = 'INSERT INTO #__document_download_date VALUES(' . $user_id . ',' . $document_id . ', DATE("' . $date . '"));';
+			$db->setQuery($insert_query);
+			$db->query();
+		}
+		
+		return $should_insert;
 	}
 }
 ?>

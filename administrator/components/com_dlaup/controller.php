@@ -2,6 +2,7 @@
 defined('_JEXEC') or die();
 jimport('joomla.application.component.controller');
 
+define ('USER_REGISTER_POINT', 'sysplgaup_newregistered');
 define ('USER_SCORE_UPLOAD_NEW', 'plgaup_documentlibrary_upload_new');
 define ('USER_SCORE_UPLOAD_VERSION', 'plgaup_documentlibrary_upload_version');
 define ('USER_SCORE_DOWNLOAD', 'plgaup_documentlibrary_download');
@@ -32,6 +33,18 @@ class DlAupController extends JController {
 		$this->syncDocumentCommentsTable();
 	}
 	
+	function syncUsers() {
+		$query = "SELECT id FROM #__users";
+		$db = JFactory::getDbo();
+		$db->setQuery($query);
+		$users = $db->loadObjectList();
+		foreach ($users as $user) {
+			$this->updateScore(USER_REGISTER_POINT, $user->id, "Welcome!");
+		}
+		
+		echo "Done, sync " . count($users) . " users register score";
+	}
+	
 	private function syncDocumentTable() {
 		$query = 'SELECT document_id, original_id, uploader_id, version, DATE(uploaded_time) AS date FROM #__documents';
 		$db = JFactory::getDbo();
@@ -60,7 +73,8 @@ class DlAupController extends JController {
 	}
 	
 	private function syncDocumentDownloadsTable() {
-		$query = 'SELECT document_id, user_id, time FROM #__document_downloads';
+		$this->prepareDownloadDateTable();
+		$query = 'SELECT document_id, user_id, downloaded_date FROM #__document_download_date';
 		$db = JFactory::getDbo();
 		$db->setQuery($query);
 		$res = $db->loadObjectList();
@@ -75,7 +89,7 @@ class DlAupController extends JController {
 				if ($obj->user_id != $this->documents[$obj->document_id]->uploader_id) {
 					// ok, good, insert aup data
 					// var_dump($this->documents[$obj->document_id]->number);
-					$ref_message = '(sync) download document ' . $this->documents[$obj->document_id]->number . ' (' . $obj->time . ')';
+					$ref_message = '(sync) download document ' . $this->documents[$obj->document_id]->number . ' (' . $obj->downloaded_date . ')';
 					$this->updateScore(USER_SCORE_DOWNLOAD, $obj->user_id, $ref_message);
 					$count++;
 				} else {
@@ -87,6 +101,25 @@ class DlAupController extends JController {
 		}
 		echo "So, sync " . $count . "/" . count($res) . " download(s), having " . $selfDownload . " self download(s) and " . $invalid_downloads . " invalid download data";
 		echo "<br/>";
+	}
+
+	private function prepareDownloadDateTable() {
+		$drop_query = 'DROP TABLE IF EXISTS #__document_download_date;';
+		$create_query = 'CREATE TABLE IF NOT EXISTS `#__document_download_date` ('
+						. 'user_id INT(11) NOT NULL,'
+						. 'document_id INT(11) NOT NULL,'
+						. 'downloaded_date DATE NOT NULL' 
+						. ')';
+		$update_query = 'INSERT INTO #__document_download_date'
+						.'(SELECT DISTINCT user_id, document_id, DATE(time) AS downloaded_date' 
+						.' FROM #__document_downloads)';
+		$db = JFactory::getDbo();
+		$db->setQuery($drop_query);
+		$db->query();
+		$db->setQuery($create_query);
+		$db->query();
+		$db->setQuery($update_query);
+		$db->query();
 	}
 	
 	private function syncDocumentCommentsTable() {
