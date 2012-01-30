@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="1.6.0" client="site" method="upgrade">
+    <name>mod_aup_highscore</name>
+    <author>Nguyen Thanh Trung</author>
+    <version>1.6.0</version>
+    <description>Display ten aup highscore!</description>
+    <files>
+        <filename module="mod_aup_highscore">mod_aup_highscore.php</filename>
+        <filename>mod_aup_highscore.xml</filename>
+        <filename>index.html</filename>
+        <filename>helper.php</filename>
+        <filename>tmpl/default.php</filename>
+        <filename>tmpl/index.html</filename>
+    </files>
+<!--	<languages>
+		<language tag="en-GB">en-GB.mod_ten_most_interested_documents.ini</language>
+		<language tag="en-GB">en-GB.mod_ten_most_interested_documents.sys.ini</language>
+		<language tag="vi-VN">vi-VN.mod_ten_most_interested_documents.ini</language>
+		<language tag="vi-VN">vi-VN.mod_ten_most_interested_documents.sys.ini</language>
+	</languages>-->
+    <fields>
+    </fields>
+</extension>
