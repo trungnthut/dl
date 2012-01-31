@@ -30,8 +30,9 @@ class ModAupHighScoreHelper {
         }
         $exceptUsers = $this->queryAdminUsers();
         $db = JFactory::getDbo();
-        $query = 'SELECT userid, points FROM #__alpha_userpoints WHERE '
-                .' userid NOT IN (' . implode(',', $exceptUsers) . ')'
+        $query = 'SELECT userid, referreid, points FROM #__alpha_userpoints WHERE '
+                .' userid NOT IN (' . implode(',', $exceptUsers) . ')' // disable admin
+                .' AND userid > 0' // disable GUEST
                 .' ORDER BY points DESC LIMIT ' . $max
                 .'';
         $db->setQuery($query);
