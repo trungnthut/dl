@@ -14,7 +14,7 @@ $i = 0;
         ?>
         <tr>
             <td><?php echo $i; ?>.</td>
-            <td><a href="<?php echo $userUrl; ?>"><?php echo $userInfo->username; ?></a></td>
+            <td><a href="<?php echo $userUrl; ?>"><?php echo $userInfo->name; ?></a></td>
             <td><a href="<?php echo $scoreUrl; ?>"><?php echo $scoreInfo->points; ?></a></td>
         </tr>
         <?php } ?>

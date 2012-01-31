@@ -13,7 +13,7 @@ $i = 0;
         ?>
         <tr>
             <td><?php echo $i; ?>.</td>
-            <td><a href="<?php echo $userUrl; ?>"><?php echo $userInfo->username; ?></a></td>
+            <td><a href="<?php echo $userUrl; ?>"><?php echo $userInfo->name; ?></a></td>
             <td><a href="<?php echo $contribUrl; ?>"><?php echo $contributor->noDocs; ?></a></td>
         </tr>
     <?php } ?>
