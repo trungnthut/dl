@@ -3,7 +3,7 @@ defined ('_JEXEC') or die();
 $i = 0;
 ?>
 
-<fieldset>
+<!--<fieldset>-->
     <table>
         <?php
             foreach ($scoreList as $scoreInfo) {
@@ -20,5 +20,5 @@ $i = 0;
         <?php } ?>
     </table>
     
-</fieldset>
+<!--</fieldset>-->
 
