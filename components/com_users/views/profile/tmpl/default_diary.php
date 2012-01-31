@@ -42,5 +42,6 @@ if (!empty($refererId)) {
         <?php if (!empty($scoreUrl)) { ?>
             </a>
         <?php } ?>
+        </dt>
     </dl>
 </fieldset>
