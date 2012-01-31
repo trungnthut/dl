@@ -8,6 +8,9 @@ define ('USER_SCORE_UPLOAD_VERSION', 'plgaup_documentlibrary_upload_version');
 define ('USER_SCORE_DOWNLOAD', 'plgaup_documentlibrary_download');
 define ('USER_SCORE_DOCUMENT_COMMENT', 'plgaup_documentlirary_comment');
 
+define ('USER_SCORE_FORUM_NEW_TOPC', 'plgaup_kunena_topic_create');
+define ('USER_SCORE_FORUM_REPLY', 'plgaup_kunena_topic_reply');
+
 class DlAupController extends JController {
 	private $documents;
 	private $testing;
@@ -44,6 +47,43 @@ class DlAupController extends JController {
 		
 		echo "Done, sync " . count($users) . " users register score";
 	}
+        
+        function syncKunena() {
+            $this->testing = FALSE;
+            $this->syncKunenaMessages();
+        }
+        
+        function testSyncKunena() {
+            $this->testing = TRUE;
+            $this->syncKunenaMessages();
+        }
+        
+        private function syncKunenaMessages() {
+            $step = 100;
+            $offset = 0;
+            $query = 'SELECT parent, userid, subject from #__kunena_messages';
+            $db = JFactory::getDbo();
+            $continue = true;
+            $topics = 0;
+            $replies = 0;
+            do {
+                $db->setQuery($query, $offset, $step);
+                $res = $db->loadObjectList();
+                $continue = count($res) >= $step;
+                $offset += $step;
+                foreach ($res as $mes) {
+                    if (((int)($mes->parent)) == 0) {
+                        $this->updateScore(USER_SCORE_FORUM_NEW_TOPC, $mes->userid, $mes->subject);
+                        $topics++;
+                    } else {
+                        $this->updateScore(USER_SCORE_FORUM_REPLY, $mes->userid, $mes->subject);
+                        $replies++;
+                    }
+                }
+            } while ($continue);
+            echo "So, sync " . ($topics) . ' topics and ' . $replies . ' replies. Total ' . ($topics + $replies) . ' messages';
+            echo "<br/>";
+        }
 	
 	private function syncDocumentTable() {
 		$query = 'SELECT document_id, original_id, uploader_id, version, DATE(uploaded_time) AS date FROM #__documents';
