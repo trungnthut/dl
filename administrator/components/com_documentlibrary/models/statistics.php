@@ -10,8 +10,10 @@
 // No direct access
 defined('_JEXEC') or die;
 
+require_once 'basemodel.php';
+
 jimport('joomla.application.component.modellist');
-include_once JPATH_COMPONENT.DS.'helpers'.DS.'documentlibrary.php';
+//include_once JPATH_COMPONENT.DS.'helpers'.DS.'documentlibrary.php';
 
 /**
  * Item Model for a Contact.
@@ -20,9 +22,8 @@ include_once JPATH_COMPONENT.DS.'helpers'.DS.'documentlibrary.php';
  * @subpackage	com_contact
  * @since		1.6
  */
-class DocumentlibraryModelStatistics extends JModelList
+class DocumentlibraryModelStatistics extends DocumentlibraryModelBaseStatistics
 {
-    private $typeInfo;
 	/**
 	 * Method to build an SQL query to load the list data.
 	 *
@@ -40,43 +41,43 @@ class DocumentlibraryModelStatistics extends JModelList
 	}
 	
 	// Get user profile by userId
-	function getUserProfileByUser($data) {
-		if (is_object($data)) {
-			$userId = isset($data->id) ? $data->id : 0;
-	
-			// Load the profile data from the database.
-			$db = JFactory::getDbo();
-			$query = 'SELECT a.profile_key as profile_key, a.profile_value AS profile_value, b.name AS subject_name' .
-					' FROM #__user_profiles a' .
-					' LEFT JOIN #__document_subjects b ON ( a.profile_key = ' . "'profile.subject'" . ' AND a.profile_value = b.subject_id )' .
-					' WHERE user_id = '.(int) $userId." AND profile_key LIKE 'profile.%'" .
-					' ORDER BY ordering';
-			$db->setQuery($query);
-			$results = $db->loadRowList();
-	
-			// Check for a database error.
-			if ($db->getErrorNum()) {
-                            JError::raiseError($db->getErrorNum(), $db->getErrorMsg());
-//				$this->_subject->setError($db->getErrorMsg());
-				return false;
-			}
-	
-			// Merge the profile data.
-			$data->profile = array();
-			$data->profile['sex'] = "";
-			$data->profile['subject'] = "";
-			$data->profile['school'] = "";
-	
-			foreach ($results as $v) {
-				$k = str_replace('profile.', '', $v[0]);
-				$data->profile[$k] = $v[1];
-				if ($k == "subject") {
-					$data->profile[$k] = $v[2];
-				}
-			}
-		}
-		return $data;
-	}
+//	function getUserProfileByUser($data) {
+//		if (is_object($data)) {
+//			$userId = isset($data->id) ? $data->id : 0;
+//	
+//			// Load the profile data from the database.
+//			$db = JFactory::getDbo();
+//			$query = 'SELECT a.profile_key as profile_key, a.profile_value AS profile_value, b.name AS subject_name' .
+//					' FROM #__user_profiles a' .
+//					' LEFT JOIN #__document_subjects b ON ( a.profile_key = ' . "'profile.subject'" . ' AND a.profile_value = b.subject_id )' .
+//					' WHERE user_id = '.(int) $userId." AND profile_key LIKE 'profile.%'" .
+//					' ORDER BY ordering';
+//			$db->setQuery($query);
+//			$results = $db->loadRowList();
+//	
+//			// Check for a database error.
+//			if ($db->getErrorNum()) {
+//                            JError::raiseError($db->getErrorNum(), $db->getErrorMsg());
+////				$this->_subject->setError($db->getErrorMsg());
+//				return false;
+//			}
+//	
+//			// Merge the profile data.
+//			$data->profile = array();
+//			$data->profile['sex'] = "";
+//			$data->profile['subject'] = "";
+//			$data->profile['school'] = "";
+//	
+//			foreach ($results as $v) {
+//				$k = str_replace('profile.', '', $v[0]);
+//				$data->profile[$k] = $v[1];
+//				if ($k == "subject") {
+//					$data->profile[$k] = $v[2];
+//				}
+//			}
+//		}
+//		return $data;
+//	}
 
 	function getUploadDocumentByUser($user) {
 		// Load the profile data from the database.
@@ -134,29 +135,29 @@ class DocumentlibraryModelStatistics extends JModelList
 		return $items;
 	}
         
-        private function getTypeName($type_id) {
-            if (!isset($this->typeInfo)) {
-                $this->typeInfo = array();
-                $query = 'SELECT type_id, name, parent_id, extends FROM #__document_types';
-                $db = JFactory::getDbo();
-                $db->setQuery($query);
-                $res = $db->loadObjectList();
-                foreach ($res as $type) {
-                    $this->typeInfo[$type->type_id] = $type;
-                }
-            }
-            
-            $typeName = array();
-            while (true) {
-                if (isset ($this->typeInfo[$type_id])) {
-                    $myType = $this->typeInfo[$type_id];
-                    $typeName[] = JText::_($myType->name);
-                    $type_id = $myType->parent_id;
-                } else {
-                    break;
-                }
-            }
-            $typeName = array_reverse($typeName);
-            return implode(':', $typeName);
-        }
+//        private function getTypeName($type_id) {
+//            if (!isset($this->typeInfo)) {
+//                $this->typeInfo = array();
+//                $query = 'SELECT type_id, name, parent_id, extends FROM #__document_types';
+//                $db = JFactory::getDbo();
+//                $db->setQuery($query);
+//                $res = $db->loadObjectList();
+//                foreach ($res as $type) {
+//                    $this->typeInfo[$type->type_id] = $type;
+//                }
+//            }
+//            
+//            $typeName = array();
+//            while (true) {
+//                if (isset ($this->typeInfo[$type_id])) {
+//                    $myType = $this->typeInfo[$type_id];
+//                    $typeName[] = JText::_($myType->name);
+//                    $type_id = $myType->parent_id;
+//                } else {
+//                    break;
+//                }
+//            }
+//            $typeName = array_reverse($typeName);
+//            return implode(':', $typeName);
+//        }
 }
