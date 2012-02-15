@@ -42,6 +42,11 @@ in this section are copied from /site/ in the package -->
 <administration>
 <!-- Administration Menu Section -->
 <menu>COM_DOCUMENTLIBRARY_MENU</menu>
+<submenu>
+    <menu view="statistics">Upload statistics</menu>
+    <menu view='versionstats'>New version upload statistics</menu>
+    <menu view='downloadstats'>Comments and downloads statistics</menu>
+</submenu>
 <!-- Administration Main File Copy Section -->
 <!-- Note the folder attribute: This attribute describes the folder
 to copy FROM in the package to install therefore files copied
