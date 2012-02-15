@@ -109,31 +109,31 @@ class DocumentlibraryModelStatistics extends DocumentlibraryModelBaseStatistics
 		return $user;
 	}
 	
-	function getDocumentTypeList() {
-		// Load the profile data from the database.
-		$db = JFactory::getDbo();
-		
-		// get user upload document in time from $fromDate to $toDate
-		$query = "SELECT type_id, name" .
-				" FROM #__document_types a" .
-				" WHERE ((a.in_used = 1) AND (a.extends = 0)) " .
-				" ORDER BY a.type_id ASC, a.parent_id ASC";
-		$db->setQuery($query);
-		$results = $db->loadRowList();
-		
-		foreach ($results as $d) {
-			$items[$d[0]]["docTypeName"] = $this->getTypeName($d[0]);
-			$items[$d[0]]["docTypeTotal"] = 0;
-		}
-		// Check for a database error.
-		if ($db->getErrorNum()) {
-                    JError::raiseError($db->getErrorNum(), $db->getErrorMsg());
-//			$this->_subject->setError($db->getErrorMsg());
-			return false;
-		}
-		//var_dump($items);
-		return $items;
-	}
+//	function getDocumentTypeList() {
+//		// Load the profile data from the database.
+//		$db = JFactory::getDbo();
+//		
+//		// get user upload document in time from $fromDate to $toDate
+//		$query = "SELECT type_id, name" .
+//				" FROM #__document_types a" .
+//				" WHERE ((a.in_used = 1) AND (a.extends = 0)) " .
+//				" ORDER BY a.type_id ASC, a.parent_id ASC";
+//		$db->setQuery($query);
+//		$results = $db->loadRowList();
+//		
+//		foreach ($results as $d) {
+//			$items[$d[0]]["docTypeName"] = $this->getTypeName($d[0]);
+//			$items[$d[0]]["docTypeTotal"] = 0;
+//		}
+//		// Check for a database error.
+//		if ($db->getErrorNum()) {
+//                    JError::raiseError($db->getErrorNum(), $db->getErrorMsg());
+////			$this->_subject->setError($db->getErrorMsg());
+//			return false;
+//		}
+//		//var_dump($items);
+//		return $items;
+//	}
         
 //        private function getTypeName($type_id) {
 //            if (!isset($this->typeInfo)) {
