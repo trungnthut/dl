@@ -22,6 +22,7 @@ include_once JPATH_COMPONENT.DS.'helpers'.DS.'documentlibrary.php';
  */
 class DocumentlibraryModelStatistics extends JModelList
 {
+    private $typeInfo;
 	/**
 	 * Method to build an SQL query to load the list data.
 	 *
@@ -47,7 +48,7 @@ class DocumentlibraryModelStatistics extends JModelList
 			$db = JFactory::getDbo();
 			$query = 'SELECT a.profile_key as profile_key, a.profile_value AS profile_value, b.name AS subject_name' .
 					' FROM #__user_profiles a' .
-					' LEFT JOIN tbl_document_subjects b ON ( a.profile_key = ' . "'profile.subject'" . ' AND a.profile_value = b.subject_id )' .
+					' LEFT JOIN #__document_subjects b ON ( a.profile_key = ' . "'profile.subject'" . ' AND a.profile_value = b.subject_id )' .
 					' WHERE user_id = '.(int) $userId." AND profile_key LIKE 'profile.%'" .
 					' ORDER BY ordering';
 			$db->setQuery($query);
@@ -55,7 +56,8 @@ class DocumentlibraryModelStatistics extends JModelList
 	
 			// Check for a database error.
 			if ($db->getErrorNum()) {
-				$this->_subject->setError($db->getErrorMsg());
+                            JError::raiseError($db->getErrorNum(), $db->getErrorMsg());
+//				$this->_subject->setError($db->getErrorMsg());
 				return false;
 			}
 	
@@ -81,8 +83,8 @@ class DocumentlibraryModelStatistics extends JModelList
 		$db = JFactory::getDbo();
 		// get document
 		$query = "SELECT a.type_id, a.name, count( b.document_id )" .
-					" FROM tbl_document_types a" .
-					" LEFT JOIN tbl_documents b ON (( a.type_id = b.type_id ) AND b.uploader_id = " . $user->id . ")" .
+					" FROM #__document_types a" .
+					" LEFT JOIN #__documents b ON (( a.type_id = b.type_id ) AND b.uploader_id = " . $user->id . ")" .
 					" WHERE ((a.in_used = 1) AND (a.extends = 0)) " .
 					" GROUP BY a.type_id" .
 					" ORDER BY a.type_id ASC, a.parent_id ASC";
@@ -98,7 +100,8 @@ class DocumentlibraryModelStatistics extends JModelList
 		$item->uploadDoc["total"] = $totalDocByUser;
 		// Check for a database error.
 		if ($db->getErrorNum()) {
-			$this->_subject->setError($db->getErrorMsg());
+                    JError::raiseError($db->getErrorNum(), $db->getErrorMsg());
+//			$this->_subject->setError($db->getErrorMsg());
 			return false;
 		}
 
@@ -111,22 +114,49 @@ class DocumentlibraryModelStatistics extends JModelList
 		
 		// get user upload document in time from $fromDate to $toDate
 		$query = "SELECT type_id, name" .
-				" FROM tbl_document_types a" .
+				" FROM #__document_types a" .
 				" WHERE ((a.in_used = 1) AND (a.extends = 0)) " .
 				" ORDER BY a.type_id ASC, a.parent_id ASC";
 		$db->setQuery($query);
 		$results = $db->loadRowList();
 		
 		foreach ($results as $d) {
-			$items[$d[0]]["docTypeName"] = $d[1];
+			$items[$d[0]]["docTypeName"] = $this->getTypeName($d[0]);
 			$items[$d[0]]["docTypeTotal"] = 0;
 		}
 		// Check for a database error.
 		if ($db->getErrorNum()) {
-			$this->_subject->setError($db->getErrorMsg());
+                    JError::raiseError($db->getErrorNum(), $db->getErrorMsg());
+//			$this->_subject->setError($db->getErrorMsg());
 			return false;
 		}
 		//var_dump($items);
 		return $items;
 	}
+        
+        private function getTypeName($type_id) {
+            if (!isset($this->typeInfo)) {
+                $this->typeInfo = array();
+                $query = 'SELECT type_id, name, parent_id, extends FROM #__document_types';
+                $db = JFactory::getDbo();
+                $db->setQuery($query);
+                $res = $db->loadObjectList();
+                foreach ($res as $type) {
+                    $this->typeInfo[$type->type_id] = $type;
+                }
+            }
+            
+            $typeName = array();
+            while (true) {
+                if (isset ($this->typeInfo[$type_id])) {
+                    $myType = $this->typeInfo[$type_id];
+                    $typeName[] = JText::_($myType->name);
+                    $type_id = $myType->parent_id;
+                } else {
+                    break;
+                }
+            }
+            $typeName = array_reverse($typeName);
+            return implode(':', $typeName);
+        }
 }
