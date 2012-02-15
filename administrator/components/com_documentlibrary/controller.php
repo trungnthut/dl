@@ -22,7 +22,7 @@ class DocumentlibraryController extends JController
 * @var string The default view.
 * @since 1.6
 */
-protected $default_view = 'documentlibrary';
+protected $default_view = 'statistics';
 
 /**
 * Method to display a view.
@@ -37,12 +37,12 @@ protected $default_view = 'documentlibrary';
 public function display($cachable = false, $urlparams = false)
 {
 // set default view if not set
-JRequest::setVar('view', JRequest::getCmd('view', 'Documentlibrary'));
+JRequest::setVar('view', JRequest::getCmd('view', $this->default_view));
 static $languageLoaded = false;
 if (!$languageLoaded) {
 	$language = JFactory::getLanguage();
 	$extension = 'com_documentlibrary';
-	$base_dir = JPATH_SITE . '\components\com_documentlibrary';
+	$base_dir = JPATH_SITE.DS.'components'.DS.'com_documentlibrary';
 	$language_tag = $language->getTag(); // loads the current language-tag
 	$language->load($extension, $base_dir, $language_tag, true);
 	$languageLoaded = true;
