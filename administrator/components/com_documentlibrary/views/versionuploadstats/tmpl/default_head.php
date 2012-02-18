@@ -23,7 +23,7 @@ defined('_JEXEC') or die('Restricted Access');
 	</th>
 	<?php foreach ($this->docType as $key => $item) :?>
 	<th>
-		<?php echo $key == 'total' ? JText::_('COM_DOCUMENTLIBRARY_ADMIN_SUSER_TOTAL') :JText::_($item["docTypeName"]);?>
+		<?php echo $key == 'total' ? JText::_('COM_DOCUMENTLIBRARY_ADMIN_SUSER_TOTAL') : JText::_($item["docTypeName"]);?>
 	</th>
 	<?php endforeach; ?>
 </tr>

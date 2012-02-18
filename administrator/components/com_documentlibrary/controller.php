@@ -22,7 +22,7 @@ class DocumentlibraryController extends JController
 * @var string The default view.
 * @since 1.6
 */
-protected $default_view = 'statistics';
+protected $default_view = 'controlpanel';
 
 /**
 * Method to display a view.
@@ -43,7 +43,7 @@ if (!$languageLoaded) {
 	$language = JFactory::getLanguage();
 	$extension = 'com_documentlibrary';
 	$base_dir = JPATH_SITE.DS.'components'.DS.'com_documentlibrary';
-	$language_tag = $language->getTag(); // loads the current language-tag
+	$language_tag = 'vi-VN'; //$language->getTag(); // loads the current language-tag
 	$language->load($extension, $base_dir, $language_tag, true);
 	$languageLoaded = true;
 }

@@ -8,7 +8,7 @@ jimport('joomla.application.component.view');
 /**
  * Subjects View
  */
-class DocumentlibraryViewStatistics extends JView
+class DocumentlibraryViewVersionUploadStats extends JView
 {
 	/**
 	 * HelloWorlds view display method
@@ -28,7 +28,7 @@ class DocumentlibraryViewStatistics extends JView
 		}
 		
 		// get user profile
-		$statisticsModel = $this->getModel("Statistics");
+		$statisticsModel = $this->getModel("VersionUploadStats");
 		foreach($items as $key => $item) {
 			$item = $statisticsModel->getUserProfileByUser($item);
 		}
@@ -38,9 +38,10 @@ class DocumentlibraryViewStatistics extends JView
 
 		// Get upload document
 		foreach($items as $key => $item) {
-			$item->uploadDoc = $statisticsModel->getUploadDocumentByUser($item->id);
+//			$item = $statisticsModel->getUploadDocumentByUser($item);
+			$item->versionUpload = $statisticsModel->getUploadDocumentByUser($item->id);
 			//var_dump($item->uploadDoc);
-			foreach ($item->uploadDoc as $key=>$value) {
+			foreach ($item->versionUpload as $key=>$value) {
 				$docType[$key]["docTypeTotal"] = $docType[$key]["docTypeTotal"] + $value;
 			}
 		}
@@ -67,7 +68,7 @@ class DocumentlibraryViewStatistics extends JView
 	 */
 	protected function addToolBar() 
 	{
-		JToolBarHelper::title(JText::_('COM_DOCUMENTLIBRARY_ADMIN_SUPLOADDOCUMENT_LABEL'));
+		JToolBarHelper::title(JText::_('COM_DOCUMENTLIBRARY_ADMIN_SVERISONUPLOADDOCUMENT_LABEL'));
                 JToolBarHelper::back('JTOOLBAR_BACK', JRoute::_('index.php?option=com_documentlibrary'));
 	}
 }

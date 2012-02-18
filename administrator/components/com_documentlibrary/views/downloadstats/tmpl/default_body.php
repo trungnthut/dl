@@ -14,10 +14,10 @@ $totalDoc = 0;
 		<td>
 			<?php echo $this->escape($item->registerDate); ?>
 		</td>
-		<td align="center">
-			<?php echo empty($item->profile['subject']) ? '_' : JText::_($this->escape($item->profile['subject'])); ?>
+		<td align='center'>
+			<?php echo !empty($item->profile['subject']) ? JText::_($this->escape($item->profile['subject'])) : '_'; ?>
 		</td>
-		<td align="center">
+		<td>
 			<?php 
 				if ($this->escape($item->profile['sex']) == '0')
 				{
@@ -32,11 +32,17 @@ $totalDoc = 0;
 		<td align="center">
 			<?php echo empty($item->profile['school']) ? '_' : $this->escape($item->profile['school']); ?>
 		</td>
+                <td align="center">
+			<?php echo $this->escape($item->totalComments); ?>
+		</td>
 		<?php foreach ($this->docType as $key => $value) :	?>
 		<td align="center">
 			<?php
-                            $valToShow = isset($item->uploadDoc[$key]) ? $item->uploadDoc[$key] : 0;
-                            echo $valToShow > 0 ? $valToShow : '_';
+                                echo  isset($item->downloadStats[$key]) ? $item->downloadStats[$key] : '_';
+//				if ($varToShow > 0) {
+//                                    $varToShow = '<b><u><i>' . $varToShow . '</i></u></b>';
+//                                }
+//                                echo $varToShow;
 			?>
 		</td>
 		<?php endforeach; ?>
@@ -44,6 +50,7 @@ $totalDoc = 0;
 <?php endforeach; ?>
 	<tfoot>
 		<th colspan="6" align="center"><?php echo JText::_('COM_DOCUMENTLIBRARY_ADMIN_SUPLOADDOCUMENT_TOTALBYDOCTYPE_LABEL'); ?></th>
+                <th align="center"><?php echo $this->totalComments; ?></th>
 		<?php foreach ($this->docType as $key => $item) :?>
 		<th align="center">
 		<?php echo JText::_($item["docTypeTotal"]);?>

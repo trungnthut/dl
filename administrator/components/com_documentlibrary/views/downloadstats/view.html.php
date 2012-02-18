@@ -8,7 +8,7 @@ jimport('joomla.application.component.view');
 /**
  * Subjects View
  */
-class DocumentlibraryViewStatistics extends JView
+class DocumentlibraryViewDownloadStats extends JView
 {
 	/**
 	 * HelloWorlds view display method
@@ -28,7 +28,7 @@ class DocumentlibraryViewStatistics extends JView
 		}
 		
 		// get user profile
-		$statisticsModel = $this->getModel("Statistics");
+		$statisticsModel = $this->getModel("DownloadStats");
 		foreach($items as $key => $item) {
 			$item = $statisticsModel->getUserProfileByUser($item);
 		}
@@ -36,23 +36,27 @@ class DocumentlibraryViewStatistics extends JView
 		// Get doc type list
 		$docType = $statisticsModel->getDocumentTypeList();
 
+                $totalComments = 0;
 		// Get upload document
 		foreach($items as $key => $item) {
-			$item->uploadDoc = $statisticsModel->getUploadDocumentByUser($item->id);
+//			$item = $statisticsModel->getUploadDocumentByUser($item);
+                        $item->downloadStats = $statisticsModel->getDownloadStaticticsByUser($item->user_id);
 			//var_dump($item->uploadDoc);
-			foreach ($item->uploadDoc as $key=>$value) {
+			foreach ($item->downloadStats as $key=>$value) {
 				$docType[$key]["docTypeTotal"] = $docType[$key]["docTypeTotal"] + $value;
 			}
+                        $totalComments += $item->totalComments;
 		}
 		
 		// column number
-		$numCol = 6 + count($docType);
+		$numCol = 7 + count($docType);
 		 
 		// Assign data to the view
 		$this->items = $items;
 		$this->docType = $docType;
 		$this->numCol = $numCol;
 		$this->pagination = $pagination;
+                $this->totalComments = $totalComments;
 		
 		 
 		// Set the toolbar
@@ -67,7 +71,7 @@ class DocumentlibraryViewStatistics extends JView
 	 */
 	protected function addToolBar() 
 	{
-		JToolBarHelper::title(JText::_('COM_DOCUMENTLIBRARY_ADMIN_SUPLOADDOCUMENT_LABEL'));
+		JToolBarHelper::title(JText::_('Document comments and downloads statistics'));
                 JToolBarHelper::back('JTOOLBAR_BACK', JRoute::_('index.php?option=com_documentlibrary'));
 	}
 }
