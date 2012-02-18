@@ -17,7 +17,7 @@ $totalDoc = 0;
 		<td align="center">
 			<?php echo empty($item->profile['subject']) ? '_' : JText::_($this->escape($item->profile['subject'])); ?>
 		</td>
-		<td align="center">
+		<td>
 			<?php 
 				if ($this->escape($item->profile['sex']) == '0')
 				{
@@ -35,8 +35,8 @@ $totalDoc = 0;
 		<?php foreach ($this->docType as $key => $value) :	?>
 		<td align="center">
 			<?php
-                            $valToShow = isset($item->uploadDoc[$key]) ? $item->uploadDoc[$key] : 0;
-                            echo $valToShow > 0 ? $valToShow : '_';
+                                $valToShow = isset($item->versionUpload[$key]) ? $item->versionUpload[$key] : 0;
+				echo $valToShow == '0' ? '_' : $valToShow;
 			?>
 		</td>
 		<?php endforeach; ?>
