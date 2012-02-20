@@ -29,15 +29,16 @@ class DocumentlibraryViewDownloadStats extends JView
 		
 		// get user profile
 		$statisticsModel = $this->getModel("DownloadStats");
-		foreach($items as $key => $item) {
-			$item = $statisticsModel->getUserProfileByUser($item);
-		}
+//		foreach($items as $key => $item) {
+//			$item = $statisticsModel->getUserProfileByUser($item);
+//		}
 
 		// Get doc type list
 		$docType = $statisticsModel->getDocumentTypeList();
 
                 $totalComments = 0;
 		// Get upload document
+//                $docType['total'] = 0;
 		foreach($items as $key => $item) {
 //			$item = $statisticsModel->getUploadDocumentByUser($item);
                         $item->downloadStats = $statisticsModel->getDownloadStaticticsByUser($item->user_id);
@@ -49,7 +50,7 @@ class DocumentlibraryViewDownloadStats extends JView
 		}
 		
 		// column number
-		$numCol = 7 + count($docType);
+		$numCol = 4 + count($docType);
 		 
 		// Assign data to the view
 		$this->items = $items;

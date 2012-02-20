@@ -79,6 +79,9 @@ class DocumentlibraryModelBaseStatistics extends JModelList {
             $items[$d[0]]["docTypeName"] = $this->getTypeName($d[0]);
             $items[$d[0]]["docTypeTotal"] = 0;
         }
+        $items['total']['docTypeName'] = 'Totals';
+        $items['total']['docTypeTotal'] = 0;
+        
         // Check for a database error.
         if ($db->getErrorNum()) {
             JError::raiseError($db->getErrorNum(), $db->getErrorMsg());

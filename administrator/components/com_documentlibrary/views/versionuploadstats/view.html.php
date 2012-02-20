@@ -29,9 +29,9 @@ class DocumentlibraryViewVersionUploadStats extends JView
 		
 		// get user profile
 		$statisticsModel = $this->getModel("VersionUploadStats");
-		foreach($items as $key => $item) {
-			$item = $statisticsModel->getUserProfileByUser($item);
-		}
+//		foreach($items as $key => $item) {
+//			$item = $statisticsModel->getUserProfileByUser($item);
+//		}
 
 		// Get doc type list
 		$docType = $statisticsModel->getDocumentTypeList();
@@ -47,7 +47,7 @@ class DocumentlibraryViewVersionUploadStats extends JView
 		}
 		
 		// column number
-		$numCol = 6 + count($docType);
+		$numCol = 3 + count($docType);
 		 
 		// Assign data to the view
 		$this->items = $items;

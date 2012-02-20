@@ -22,7 +22,7 @@ jimport('joomla.application.component.modellist');
  * @subpackage	com_contact
  * @since		1.6
  */
-class DocumentlibraryModelVersionUploadStats extends DocumentlibraryModelBaseStatistics
+class DocumentlibraryModelUserSubjectUploadStats extends DocumentlibraryModelBaseStatistics
 {
 	/**
 	 * Method to build an SQL query to load the list data.
@@ -36,34 +36,49 @@ class DocumentlibraryModelVersionUploadStats extends DocumentlibraryModelBaseSta
 		$query = $db->getQuery(true);
 		// Select some fields
 		// get user upload document in time from $fromDate to $toDate
-		$query = "SELECT U.id, U.username, U.name, COUNT(document_id)"
-                        ." FROM #__users U, #__documents D"
+		$query = "SELECT U.id, U.name, U.username, COUNT(D.document_id) AS totalDocs, DS.name as profesional"
+                        ." FROM #__users U INNER JOIN #__documents D"
+                        ." ON D.uploader_id = U.id"
+                        ." LEFT JOIN #__user_profiles UF ON UF.user_id = U.id AND UF.profile_key='profile.subject'"
+                        ." LEFT JOIN #__document_subjects DS ON DS.subject_id = UF.profile_value"
                         ." WHERE U.block=0"
-                        ." AND U.id = D.uploader_id"
-                        ." AND D.parent_id > 0"
                         ." GROUP BY U.id"
                         ." ORDER BY U.id ASC";
 		return $query;
 	}
-
-	function getUploadDocumentByUser($user_id) {
+        
+        function getUserUploadStatsBySubject($user_id) {
 		// Load the profile data from the database.
 		$db = JFactory::getDbo();
-                $query = 'SELECT type_id, COUNT(document_id) AS totalUploads'
+                $query = 'SELECT subject_id, COUNT(document_id) AS totalUploads'
                         .' FROM #__documents'
-                        .' WHERE parent_id > 0 '
-                        .' AND uploader_id = ' . $user_id
-                        .' GROUP BY type_id';
+                        .' WHERE uploader_id = ' . $user_id
+                        .' GROUP BY subject_id';
 		$db->setQuery($query);
                 $res = $db->loadObjectList();
                 $uploadInfo = array();
 		$totalDocByUser = 0;
                 foreach ($res as $userUpload) {
-                    $uploadInfo[$userUpload->type_id] = $userUpload->totalUploads;
+                    $uploadInfo[$userUpload->subject_id] = $userUpload->totalUploads;
                     $totalDocByUser += $userUpload->totalUploads;
                 }
                 $uploadInfo['total'] = $totalDocByUser;
 
 		return $uploadInfo;
 	}
+        
+        function getSubjectList() {
+            $query = 'SELECT subject_id, name FROM #__document_subjects';
+            $db = JFactory::getDbo();
+            $db->setQuery($query);
+            $res = $db->loadObjectList();
+            $ret = array();
+            foreach ($res as $obj) {
+                $ret[$obj->subject_id] = array();
+                $ret[$obj->subject_id]['name'] = $obj->name;
+                $ret[$obj->subject_id]['total'] = 0;
+            }
+            $ret['total'] = array('name' => 'Totals', 'total'=> 0);
+            return $ret;
+        }
 }

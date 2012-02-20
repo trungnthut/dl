@@ -35,7 +35,7 @@ class DocumentlibraryModelDownloadStats extends DocumentlibraryModelBaseStatisti
 		$query = $db->getQuery(true);
 		// Select some fields
 		// get user upload document in time from $fromDate to $toDate
-		$query = "SELECT U.id, U.id AS user_id, U.username, U.name, DATE(U.registerDate) AS registerDate, COUNT(comment_id) AS totalComments"
+		$query = "SELECT U.id, U.id AS user_id, U.username, U.name, COUNT(comment_id) AS totalComments"
                         ." FROM #__users U"
                         ." LEFT JOIN #__document_comments DC"
                         ." ON U.id = DC.poster_id"
@@ -55,10 +55,12 @@ class DocumentlibraryModelDownloadStats extends DocumentlibraryModelBaseStatisti
             $db->setQuery($query);
             $res = $db->loadObjectList();
             $stats = array();
+            $total = 0;
             foreach ($res as $downloadInfo) {
                 $stats[$downloadInfo->type_id] = $downloadInfo->totalDownloads;
-                $stats['total'] += $downloadInfo->totalDownloads;
+                $total += $downloadInfo->totalDownloads;
             }
+            $stats['total'] = $total;
             return $stats;
         }
 }

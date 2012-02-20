@@ -2,35 +2,19 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted Access');
 $totalDoc = 0;
+$i=$this->pagination->limitstart;
 ?>
 <?php foreach ($this->items as $key => $item) :?>
+        <?php $i++; ?>
 	<tr class="row<?php echo $i % 2; ?>">
+            <td>
+                <?php echo $i; ?>
+            </td>
 		<td>
 			<?php echo $this->escape($item->username); ?>
 		</td>
 		<td>
 			<?php echo $this->escape($item->name); ?>
-		</td>
-		<td>
-			<?php echo $this->escape($item->registerDate); ?>
-		</td>
-		<td align='center'>
-			<?php echo !empty($item->profile['subject']) ? JText::_($this->escape($item->profile['subject'])) : '_'; ?>
-		</td>
-		<td>
-			<?php 
-				if ($this->escape($item->profile['sex']) == '0')
-				{
-					echo JText::_('COM_DOCUMENTLIBRARY_ADMIN_SUSER_SEX_FEMALE'); 
-				} elseif ($this->escape($item->profile['sex']) == '1') {
-					echo JText::_('COM_DOCUMENTLIBRARY_ADMIN_SUSER_SEX_MALE'); 
-				} else {
-                                    echo '_';
-                                }
-			?>
-		</td>
-		<td align="center">
-			<?php echo empty($item->profile['school']) ? '_' : $this->escape($item->profile['school']); ?>
 		</td>
                 <td align="center">
 			<?php echo $this->escape($item->totalComments); ?>
@@ -49,7 +33,7 @@ $totalDoc = 0;
 	</tr>
 <?php endforeach; ?>
 	<tfoot>
-		<th colspan="6" align="center"><?php echo JText::_('COM_DOCUMENTLIBRARY_ADMIN_SUPLOADDOCUMENT_TOTALBYDOCTYPE_LABEL'); ?></th>
+		<th colspan="3" align="center"><?php echo JText::_('COM_DOCUMENTLIBRARY_ADMIN_SUPLOADDOCUMENT_TOTALBYDOCTYPE_LABEL'); ?></th>
                 <th align="center"><?php echo $this->totalComments; ?></th>
 		<?php foreach ($this->docType as $key => $item) :?>
 		<th align="center">

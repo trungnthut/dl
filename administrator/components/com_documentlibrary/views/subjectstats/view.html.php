@@ -8,7 +8,7 @@ jimport('joomla.application.component.view');
 /**
  * Subjects View
  */
-class DocumentlibraryViewStatistics extends JView
+class DocumentlibraryViewSubjectStats extends JView
 {
 	/**
 	 * HelloWorlds view display method
@@ -28,32 +28,28 @@ class DocumentlibraryViewStatistics extends JView
 		}
 		
 		// get user profile
-		$statisticsModel = $this->getModel("Statistics");
-//		foreach($items as $key => $item) {
-//			$item = $statisticsModel->getUserProfileByUser($item);
-//		}
+		$statisticsModel = $this->getModel("SubjectStats");
 
 		// Get doc type list
 		$docType = $statisticsModel->getDocumentTypeList();
 
-		// Get upload document
 		foreach($items as $key => $item) {
-			$item->uploadDoc = $statisticsModel->getUploadDocumentByUser($item->id);
+//			$item = $statisticsModel->getUploadDocumentByUser($item);
+                        $item->uploadStats = $statisticsModel->getSubjectUploadInfo($item->subject_id);
 			//var_dump($item->uploadDoc);
-			foreach ($item->uploadDoc as $key=>$value) {
+			foreach ($item->uploadStats as $key=>$value) {
 				$docType[$key]["docTypeTotal"] = $docType[$key]["docTypeTotal"] + $value;
 			}
 		}
 		
 		// column number
-		$numCol = 3 + count($docType);
+		$numCol = 2 + count($docType);
 		 
 		// Assign data to the view
 		$this->items = $items;
 		$this->docType = $docType;
 		$this->numCol = $numCol;
-		$this->pagination = $pagination;
-		
+		$this->pagination = $pagination;		
 		 
 		// Set the toolbar
 		$this->addToolBar();
@@ -67,7 +63,7 @@ class DocumentlibraryViewStatistics extends JView
 	 */
 	protected function addToolBar() 
 	{
-		JToolBarHelper::title(JText::_('COM_DOCUMENTLIBRARY_ADMIN_SUPLOADDOCUMENT_LABEL'));
+		JToolBarHelper::title(JText::_('Document upload statistics by subjects'));
                 JToolBarHelper::back('JTOOLBAR_BACK', JRoute::_('index.php?option=com_documentlibrary'));
 	}
 }

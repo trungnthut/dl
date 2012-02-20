@@ -13,11 +13,12 @@ defined('_JEXEC') or die('Restricted Access');
 		<?php echo JText::_('COM_DOCUMENTLIBRARY_ADMIN_SUSER_NAME'); ?>
 	</th>
         <th>
-		<?php echo JText::_('Total comments'); ?>
+            <?php echo JText::_('Profesional'); ?>
+        </th>
 	</th>
-	<?php foreach ($this->docType as $key => $item) :?>
+	<?php foreach ($this->subjects as $key => $item) :?>
 	<th>
-		<?php echo $key == 'total' ? JText::_('COM_DOCUMENTLIBRARY_ADMIN_SUSER_TOTAL_DOWNLOADS') : JText::_($item["docTypeName"]);?>
+		<?php echo JText::_($item["name"]);?>
 	</th>
 	<?php endforeach; ?>
 </tr>

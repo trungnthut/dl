@@ -16,7 +16,10 @@ $i=$this->pagination->limitstart;
 		<td>
 			<?php echo $this->escape($item->name); ?>
 		</td>
-		<?php foreach ($this->docType as $key => $value) :	?>
+                <td align="center">
+                    <?php echo empty($item->profesional) ? '_' : $this->escape(JText::_($item->profesional)); ?>                    
+                </td>
+		<?php foreach ($this->subjects as $key => $value) :	?>
 		<td align="center">
 			<?php
                             $valToShow = isset($item->uploadDoc[$key]) ? $item->uploadDoc[$key] : 0;
@@ -27,10 +30,10 @@ $i=$this->pagination->limitstart;
 	</tr>
 <?php endforeach; ?>
 	<tfoot>
-		<th colspan="3" align="center"><?php echo JText::_('COM_DOCUMENTLIBRARY_ADMIN_SUPLOADDOCUMENT_TOTALBYDOCTYPE_LABEL'); ?></th>
-		<?php foreach ($this->docType as $key => $item) :?>
+		<th colspan="4" align="center"><?php echo JText::_('COM_DOCUMENTLIBRARY_ADMIN_SUPLOADDOCUMENT_TOTALBYDOCTYPE_LABEL'); ?></th>
+		<?php foreach ($this->subjects as $key => $item) :?>
 		<th align="center">
-		<?php echo JText::_($item["docTypeTotal"]);?>
+		<?php echo JText::_($item["total"]);?>
 		</th>
 		<?php endforeach; ?>
 	</tfoot>
