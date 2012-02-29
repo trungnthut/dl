@@ -28,7 +28,7 @@ class DocumentLibraryViewUserStats extends JView {
 //        $docType = $statisticsModel->getDocumentTypeList();
 
         // column number
-        $numCol = 8;
+        $numCol = 9;
 
         // Assign data to the view
         $this->items = $items;

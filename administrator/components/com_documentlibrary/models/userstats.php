@@ -25,7 +25,7 @@ class DocumentlibraryModelUserStats extends JModelList {
 //    static private $typeInfo;
     
     protected function getListQuery() {
-        $query = 'SELECT U.id, U.name, U.username, DATE(U.registerDate) AS registerDate, COUNT(UL.login_id) AS totalLogins'
+        $query = 'SELECT U.id, U.name, U.username, U.email, DATE(U.registerDate) AS registerDate, COUNT(UL.login_id) AS totalLogins'
                 .' FROM #__users U'
                 .' INNER JOIN #__user_login AS UL'
                 .' ON U.id = UL.user_id'

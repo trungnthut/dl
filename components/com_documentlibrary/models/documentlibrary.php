@@ -4,6 +4,10 @@ defined ('_JEXEC') or die ('Restricted access');
 
 jimport ('joomla.application.component.modellist');
 
+define('PARAM_DOCUMENT_TYPE', 1);
+define('PARAM_DOCUMENT_SUBJECT', 2);
+define('PARAM_DOCUMENT_CLASS', 3);
+
 /**
  * DocumentLibraryModelDocumentLibrary
  */
@@ -80,6 +84,85 @@ class DocumentLibraryModelDocumentLibrary extends JModelList {
 		$query->order('D.uploaded_time DESC');
 
         return $query;
+    }
+    
+    function getDocumentStatsByType() {
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+        $query->select('COUNT(document_id) AS totalDocs, type_id');
+        $query->from('#__documents D');
+
+        $where = $this->buildWhereConditions(PARAM_DOCUMENT_TYPE);
+        $query->where($where);
+        $query->group('type_id');
+        
+        $db->setQuery($query);
+        $res = $db->loadObjectList();
+        $ret = array();
+        $total = 0;
+        foreach ($res as $obj) {
+            $ret[$obj->type_id] = $obj->totalDocs;
+            $total += $obj->totalDocs;
+        }
+        $ret[0] = $total;
+        return $ret;
+    }
+    
+    function getDocumentStatsBySubject() {
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+        $query->select('COUNT(document_id) AS totalDocs, subject_id, class_id');
+        $query->from('#__documents D');
+        $where = $this->buildWhereConditions(PARAM_DOCUMENT_SUBJECT);
+        $query->where($where);
+        $query->group('subject_id, class_id');
+        
+        $db->setQuery($query);
+        $res = $db->loadObjectList();
+        $ret = array();
+        foreach ($res as $obj) {
+            if (!isset ($ret[$obj->subject_id])) {
+                $ret[$obj->subject_id] = array('total' => 0);
+            }
+            $ret[$obj->subject_id][$obj->class_id] = $obj->totalDocs;
+            $ret[$obj->subject_id]['total'] += $obj->totalDocs;
+        }
+        return $ret;
+    }
+    
+    function buildWhereConditions($paramToIgnore) {
+		
+	// for search function
+	$listAll = JRequest::getVar('listAll');
+		
+        $where = array(
+//            'D.uploader_id = U.id'
+        );
+        if (!$listAll) {
+            $where[] = 'D.original_id = 0'; // only fetch document that's not the update version of other
+        }
+        if ($paramToIgnore != PARAM_DOCUMENT_SUBJECT) {
+            $subject_id = JRequest::getVar('subject', 0);
+            $class_id = 0;
+            if ($subject_id > 0) {
+                $class_id = JRequest::getVar('class', 0);
+            }
+        
+            if ($subject_id > 0) {
+                $where[] = 'D.subject_id = ' . $subject_id;
+            }
+            if ($class_id > 0) {
+                $where[] = 'D.class_id = ' . $class_id;
+            }
+        }
+        if ($paramToIgnore != PARAM_DOCUMENT_TYPE) {
+            $filter_id = JRequest::getVar('filter', 0);
+            if ($filter_id > 0) {
+                $where[] = '(D.type_id = ' . $filter_id . ' OR D.type_id IN (SELECT type_id FROM #__document_types WHERE parent_id = ' . $filter_id . ') )';
+            }
+        }
+
+        return $where;
     }
     
     function insertDocument($data = null) {

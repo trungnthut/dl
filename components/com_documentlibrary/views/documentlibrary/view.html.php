@@ -21,6 +21,8 @@ class DocumentLibraryViewDocumentLibrary extends JView {
         $this->selectedClassId = (int)JRequest::getVar('class', 0);
         $this->filter=(int)JRequest::getVar('filter', 0);
         $this->documentTypes = $this->get('DocumentTypes', 'DocumentType');
+        $this->documentStatsByType = $this->get('DocumentStatsByType');
+        $this->documentStatsBySubject = $this->get('DocumentStatsBySubject');
 		$noneFilter = new stdClass();
 		{
 			$noneFilter->type_id = 0;

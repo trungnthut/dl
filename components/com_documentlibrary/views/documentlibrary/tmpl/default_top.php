@@ -15,10 +15,11 @@ if ($this->selectedSubjectId > 0) {
 <p>
     <label><?php echo JText::_('COM_DOCUMENT_LIBRARY_VIEW_DOCUMENT_LIBRARY_FILTER'); ?>:</label>
 <?php foreach ($this->documentTypes as $id => $type) { ?>
+    <?php $statsString = empty ($this->documentStatsByType[$id]) ? 0 : $this->documentStatsByType[$id]; ?>
     <?php if ($this->filter != $id) { ?>
-        <a href="<?php echo $filterLinkPrefix; ?>&filter=<?php echo $id; ?>"><?php echo $type->name; ?></a>
+    <a href="<?php echo $filterLinkPrefix; ?>&filter=<?php echo $id; ?>"><?php echo $type->name; ?> (<?php echo $statsString; ?>)</a>
     <?php } else { ?>
-        <label><b><i><?php echo $type->name; ?></i></b></label>
+        <label><b><i><?php echo $type->name; ?> (<?php echo $statsString; ?>)</i></b></label>
     <?php } ?>
      &nbsp;
 <?php } ?>

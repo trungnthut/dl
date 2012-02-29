@@ -12,6 +12,9 @@ defined('_JEXEC') or die('Restricted Access');
 	<th>
 		<?php echo JText::_('COM_DOCUMENTLIBRARY_ADMIN_SUSER_NAME'); ?>
 	</th>
+        <th>
+            <?php echo JText::_('Email'); ?>
+        </th>
 		<th>
 		<?php echo JText::_('COM_DOCUMENTLIBRARY_ADMIN_SUSER_REGISTERDATE'); ?>
 	</th>

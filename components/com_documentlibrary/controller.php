@@ -12,6 +12,7 @@ define ('USER_SCORE_UPLOAD_NEW', 'plgaup_documentlibrary_upload_new');
 define ('USER_SCORE_UPLOAD_VERSION', 'plgaup_documentlibrary_upload_version');
 define ('USER_SCORE_DOWNLOAD', 'plgaup_documentlibrary_download');
 define ('USER_SCORE_DOCUMENT_COMMENT', 'plgaup_documentlirary_comment');
+define ('USER_SCORE_OTHER_USER_DOWNLOAD', 'plgaup_documentlibrary_downloaded');
 
 /**
  * DocumentLibraryController

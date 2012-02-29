@@ -15,6 +15,9 @@ $i=$this->pagination->limitstart;
 		<td>
 			<?php echo $this->escape($item->name); ?>
 		</td>
+                <td align='center'>
+			<?php echo $this->escape($item->email); ?>
+		</td>
 		<td align='center'>
 			<?php echo $this->escape($item->registerDate); ?>
 		</td>
