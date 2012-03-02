@@ -5,6 +5,7 @@ $url = JRoute::_('index.php?option=com_dlaup&task=sync');
 $testUrl = JRoute::_('index.php?option=com_dlaup&task=testSync');
 $forumSyncUrl = JRoute::_('index.php?option=com_dlaup&task=syncKunena');
 $forumTestUrl = JRoute::_('index.php?option=com_dlaup&task=testSyncKunena');
+$otherDOwnloadSyncUrl = JRoute::_('index.php?option=com_dlaup&task=syncOtherDownload');
 ?>
 
 <form method='post' action='<?php echo $userSyncUrl; ?>'>
@@ -58,6 +59,17 @@ $forumTestUrl = JRoute::_('index.php?option=com_dlaup&task=testSyncKunena');
 	
 	<p>
 		<input type=submit value="test sync forum messages!"/>
+	</p>
+	
+</form>
+
+<form method='post' action='<?php echo $otherDOwnloadSyncUrl; ?>'>
+	<p>
+	Ok, sync user data;
+	</p>
+	
+	<p>
+		<input type=submit value="sync other users download!"/>
 	</p>
 	
 </form>

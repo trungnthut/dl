@@ -89,10 +89,11 @@ class DocumentLibraryModelDocumentLibrary extends JModelList {
     function getDocumentStatsByType() {
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
-        $query->select('COUNT(document_id) AS totalDocs, type_id');
-        $query->from('#__documents D');
+        $query->select('COUNT(document_id) AS totalDocs, D.type_id, DT.parent_id AS root_type');
+        $query->from('#__documents D, #__document_types DT');
 
         $where = $this->buildWhereConditions(PARAM_DOCUMENT_TYPE);
+        $where[] = 'D.type_id = DT.type_id';
         $query->where($where);
         $query->group('type_id');
         
@@ -101,7 +102,13 @@ class DocumentLibraryModelDocumentLibrary extends JModelList {
         $ret = array();
         $total = 0;
         foreach ($res as $obj) {
-            $ret[$obj->type_id] = $obj->totalDocs;
+            if ($obj->root_type == 0) {
+                $obj->root_type = $obj->type_id;
+            }
+            if (!isset ($ret[$obj->root_type])) {
+                $ret[$obj->root_type] = 0;
+            }
+            $ret[$obj->root_type] += $obj->totalDocs;
             $total += $obj->totalDocs;
         }
         $ret[0] = $total;
